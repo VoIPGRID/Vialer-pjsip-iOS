@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
 	s.platform     = :ios, "9.0"
 	s.requires_arc = false
 
-	s.public_header_files = "Pod/Vialer-pjsip-include/**"
-	s.preserve_paths = "Pod/Vialer-pjsip-include/**/**/*.{h,hpp}"
+	s.public_header_files = "Pod/vialer-pjsip-include/**"
+	s.preserve_paths = "Pod/vialer-pjsip-include/**/**/*.{h,hpp}"
 	s.header_mappings_dir = "Pod"
 					 
   	s.vendored_libraries = "Pod/libVialer-pjsip.a"
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   	# We wanted to ommit the "HEADER_SEARCH_PATH" line in s.xcconfig but this is not possible.
   	# You cannot include the PJSIP Header files in a way that it's directory structure is preserved.
   	# s.header_mappings_dir should do this but doesn't 	
-  	#s.source_files = "Pod/Vialer-pjsip-include/**/**"
+  	# s.source_files = "Pod/vialer-pjsip-include/**/**"
   	
   	s.frameworks = "AudioToolbox", "AVFoundation", "CFNetwork", "CoreMedia", "CoreVideo", "CoreAudio", "Foundation"
   	

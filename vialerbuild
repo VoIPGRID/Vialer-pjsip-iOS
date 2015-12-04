@@ -148,7 +148,7 @@ echo "$PRE MERGE"
 cd "$BASE_DIR"
 
 mkdir -p "$BASE_DIR"/Pod
-libtool -o Pod/vialer-pjsip.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
+libtool -o Pod/libVialer-pjsip.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
 #rm -Rf "$BASE_DIR"/pjsip/temp
 }
 
