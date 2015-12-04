@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   	# s.source_files = "Pod/vialer-pjsip-include/**/**"
   	
   	s.frameworks = "AudioToolbox", "AVFoundation", "CFNetwork", "CoreMedia", "CoreVideo", "CoreAudio", "Foundation"
-	s.ios.vendored_libraries = "VialerSIPLib.framework"
+	s.ios.vendored_framework = "VialerSIPLib.framework"
   	
   	s.xcconfig = {
     	"GCC_PREPROCESSOR_DEFINITIONS" => "PJ_AUTOCONF=1",
