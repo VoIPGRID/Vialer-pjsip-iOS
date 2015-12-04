@@ -748,4 +748,4 @@ output/pjlib-util-test-x86_64-apple-darwin_ios/http_client.o: ../src/pjlib-util-
   ../include/pjlib-util/pcap.h ../include/pjlib-util/http_client.h \
   ../include/pjlib-util/cli.h ../include/pjlib-util/cli_console.h \
   ../include/pjlib-util/cli_imp.h ../include/pjlib-util/cli_telnet.h
-../bin/pjlib-util-test-x86_64-apple-darwin_ios: ../lib/libpjlib-util-x86_64-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjlib/lib/libpj-x86_64-apple-darwin_ios.a
+../bin/pjlib-util-test-x86_64-apple-darwin_ios: ../lib/libpjlib-util-x86_64-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjlib/lib/libpj-x86_64-apple-darwin_ios.a

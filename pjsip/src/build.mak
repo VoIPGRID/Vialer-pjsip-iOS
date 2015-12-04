@@ -1,4 +1,4 @@
-export PJDIR := /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src
+export PJDIR := /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src
 include $(PJDIR)/version.mak
 export PJ_DIR := $(PJDIR)
 

@@ -179,7 +179,32 @@ mkdir -p $d
 cp $OLD_PATH $d
 }
 
+function create_framework() {
+PRODUCT_NAME="VialerSIPLib"
+PUBLIC_HEADERS_FOLDER_PATH="${BASE_DIR}/Pod/vialer-pjsip-include"
+LIBRARY_LOCATION="${BASE_DIR}/Pod/"
+export FRAMEWORK_LOCN="${BASE_DIR}/${PRODUCT_NAME}.framework"
+
+# Create the path to the real Headers die
+mkdir -p "${FRAMEWORK_LOCN}/Versions/A/Headers"
+
+# Create the required symlinks
+/bin/ln -sfh A "${FRAMEWORK_LOCN}/Versions/Current"
+/bin/ln -sfh Versions/Current/Headers "${FRAMEWORK_LOCN}/Headers"
+/bin/ln -sfh "Versions/Current/${PRODUCT_NAME}" \
+             "${FRAMEWORK_LOCN}/${PRODUCT_NAME}"
+
+# Copy the public headers into the framework
+/bin/cp -a "${PUBLIC_HEADERS_FOLDER_PATH}/" \
+           "${FRAMEWORK_LOCN}/Versions/A/Headers"
+
+cp -a "${LIBRARY_LOCATION}/libVialer-pjsip.a" \
+"${BASE_DIR}/${PRODUCT_NAME}.framework/Versions/A/${PRODUCT_NAME}"
+}
+
 export -f copy_to_lib_dir
+
+create_framework
 
 if [ -n "$1" ]; then
 CMD=$1
