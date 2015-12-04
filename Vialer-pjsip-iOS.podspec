@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 							Other pods for pjsip wrapper were not doing wat we needed. pjsip shouldn"t stay connected all the time.
 						DESC
 	
-	s.homepage         = "https://github.com/VoIPGRID/Vialer-pjsip-iOS.git"
+	s.homepage         = "https://www.wearespindle.com"
 	
 	s.license          = { :type => "MIT", :file => "LICENSE" }
 	s.author           = { "Devhouse Spindle" => "hello@wearespindle.com" }
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 	s.platform     = :ios, "9.0"
 	s.requires_arc = false
 
-	s.public_header_files = "Pod/vialer-pjsip-include/**"
+	s.public_header_files = "Pod/vialer-pjsip-include/**/*.{h,hpp}"
 	s.preserve_paths = "Pod/vialer-pjsip-include/**/**/*.{h,hpp}"
 	s.header_mappings_dir = "Pod"
 					 
