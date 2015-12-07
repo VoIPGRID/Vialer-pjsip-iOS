@@ -180,7 +180,7 @@ cp $OLD_PATH $d
 }
 
 function create_framework() {
-PRODUCT_NAME="VialerSIPLib"
+PRODUCT_NAME="VialerPJSIP"
 PUBLIC_HEADERS_FOLDER_PATH="${BASE_DIR}/Pod/vialer-pjsip-include"
 LIBRARY_LOCATION="${BASE_DIR}/Pod/"
 export FRAMEWORK_LOCN="${BASE_DIR}/${PRODUCT_NAME}.framework"
