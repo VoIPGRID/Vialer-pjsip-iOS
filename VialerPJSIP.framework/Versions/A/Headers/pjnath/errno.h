@@ -25,7 +25,7 @@
  * @brief PJNATH specific error codes
  */
 
-#include <pj/errno.h>
+#include <VialerPJSIP/pj/errno.h>
 
 /**
  * @defgroup PJNATH_ERROR NAT Helper Library Error Codes

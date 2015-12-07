@@ -26,8 +26,8 @@
  */
 
 
-#include <pjsip/sip_dialog.h>
-#include <pjmedia/sdp_neg.h>
+#include <VialerPJSIP/pjsip/sip_dialog.h>
+#include <VialerPJSIP/pjmedia/sdp_neg.h>
 
 
 /**

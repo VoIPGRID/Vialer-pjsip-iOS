@@ -20,7 +20,7 @@
 #ifndef __PJLIB_UTIL_SCANNER_CIS_BIT_H__
 #define __PJLIB_UTIL_SCANNER_CIS_BIT_H__
 
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

@@ -27,31 +27,31 @@
 
 
 /* Include all PJSIP core headers. */
-#include <pjsip.h>
+#include <VialerPJSIP/pjsip.h>
 
 /* Include all PJMEDIA headers. */
-#include <pjmedia.h>
+#include <VialerPJSIP/pjmedia.h>
 
 /* Include all PJMEDIA-CODEC headers. */
-#include <pjmedia-codec.h>
+#include <VialerPJSIP/pjmedia-codec.h>
 
 /* Videodev too */
-#include <pjmedia_videodev.h>
+#include <VialerPJSIP/pjmedia_videodev.h>
 
 /* Include all PJSIP-UA headers */
-#include <pjsip_ua.h>
+#include <VialerPJSIP/pjsip_ua.h>
 
 /* Include all PJSIP-SIMPLE headers */
-#include <pjsip_simple.h>
+#include <VialerPJSIP/pjsip_simple.h>
 
 /* Include all PJNATH headers */
-#include <pjnath.h>
+#include <VialerPJSIP/pjnath.h>
 
 /* Include all PJLIB-UTIL headers. */
-#include <pjlib-util.h>
+#include <VialerPJSIP/pjlib-util.h>
 
 /* Include all PJLIB headers. */
-#include <pjlib.h>
+#include <VialerPJSIP/pjlib.h>
 
 
 PJ_BEGIN_DECL
@@ -146,7 +146,7 @@ PJ_BEGIN_DECL
  * Sample code to initialize PJSUA in C code:
  \code
 
- #include <pjsua-lib/pjsua.h>
+ #include <VialerPJSIP/pjsua-lib/pjsua.h>
 
  #define THIS_FILE  __FILE__
 

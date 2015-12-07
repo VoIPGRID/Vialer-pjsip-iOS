@@ -24,13 +24,13 @@
  * @file port.h
  * @brief Port interface declaration
  */
-#include <pjmedia/clock.h>
-#include <pjmedia/event.h>
-#include <pjmedia/format.h>
-#include <pjmedia/frame.h>
-#include <pjmedia/signatures.h>
-#include <pj/assert.h>
-#include <pj/os.h>
+#include <VialerPJSIP/pjmedia/clock.h>
+#include <VialerPJSIP/pjmedia/event.h>
+#include <VialerPJSIP/pjmedia/format.h>
+#include <VialerPJSIP/pjmedia/frame.h>
+#include <VialerPJSIP/pjmedia/signatures.h>
+#include <VialerPJSIP/pj/assert.h>
+#include <VialerPJSIP/pj/os.h>
 
 
 /**

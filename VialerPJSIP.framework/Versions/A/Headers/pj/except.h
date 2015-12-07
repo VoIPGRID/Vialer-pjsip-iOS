@@ -25,9 +25,9 @@
  * @brief Exception Handling in C.
  */
 
-#include <pj/types.h>
-#include <pj/compat/setjmp.h>
-#include <pj/log.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pj/compat/setjmp.h>
+#include <VialerPJSIP/pj/log.h>
 
 
 PJ_BEGIN_DECL
@@ -270,7 +270,7 @@ PJ_DECL(const char*) pj_exception_id_name(pj_exception_id_t id);
  **
  ****************************************************************************/
 #define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include <VialerPJSIP/windows.h>
 
 PJ_IDECL_NO_RETURN(void)
 pj_throw_exception_(pj_exception_id_t id) PJ_ATTR_NORETURN

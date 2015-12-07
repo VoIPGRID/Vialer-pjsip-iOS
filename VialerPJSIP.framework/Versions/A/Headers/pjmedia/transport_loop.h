@@ -26,7 +26,7 @@
  * @brief Loopback transport
  */
 
-#include <pjmedia/stream.h>
+#include <VialerPJSIP/pjmedia/stream.h>
 
 
 /**

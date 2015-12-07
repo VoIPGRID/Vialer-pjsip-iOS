@@ -20,7 +20,7 @@
 #ifndef __PJMEDIA_CODEC_OPENCORE_AMR_H__
 #define __PJMEDIA_CODEC_OPENCORE_AMR_H__
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_OC_AMR OpenCORE AMR Codec

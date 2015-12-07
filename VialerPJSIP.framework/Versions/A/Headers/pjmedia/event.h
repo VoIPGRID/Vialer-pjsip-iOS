@@ -23,8 +23,8 @@
  * @file pjmedia/event.h
  * @brief Event framework
  */
-#include <pjmedia/format.h>
-#include <pjmedia/signatures.h>
+#include <VialerPJSIP/pjmedia/format.h>
+#include <VialerPJSIP/pjmedia/signatures.h>
 
 PJ_BEGIN_DECL
 

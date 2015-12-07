@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
-#include <pj/pool.h>
+#include <VialerPJSIP/pj/pool.h>
 
 PJ_IDEF(pj_str_t) pj_str(char *str)
 {

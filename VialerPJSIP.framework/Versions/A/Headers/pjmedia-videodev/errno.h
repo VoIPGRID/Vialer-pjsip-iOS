@@ -24,8 +24,8 @@
  * @brief Videodev specific error codes.
  */
 
-#include <pjmedia-videodev/config.h>
-#include <pj/errno.h>
+#include <VialerPJSIP/pjmedia-videodev/config.h>
+#include <VialerPJSIP/pj/errno.h>
 
 /**
  * @defgroup error_codes Error Codes

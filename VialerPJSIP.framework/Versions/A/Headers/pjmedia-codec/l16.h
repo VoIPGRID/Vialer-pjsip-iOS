@@ -20,7 +20,7 @@
 #ifndef __PJMEDIA_CODEC_L16_H__
 #define __PJMEDIA_CODEC_L16_H__
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 
 /**

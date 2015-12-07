@@ -24,8 +24,8 @@
  * @file turn_session.h
  * @brief Transport independent TURN client session.
  */
-#include <pjnath/stun_session.h>
-#include <pjlib-util/resolver.h>
+#include <VialerPJSIP/pjnath/stun_session.h>
+#include <VialerPJSIP/pjlib-util/resolver.h>
 
 
 PJ_BEGIN_DECL

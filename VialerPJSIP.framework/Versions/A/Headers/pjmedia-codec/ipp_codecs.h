@@ -25,7 +25,7 @@
  * @brief IPP codecs wrapper.
  */
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_IPP_CODEC IPP Codecs

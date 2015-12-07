@@ -26,8 +26,8 @@
  * @brief Video codec utilities.
  */
 
-#include <pjmedia/vid_codec.h>
-#include <pjmedia/sdp_neg.h>
+#include <VialerPJSIP/pjmedia/vid_codec.h>
+#include <VialerPJSIP/pjmedia/sdp_neg.h>
 
 PJ_BEGIN_DECL
 

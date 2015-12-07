@@ -24,8 +24,8 @@
  * @brief Video media port
  */
 
-#include <pjmedia-videodev/videodev.h>
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia-videodev/videodev.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 /**
  * @defgroup PJMEDIA_VIDEO_PORT Video media port

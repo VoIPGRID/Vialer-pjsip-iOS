@@ -19,7 +19,7 @@
 #ifndef __PJMEDIA_VIDEODEV_OPENGL_DEV_H__
 #define __PJMEDIA_VIDEODEV_OPENGL_DEV_H__
 
-#include <pjmedia-videodev/videodev_imp.h>
+#include <VialerPJSIP/pjmedia-videodev/videodev_imp.h>
 
 /* OpenGL implementation on each platform needs to implement these functions
  * and stream operations.

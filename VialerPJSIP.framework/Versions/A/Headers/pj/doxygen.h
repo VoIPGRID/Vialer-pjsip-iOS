@@ -317,13 +317,13 @@
  *
  * To include all PJLIB headers:
  * \verbatim
-    #include <pjlib.h>
+    #include <VialerPJSIP/pjlib.h>
    \endverbatim
  *
  * Alternatively, you can include individual PJLIB headers like this:
  * \verbatim
-     #include <pj/log.h>
-     #include <pj/os.h>
+     #include <VialerPJSIP/pj/log.h>
+     #include <VialerPJSIP/pj/os.h>
   \endverbatim
  *
  *
@@ -722,8 +722,8 @@ script:
 [root@vpc-linux linux-2.6.7]# 
 [root@vpc-linux linux-2.6.7]# 
 [root@vpc-linux linux-2.6.7]# head kernel/extra-exports.c 
-#include <linux/module.h>
-#include <linux/syscalls.h>
+#include <VialerPJSIP/linux/module.h>
+#include <VialerPJSIP/linux/syscalls.h>
 
 EXPORT_SYMBOL(sys_select);
 

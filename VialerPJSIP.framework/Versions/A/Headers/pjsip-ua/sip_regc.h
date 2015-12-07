@@ -25,9 +25,9 @@
  * @brief SIP Registration Client
  */
 
-#include <pjsip/sip_types.h>
-#include <pjsip/sip_auth.h>
-#include <pjsip/sip_transport.h>
+#include <VialerPJSIP/pjsip/sip_types.h>
+#include <VialerPJSIP/pjsip/sip_auth.h>
+#include <VialerPJSIP/pjsip/sip_transport.h>
 
 
 /**

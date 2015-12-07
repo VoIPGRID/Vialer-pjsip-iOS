@@ -26,8 +26,8 @@
  * @brief ICE capable media transport.
  */
 
-#include <pjmedia/stream.h>
-#include <pjnath/ice_strans.h>
+#include <VialerPJSIP/pjmedia/stream.h>
+#include <VialerPJSIP/pjnath/ice_strans.h>
 
 
 /**

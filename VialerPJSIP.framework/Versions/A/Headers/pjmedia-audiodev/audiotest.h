@@ -24,7 +24,7 @@
  * @file audiotest.h
  * @brief Audio test utility.
  */
-#include <pjmedia-audiodev/audiodev.h>
+#include <VialerPJSIP/pjmedia-audiodev/audiodev.h>
 
 
 PJ_BEGIN_DECL

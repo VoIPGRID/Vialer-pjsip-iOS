@@ -26,10 +26,10 @@
  * @brief Circular Buffer.
  */
 
-#include <pj/assert.h>
-#include <pj/errno.h>
-#include <pj/pool.h>
-#include <pjmedia/frame.h>
+#include <VialerPJSIP/pj/assert.h>
+#include <VialerPJSIP/pj/errno.h>
+#include <VialerPJSIP/pj/pool.h>
+#include <VialerPJSIP/pjmedia/frame.h>
 
 /**
  * @defgroup PJMED_CIRCBUF Circular Buffer

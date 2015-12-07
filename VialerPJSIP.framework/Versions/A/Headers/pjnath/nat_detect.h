@@ -24,7 +24,7 @@
  * @file ice_session.h
  * @brief ICE session management
  */
-#include <pjnath/stun_session.h>
+#include <VialerPJSIP/pjnath/stun_session.h>
 
 
 PJ_BEGIN_DECL

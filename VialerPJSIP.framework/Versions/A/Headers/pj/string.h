@@ -25,8 +25,8 @@
  * @brief PJLIB String Operations.
  */
 
-#include <pj/types.h>
-#include <pj/compat/string.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pj/compat/string.h>
 
 
 PJ_BEGIN_DECL

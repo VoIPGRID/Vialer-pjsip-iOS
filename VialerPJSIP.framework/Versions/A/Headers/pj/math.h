@@ -26,8 +26,8 @@
  * @brief Mathematics and Statistics.
  */
 
-#include <pj/string.h>
-#include <pj/compat/high_precision.h>
+#include <VialerPJSIP/pj/string.h>
+#include <VialerPJSIP/pj/compat/high_precision.h>
 
 PJ_BEGIN_DECL
 

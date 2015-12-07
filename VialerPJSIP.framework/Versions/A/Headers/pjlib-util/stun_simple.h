@@ -25,8 +25,8 @@
  * @brief STUN client.
  */
 
-#include <pjlib-util/types.h>
-#include <pj/sock.h>
+#include <VialerPJSIP/pjlib-util/types.h>
+#include <VialerPJSIP/pj/sock.h>
 
 
 PJ_BEGIN_DECL

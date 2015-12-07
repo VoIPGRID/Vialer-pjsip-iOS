@@ -24,7 +24,7 @@
  * @file evsub_msg.h
  * @brief SIP Event Notification Headers (RFC 3265)
  */
-#include <pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
 
 /**
  * @defgroup PJSIP_EVENT_HDRS Additional Header Fields

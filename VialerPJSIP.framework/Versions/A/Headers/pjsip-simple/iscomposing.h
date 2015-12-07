@@ -24,8 +24,8 @@
  * @file iscomposing.h
  * @brief Support for Indication of Message Composition (RFC 3994)
  */
-#include <pjsip-simple/types.h>
-#include <pjlib-util/xml.h>
+#include <VialerPJSIP/pjsip-simple/types.h>
+#include <VialerPJSIP/pjlib-util/xml.h>
 
 /**
  * @defgroup PJSIP_ISCOMPOSING Message Composition Indication (RFC 3994)

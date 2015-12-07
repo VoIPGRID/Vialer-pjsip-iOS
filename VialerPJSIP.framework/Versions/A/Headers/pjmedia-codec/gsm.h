@@ -25,7 +25,7 @@
  * @brief GSM 06.10 codec.
  */
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_GSM GSM 06.10 Codec

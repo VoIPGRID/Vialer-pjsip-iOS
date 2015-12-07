@@ -26,7 +26,7 @@
  * @brief Stream transport with UDP.
  */
 
-#include <pjmedia/stream.h>
+#include <VialerPJSIP/pjmedia/stream.h>
 
 
 /**

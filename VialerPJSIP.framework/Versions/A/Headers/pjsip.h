@@ -21,40 +21,40 @@
 #define __PJSIP_H__
 
 /* Base types. */
-#include <pjsip/sip_types.h>
-#include <pjsip/sip_errno.h>
+#include <VialerPJSIP/pjsip/sip_types.h>
+#include <VialerPJSIP/pjsip/sip_errno.h>
 
 /* Messaging and parsing. */
-#include <pjsip/sip_uri.h>
-#include <pjsip/sip_tel_uri.h>
-#include <pjsip/sip_msg.h>
-#include <pjsip/sip_multipart.h>
-#include <pjsip/sip_parser.h>
+#include <VialerPJSIP/pjsip/sip_uri.h>
+#include <VialerPJSIP/pjsip/sip_tel_uri.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip/sip_multipart.h>
+#include <VialerPJSIP/pjsip/sip_parser.h>
 
 /* Core */
-#include <pjsip/sip_event.h>
-#include <pjsip/sip_module.h>
-#include <pjsip/sip_endpoint.h>
-#include <pjsip/sip_util.h>
+#include <VialerPJSIP/pjsip/sip_event.h>
+#include <VialerPJSIP/pjsip/sip_module.h>
+#include <VialerPJSIP/pjsip/sip_endpoint.h>
+#include <VialerPJSIP/pjsip/sip_util.h>
 
 /* Transport layer */
-#include <pjsip/sip_transport.h>
-#include <pjsip/sip_transport_udp.h>
-#include <pjsip/sip_transport_loop.h>
-#include <pjsip/sip_transport_tcp.h>
-#include <pjsip/sip_transport_tls.h>
-#include <pjsip/sip_resolve.h>
+#include <VialerPJSIP/pjsip/sip_transport.h>
+#include <VialerPJSIP/pjsip/sip_transport_udp.h>
+#include <VialerPJSIP/pjsip/sip_transport_loop.h>
+#include <VialerPJSIP/pjsip/sip_transport_tcp.h>
+#include <VialerPJSIP/pjsip/sip_transport_tls.h>
+#include <VialerPJSIP/pjsip/sip_resolve.h>
 
 /* Authentication. */
-#include <pjsip/sip_auth.h>
-#include <pjsip/sip_auth_aka.h>
+#include <VialerPJSIP/pjsip/sip_auth.h>
+#include <VialerPJSIP/pjsip/sip_auth_aka.h>
 
 /* Transaction layer. */
-#include <pjsip/sip_transaction.h>
+#include <VialerPJSIP/pjsip/sip_transaction.h>
 
 /* UA Layer. */
-#include <pjsip/sip_ua_layer.h>
-#include <pjsip/sip_dialog.h>
+#include <VialerPJSIP/pjsip/sip_ua_layer.h>
+#include <VialerPJSIP/pjsip/sip_dialog.h>
 
 
 #endif	/* __PJSIP_H__ */

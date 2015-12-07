@@ -24,8 +24,8 @@
  * @file config.h
  * @brief Audio config.
  */
-#include <pjmedia/types.h>
-#include <pj/pool.h>
+#include <VialerPJSIP/pjmedia/types.h>
+#include <VialerPJSIP/pj/pool.h>
 
 
 PJ_BEGIN_DECL
@@ -301,7 +301,7 @@ contains many enhancements:
     Add the following 
     include:
     \code
-    #include <pjmedia_audiodev.h>\endcode\n
+    #include <VialerPJSIP/pjmedia_audiodev.h>\endcode\n
     And add <b>pjmedia-audiodev</b> library to your application link 
     specifications.\n
  -# <b>Compile time settings</b>.\n

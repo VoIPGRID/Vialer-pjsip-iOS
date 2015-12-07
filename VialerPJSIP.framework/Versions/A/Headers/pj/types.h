@@ -30,7 +30,7 @@
  * @ingroup PJ_DS
  * @{
  */
-#include <pj/config.h>
+#include <VialerPJSIP/pj/config.h>
 
 PJ_BEGIN_DECL
 

@@ -36,7 +36,7 @@
 #endif
 
 /* For sprintf family */
-#include <stdio.h>
+#include <VialerPJSIP/stdio.h>
 
 /* On WinCE, string stuffs are declared in stdlib.h */
 #if defined(PJ_HAS_STDLIB_H) && PJ_HAS_STDLIB_H!=0

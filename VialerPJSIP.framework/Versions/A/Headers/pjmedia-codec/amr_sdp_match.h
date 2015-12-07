@@ -26,7 +26,7 @@
  * @brief Special SDP format match for AMR-NB and AMR-WB.
  */
 
-#include <pjmedia/sdp_neg.h>
+#include <VialerPJSIP/pjmedia/sdp_neg.h>
 
 PJ_BEGIN_DECL
 

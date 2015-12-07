@@ -25,7 +25,7 @@
  * @file splitcomb.h
  * @brief Media channel splitter/combiner port.
  */
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 
 /**

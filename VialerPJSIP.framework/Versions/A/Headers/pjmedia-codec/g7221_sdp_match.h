@@ -26,7 +26,7 @@
  * @brief Special SDP format match for G722.1.
  */
 
-#include <pjmedia/sdp_neg.h>
+#include <VialerPJSIP/pjmedia/sdp_neg.h>
 
 PJ_BEGIN_DECL
 

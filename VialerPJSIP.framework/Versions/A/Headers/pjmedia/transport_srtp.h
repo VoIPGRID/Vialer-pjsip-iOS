@@ -25,7 +25,7 @@
  * @brief Secure RTP (SRTP) transport.
  */
 
-#include <pjmedia/transport.h>
+#include <VialerPJSIP/pjmedia/transport.h>
 
 
 /**

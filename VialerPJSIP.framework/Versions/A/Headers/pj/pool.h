@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
-#include <pj/list.h>
+#include <VialerPJSIP/pj/list.h>
 
 /* See if we use pool's alternate API.
  * The alternate API is used e.g. to implement pool debugging.
@@ -171,7 +171,7 @@ PJ_BEGIN_DECL
  *
  * \code
 
-   #include <pjlib.h>
+   #include <VialerPJSIP/pjlib.h>
 
    #define THIS_FILE    "pool_sample.c"
 

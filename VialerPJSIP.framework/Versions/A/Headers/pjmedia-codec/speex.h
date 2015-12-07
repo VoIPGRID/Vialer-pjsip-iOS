@@ -25,7 +25,7 @@
  * @brief Speex codec header.
  */
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_SPEEX Speex Codec Family

@@ -24,7 +24,7 @@
  * @brief Multipart support.
  */
 
-#include <pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
 
 PJ_BEGIN_DECL
 

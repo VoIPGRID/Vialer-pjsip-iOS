@@ -29,8 +29,8 @@
  * @defgroup PJLIB_UTIL_ENCRYPTION Encryption Algorithms
  */
 
-#include <pj/types.h>
-#include <pjlib-util/md5.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pjlib-util/md5.h>
 
 PJ_BEGIN_DECL
 

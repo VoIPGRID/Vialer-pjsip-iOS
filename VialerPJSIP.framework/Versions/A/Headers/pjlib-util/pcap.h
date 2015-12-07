@@ -25,7 +25,7 @@
  * @brief Simple PCAP file reader
  */
 
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

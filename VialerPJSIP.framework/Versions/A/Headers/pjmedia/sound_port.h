@@ -24,9 +24,9 @@
  * @file sound_port.h
  * @brief Media port connection abstraction to sound device.
  */
-#include <pjmedia-audiodev/audiodev.h>
-#include <pjmedia/clock.h>
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia-audiodev/audiodev.h>
+#include <VialerPJSIP/pjmedia/clock.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 PJ_BEGIN_DECL
 

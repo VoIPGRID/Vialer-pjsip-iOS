@@ -24,9 +24,9 @@
  * @file errno.h
  * @brief PJLIB Error Subsystem
  */
-#include <pj/types.h>
-#include <pj/compat/errno.h>
-#include <stdarg.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pj/compat/errno.h>
+#include <VialerPJSIP/stdarg.h>
 
 PJ_BEGIN_DECL
 

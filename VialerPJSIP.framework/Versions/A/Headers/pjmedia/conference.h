@@ -25,7 +25,7 @@
  * @file conference.h
  * @brief Conference bridge.
  */
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 /**
  * @defgroup PJMEDIA_CONF Conference Bridge

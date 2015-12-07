@@ -20,7 +20,7 @@
 #ifndef __AUDIODEV_IMP_H__
 #define __AUDIODEV_IMP_H__
 
-#include <pjmedia-audiodev/audiodev.h>
+#include <VialerPJSIP/pjmedia-audiodev/audiodev.h>
 
 /**
  * @defgroup s8_audio_device_implementors_api Audio Device Implementors API

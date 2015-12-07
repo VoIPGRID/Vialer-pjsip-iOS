@@ -25,7 +25,7 @@
  * @brief Random Number Generator.
  */
 
-#include <pj/config.h>
+#include <VialerPJSIP/pj/config.h>
 
 PJ_BEGIN_DECL
 

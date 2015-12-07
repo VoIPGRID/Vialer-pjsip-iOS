@@ -25,7 +25,7 @@
  * @brief G722.1 codec.
  */
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_G7221_CODEC G.722.1 Codec (Siren7/Siren14)

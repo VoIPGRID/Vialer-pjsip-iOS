@@ -26,8 +26,8 @@
  * @file sip_xfer.h
  * @brief SIP Transfer (REFER, RFC 3515)
  */
-#include <pjsip-simple/evsub.h>
-#include <pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip-simple/evsub.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
 
 /**
  * @defgroup PJSUA_XFER SIP REFER (RFC 3515) for Call Transfer etc.

@@ -25,9 +25,9 @@
  * @brief PJMEDIA main header file.
  */
 
-#include <pjmedia-audiodev/audiodev.h>
-#include <pjmedia-audiodev/audiodev_imp.h>
-#include <pjmedia-audiodev/audiotest.h>
+#include <VialerPJSIP/pjmedia-audiodev/audiodev.h>
+#include <VialerPJSIP/pjmedia-audiodev/audiodev_imp.h>
+#include <VialerPJSIP/pjmedia-audiodev/audiotest.h>
 
 #endif	/* __PJMEDIA_AUDIODEV_H__ */
 

@@ -25,8 +25,8 @@
  * @brief PJNATH types.
  */
 
-#include <pj/types.h>
-#include <pjnath/config.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pjnath/config.h>
 
 /**
  * @defgroup PJNATH NAT Traversal Helper Library

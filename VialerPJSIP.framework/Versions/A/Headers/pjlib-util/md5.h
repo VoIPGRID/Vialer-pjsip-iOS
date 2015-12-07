@@ -25,7 +25,7 @@
  * @brief MD5 Functions
  */
 
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

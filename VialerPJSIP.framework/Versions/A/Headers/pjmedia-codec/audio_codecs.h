@@ -23,8 +23,8 @@
  * @file pjmedia-codec/all_codecs.h
  * @brief Helper function to register all codecs
  */
-#include <pjmedia/endpoint.h>
-#include <pjmedia-codec/passthrough.h>
+#include <VialerPJSIP/pjmedia/endpoint.h>
+#include <VialerPJSIP/pjmedia-codec/passthrough.h>
 
 
 PJ_BEGIN_DECL

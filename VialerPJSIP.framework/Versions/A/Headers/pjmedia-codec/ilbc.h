@@ -25,7 +25,7 @@
  * @brief iLBC codec.
  */
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_ILBC iLBC Codec

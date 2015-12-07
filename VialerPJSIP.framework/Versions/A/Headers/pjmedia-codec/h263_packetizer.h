@@ -25,8 +25,8 @@
  * @brief Packetizes/unpacketizes H.263 bitstream into RTP payload.
  */
 
-#include <pj/pool.h>
-#include <pj/types.h>
+#include <VialerPJSIP/pj/pool.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

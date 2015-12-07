@@ -25,11 +25,11 @@
  * @brief SIP TLS Transport.
  */
 
-#include <pjsip/sip_transport.h>
-#include <pj/pool.h>
-#include <pj/ssl_sock.h>
-#include <pj/string.h>
-#include <pj/sock_qos.h>
+#include <VialerPJSIP/pjsip/sip_transport.h>
+#include <VialerPJSIP/pj/pool.h>
+#include <VialerPJSIP/pj/ssl_sock.h>
+#include <VialerPJSIP/pj/string.h>
+#include <VialerPJSIP/pj/sock_qos.h>
 
 
 PJ_BEGIN_DECL

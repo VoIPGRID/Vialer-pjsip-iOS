@@ -25,7 +25,7 @@
  * @file plc.h
  * @brief Packet Lost Concealment (PLC) API.
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 /**
  * @defgroup PJMED_PLC Packet Lost Concealment (PLC)

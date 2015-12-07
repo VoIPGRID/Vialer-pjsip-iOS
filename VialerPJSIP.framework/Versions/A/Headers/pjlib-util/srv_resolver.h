@@ -24,7 +24,7 @@
  * @file srv_resolver.h
  * @brief DNS SRV resolver
  */
-#include <pjlib-util/resolver.h>
+#include <VialerPJSIP/pjlib-util/resolver.h>
 
 PJ_BEGIN_DECL
 

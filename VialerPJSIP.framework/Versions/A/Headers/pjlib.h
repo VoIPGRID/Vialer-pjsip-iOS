@@ -26,38 +26,38 @@
  * @brief Include all PJLIB header files.
  */
 
-#include <pj/activesock.h>
-#include <pj/addr_resolv.h>
-#include <pj/array.h>
-#include <pj/assert.h>
-#include <pj/ctype.h>
-#include <pj/errno.h>
-#include <pj/except.h>
-#include <pj/fifobuf.h>
-#include <pj/file_access.h>
-#include <pj/file_io.h>
-#include <pj/guid.h>
-#include <pj/hash.h>
-#include <pj/ioqueue.h>
-#include <pj/ip_helper.h>
-#include <pj/list.h>
-#include <pj/lock.h>
-#include <pj/log.h>
-#include <pj/math.h>
-#include <pj/os.h>
-#include <pj/pool.h>
-#include <pj/pool_buf.h>
-#include <pj/rand.h>
-#include <pj/rbtree.h>
-#include <pj/sock.h>
-#include <pj/sock_qos.h>
-#include <pj/sock_select.h>
-#include <pj/ssl_sock.h>
-#include <pj/string.h>
-#include <pj/timer.h>
-#include <pj/unicode.h>
+#include <VialerPJSIP/pj/activesock.h>
+#include <VialerPJSIP/pj/addr_resolv.h>
+#include <VialerPJSIP/pj/array.h>
+#include <VialerPJSIP/pj/assert.h>
+#include <VialerPJSIP/pj/ctype.h>
+#include <VialerPJSIP/pj/errno.h>
+#include <VialerPJSIP/pj/except.h>
+#include <VialerPJSIP/pj/fifobuf.h>
+#include <VialerPJSIP/pj/file_access.h>
+#include <VialerPJSIP/pj/file_io.h>
+#include <VialerPJSIP/pj/guid.h>
+#include <VialerPJSIP/pj/hash.h>
+#include <VialerPJSIP/pj/ioqueue.h>
+#include <VialerPJSIP/pj/ip_helper.h>
+#include <VialerPJSIP/pj/list.h>
+#include <VialerPJSIP/pj/lock.h>
+#include <VialerPJSIP/pj/log.h>
+#include <VialerPJSIP/pj/math.h>
+#include <VialerPJSIP/pj/os.h>
+#include <VialerPJSIP/pj/pool.h>
+#include <VialerPJSIP/pj/pool_buf.h>
+#include <VialerPJSIP/pj/rand.h>
+#include <VialerPJSIP/pj/rbtree.h>
+#include <VialerPJSIP/pj/sock.h>
+#include <VialerPJSIP/pj/sock_qos.h>
+#include <VialerPJSIP/pj/sock_select.h>
+#include <VialerPJSIP/pj/ssl_sock.h>
+#include <VialerPJSIP/pj/string.h>
+#include <VialerPJSIP/pj/timer.h>
+#include <VialerPJSIP/pj/unicode.h>
 
-#include <pj/compat/high_precision.h>
+#include <VialerPJSIP/pj/compat/high_precision.h>
 
 #endif  /* __PJLIB_H__ */
 

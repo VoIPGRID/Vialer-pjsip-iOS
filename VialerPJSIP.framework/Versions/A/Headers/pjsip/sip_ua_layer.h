@@ -24,7 +24,7 @@
  * @file sip_ua_layer.h
  * @brief SIP User Agent Layer Module
  */
-#include <pjsip/sip_types.h>
+#include <VialerPJSIP/pjsip/sip_types.h>
 
 
 PJ_BEGIN_DECL

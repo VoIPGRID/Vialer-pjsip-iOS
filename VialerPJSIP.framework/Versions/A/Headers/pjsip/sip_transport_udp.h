@@ -25,7 +25,7 @@
  * @brief SIP UDP Transport.
  */
 
-#include <pjsip/sip_transport.h>
+#include <VialerPJSIP/pjsip/sip_transport.h>
 
 PJ_BEGIN_DECL
 

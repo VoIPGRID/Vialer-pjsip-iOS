@@ -28,7 +28,7 @@
  */
 
 
-#include <pjsip/sip_transport.h>
+#include <VialerPJSIP/pjsip/sip_transport.h>
 
 /**
  * @defgroup PJSIP_TRANSPORT_LOOP Loop Transport

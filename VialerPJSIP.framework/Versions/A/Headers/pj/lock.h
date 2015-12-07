@@ -24,7 +24,7 @@
  * @file lock.h
  * @brief Higher abstraction for locking objects.
  */
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

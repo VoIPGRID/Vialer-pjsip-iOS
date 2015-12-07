@@ -25,19 +25,19 @@
  * @brief Include all codecs API in PJMEDIA-CODEC
  */
 
-#include <pjmedia-codec/audio_codecs.h>
-#include <pjmedia-codec/l16.h>
-#include <pjmedia-codec/ffmpeg_vid_codecs.h>
-#include <pjmedia-codec/gsm.h>
-#include <pjmedia-codec/speex.h>
-#include <pjmedia-codec/ilbc.h>
-#include <pjmedia-codec/g722.h>
-#include <pjmedia-codec/g7221.h>
-#include <pjmedia-codec/ipp_codecs.h>
-#include <pjmedia-codec/opencore_amr.h>
-#include <pjmedia-codec/openh264.h>
-#include <pjmedia-codec/passthrough.h>
-#include <pjmedia-codec/silk.h>
+#include <VialerPJSIP/pjmedia-codec/audio_codecs.h>
+#include <VialerPJSIP/pjmedia-codec/l16.h>
+#include <VialerPJSIP/pjmedia-codec/ffmpeg_vid_codecs.h>
+#include <VialerPJSIP/pjmedia-codec/gsm.h>
+#include <VialerPJSIP/pjmedia-codec/speex.h>
+#include <VialerPJSIP/pjmedia-codec/ilbc.h>
+#include <VialerPJSIP/pjmedia-codec/g722.h>
+#include <VialerPJSIP/pjmedia-codec/g7221.h>
+#include <VialerPJSIP/pjmedia-codec/ipp_codecs.h>
+#include <VialerPJSIP/pjmedia-codec/opencore_amr.h>
+#include <VialerPJSIP/pjmedia-codec/openh264.h>
+#include <VialerPJSIP/pjmedia-codec/passthrough.h>
+#include <VialerPJSIP/pjmedia-codec/silk.h>
 
 
 #endif	/* __PJMEDIA_CODEC_PJMEDIA_CODEC_H__ */

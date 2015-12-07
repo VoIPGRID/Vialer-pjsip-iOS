@@ -48,7 +48,7 @@
 #define PJ_HAS_INT64		1
 
 #ifdef __STRICT_ANSI__
-  #include <inttypes.h> 
+  #include <VialerPJSIP/inttypes.h> 
   typedef int64_t		pj_int64_t;
   typedef uint64_t		pj_uint64_t;
   #define PJ_INLINE_SPECIFIER	static __inline

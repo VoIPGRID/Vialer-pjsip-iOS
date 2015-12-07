@@ -25,13 +25,13 @@
  * @brief STUN session management for client/server.
  */
 
-#include <pjnath/stun_msg.h>
-#include <pjnath/stun_auth.h>
-#include <pjnath/stun_config.h>
-#include <pjnath/stun_transaction.h>
-#include <pj/list.h>
-#include <pj/lock.h>
-#include <pj/timer.h>
+#include <VialerPJSIP/pjnath/stun_msg.h>
+#include <VialerPJSIP/pjnath/stun_auth.h>
+#include <VialerPJSIP/pjnath/stun_config.h>
+#include <VialerPJSIP/pjnath/stun_transaction.h>
+#include <VialerPJSIP/pj/list.h>
+#include <VialerPJSIP/pj/lock.h>
+#include <VialerPJSIP/pj/timer.h>
 
 PJ_BEGIN_DECL
 

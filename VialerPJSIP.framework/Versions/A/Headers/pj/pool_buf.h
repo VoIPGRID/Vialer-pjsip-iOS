@@ -20,7 +20,7 @@
 #ifndef __POOL_STACK_H__
 #define __POOL_STACK_H__
 
-#include <pj/pool.h>
+#include <VialerPJSIP/pj/pool.h>
 
 /**
  * @defgroup PJ_POOL_BUFFER Stack/Buffer Based Memory Pool Allocator
@@ -42,7 +42,7 @@
  * Sample usage:
  *
  * \code
-  #include <pjlib.h>
+  #include <VialerPJSIP/pjlib.h>
 
   static void test()
   {

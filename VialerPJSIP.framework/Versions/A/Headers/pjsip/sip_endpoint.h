@@ -25,8 +25,8 @@
  * @brief SIP Endpoint.
  */
 
-#include <pjsip/sip_transport.h>
-#include <pjsip/sip_resolve.h>
+#include <VialerPJSIP/pjsip/sip_transport.h>
+#include <VialerPJSIP/pjsip/sip_resolve.h>
 
 /**
  * @defgroup PJSIP_CORE_CORE At the Very Core

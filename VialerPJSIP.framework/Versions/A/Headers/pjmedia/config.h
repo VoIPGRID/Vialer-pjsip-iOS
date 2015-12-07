@@ -24,7 +24,7 @@
  * @file pjmedia/config.h Compile time config
  * @brief Contains some compile time constants.
  */
-#include <pj/config.h>
+#include <VialerPJSIP/pj/config.h>
 
 /**
  * @defgroup PJMEDIA_BASE Base Types and Configurations

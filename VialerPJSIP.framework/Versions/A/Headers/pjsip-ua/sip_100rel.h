@@ -26,7 +26,7 @@
  */
 
 
-#include <pjsip-ua/sip_inv.h>
+#include <VialerPJSIP/pjsip-ua/sip_inv.h>
 
 
 /**

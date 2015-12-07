@@ -20,7 +20,7 @@
 #ifndef __PJSIP_SIMPLE_ERRNO_H__
 #define __PJSIP_SIMPLE_ERRNO_H__
 
-#include <pjsip/sip_errno.h>
+#include <VialerPJSIP/pjsip/sip_errno.h>
 
 PJ_BEGIN_DECL
 

@@ -23,7 +23,7 @@
  * @file pjmedia/signatures.h
  * @brief Standard PJMEDIA object signatures
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 PJ_BEGIN_DECL
 

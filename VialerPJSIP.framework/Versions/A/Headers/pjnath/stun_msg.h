@@ -25,8 +25,8 @@
  * @brief STUN message components.
  */
 
-#include <pjnath/types.h>
-#include <pj/sock.h>
+#include <VialerPJSIP/pjnath/types.h>
+#include <VialerPJSIP/pj/sock.h>
 
 
 PJ_BEGIN_DECL

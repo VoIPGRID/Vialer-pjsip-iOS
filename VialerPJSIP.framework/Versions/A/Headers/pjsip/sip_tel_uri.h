@@ -25,7 +25,7 @@
  * @brief Tel: URI
  */
 
-#include <pjsip/sip_uri.h>
+#include <VialerPJSIP/pjsip/sip_uri.h>
 
 /**
  * @addtogroup PJSIP_TEL_URI tel URI Scheme

@@ -24,8 +24,8 @@
  * @file pjmedia/frame.h Media frame
  * @brief Frame
  */
-#include <pjmedia/types.h>
-#include <pj/string.h>
+#include <VialerPJSIP/pjmedia/types.h>
+#include <VialerPJSIP/pj/string.h>
 
 /**
  * @defgroup PJMEDIA_FRAME Media frame

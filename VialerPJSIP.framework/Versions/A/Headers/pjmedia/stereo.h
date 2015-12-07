@@ -25,10 +25,10 @@
  * @brief Monochannel and multichannel converter.
  */
 
-#include <pjmedia/errno.h>
-#include <pjmedia/port.h>
-#include <pjmedia/types.h>
-#include <pj/assert.h>
+#include <VialerPJSIP/pjmedia/errno.h>
+#include <VialerPJSIP/pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/types.h>
+#include <VialerPJSIP/pj/assert.h>
 
 
 /**

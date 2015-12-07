@@ -25,7 +25,7 @@
  * @brief SIP Digest AKA Authorization Module.
  */
 
-#include <pjsip/sip_auth.h>
+#include <VialerPJSIP/pjsip/sip_auth.h>
 
 PJ_BEGIN_DECL
 

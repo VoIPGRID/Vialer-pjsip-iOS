@@ -24,7 +24,7 @@
  * @file file_io.h
  * @brief Simple file I/O abstraction.
  */
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL 
 

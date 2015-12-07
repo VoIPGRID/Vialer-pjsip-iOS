@@ -24,8 +24,8 @@
  * @file xpidf.h
  * @brief XPIDF/Presence Information Data Format
  */
-#include <pjsip-simple/types.h>
-#include <pjlib-util/xml.h>
+#include <VialerPJSIP/pjsip-simple/types.h>
+#include <VialerPJSIP/pjlib-util/xml.h>
 
 PJ_BEGIN_DECL
 

@@ -24,7 +24,7 @@
  * @file clock.h
  * @brief Media clock.
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 
 /**

@@ -30,9 +30,9 @@
  */
 
 
-#include <pjsip_auth/sip_auth.h>
-#include <pjsip_auth/sip_auth_msg.h>
-#include <pjsip_auth/sip_auth_parser.h>
+#include <VialerPJSIP/pjsip_auth/sip_auth.h>
+#include <VialerPJSIP/pjsip_auth/sip_auth_msg.h>
+#include <VialerPJSIP/pjsip_auth/sip_auth_parser.h>
 
 #endif	/* __PJSIP_AUTH_H__ */
 

@@ -26,9 +26,9 @@
  * @brief Media Session.
  */
 
-#include <pjmedia/endpoint.h>
-#include <pjmedia/stream.h>
-#include <pjmedia/sdp.h>
+#include <VialerPJSIP/pjmedia/endpoint.h>
+#include <VialerPJSIP/pjmedia/stream.h>
+#include <VialerPJSIP/pjmedia/sdp.h>
 
 PJ_BEGIN_DECL 
 

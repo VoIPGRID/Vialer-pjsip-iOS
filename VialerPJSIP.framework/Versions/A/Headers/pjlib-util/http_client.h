@@ -23,8 +23,8 @@
  * @file http_client.h
  * @brief Simple HTTP Client
  */
-#include <pj/activesock.h>
-#include <pjlib-util/types.h>
+#include <VialerPJSIP/pj/activesock.h>
+#include <VialerPJSIP/pjlib-util/types.h>
 
 PJ_BEGIN_DECL
 

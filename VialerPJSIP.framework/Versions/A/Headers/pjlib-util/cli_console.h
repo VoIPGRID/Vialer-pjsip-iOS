@@ -24,7 +24,7 @@
  * @brief Command Line Interface Console Front End API
  */
 
-#include <pjlib-util/cli_imp.h>
+#include <VialerPJSIP/pjlib-util/cli_imp.h>
 
 
 PJ_BEGIN_DECL

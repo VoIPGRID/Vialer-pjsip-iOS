@@ -24,9 +24,9 @@
  * @brief Secure socket
  */
 
-#include <pj/ioqueue.h>
-#include <pj/sock.h>
-#include <pj/sock_qos.h>
+#include <VialerPJSIP/pj/ioqueue.h>
+#include <VialerPJSIP/pj/sock.h>
+#include <VialerPJSIP/pj/sock_qos.h>
 
 
 PJ_BEGIN_DECL

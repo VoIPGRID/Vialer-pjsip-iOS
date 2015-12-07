@@ -37,6 +37,7 @@ svn_checkout
 mkdir -p "$BASE_DIR"/pjsip/logs/
 all
 copy_headers
+create_framework
 }
 
 function clean() {
@@ -185,6 +186,8 @@ PUBLIC_HEADERS_FOLDER_PATH="${BASE_DIR}/Pod/vialer-pjsip-include"
 LIBRARY_LOCATION="${BASE_DIR}/Pod/"
 export FRAMEWORK_LOCN="${BASE_DIR}/${PRODUCT_NAME}.framework"
 
+Echo "Creating the $PRODUCT_NAME framework in $FRAMEWORK_LOCN"
+
 # Create the path to the real Headers die
 mkdir -p "${FRAMEWORK_LOCN}/Versions/A/Headers"
 
@@ -200,11 +203,31 @@ mkdir -p "${FRAMEWORK_LOCN}/Versions/A/Headers"
 
 cp -a "${LIBRARY_LOCATION}/libVialer-pjsip.a" \
 "${BASE_DIR}/${PRODUCT_NAME}.framework/Versions/A/${PRODUCT_NAME}"
+
+
+Echo "Adapting the framework's header files"
+#Now, replace the #include statements of the framework headers
+#To prevent a sed "sed: RE error: illegal byte sequence" error. Set these.
+export LC_CTYPE=C 
+export LANG=C
+
+i=0
+while IFS= read -r -d '' file; do
+	sed -i '' "s/#include\ </#include <$PRODUCT_NAME\//" "$file"	
+	#to prevent $product_name is inserted multiple times, run a second sed command
+	sed -i '' "s/<$PRODUCT_NAME\/$PRODUCT_NAME\//<$PRODUCT_NAME\//" "$file"
+	
+	EXIT_CODE=$?
+	if [[ $EXIT_CODE != 0 ]]; then 
+		 echo "Error processing file ${file}"
+	fi
+	
+    i=$((i+1))
+done < <(find "${FRAMEWORK_LOCN}/Versions/A/Headers" -type f -name "*.h" -print0)
+echo "$i files processed"
 }
 
 export -f copy_to_lib_dir
-
-create_framework
 
 if [ -n "$1" ]; then
 CMD=$1

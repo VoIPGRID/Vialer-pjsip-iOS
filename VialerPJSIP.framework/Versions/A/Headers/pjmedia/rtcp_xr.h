@@ -25,8 +25,8 @@
  * @brief RTCP XR implementation.
  */
 
-#include <pjmedia/types.h>
-#include <pj/math.h>
+#include <VialerPJSIP/pjmedia/types.h>
+#include <VialerPJSIP/pj/math.h>
 
 
 PJ_BEGIN_DECL

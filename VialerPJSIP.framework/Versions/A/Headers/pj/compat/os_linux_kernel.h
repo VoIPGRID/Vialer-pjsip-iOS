@@ -107,8 +107,8 @@
 
 #define NULL			    ((void*)0)
 
-#include <linux/module.h>	/* Needed by all modules */
-#include <linux/kernel.h>	/* Needed for KERN_INFO */
+#include <VialerPJSIP/linux/module.h>	/* Needed by all modules */
+#include <VialerPJSIP/linux/kernel.h>	/* Needed for KERN_INFO */
 
 #define __PJ_EXPORT_SYMBOL(a)	    EXPORT_SYMBOL(a);
 

@@ -25,9 +25,9 @@
  * @brief STUN transaction
  */
 
-#include <pjnath/stun_msg.h>
-#include <pjnath/stun_config.h>
-#include <pj/lock.h>
+#include <VialerPJSIP/pjnath/stun_msg.h>
+#include <VialerPJSIP/pjnath/stun_config.h>
+#include <VialerPJSIP/pj/lock.h>
 
 
 PJ_BEGIN_DECL

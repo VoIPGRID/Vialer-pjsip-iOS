@@ -25,13 +25,13 @@
  * @brief SIP Transport
  */
 
-#include <pjsip/sip_msg.h>
-#include <pjsip/sip_parser.h>
-#include <pjsip/sip_resolve.h>
-#include <pj/sock.h>
-#include <pj/list.h>
-#include <pj/ioqueue.h>
-#include <pj/timer.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip/sip_parser.h>
+#include <VialerPJSIP/pjsip/sip_resolve.h>
+#include <VialerPJSIP/pj/sock.h>
+#include <VialerPJSIP/pj/list.h>
+#include <VialerPJSIP/pj/ioqueue.h>
+#include <VialerPJSIP/pj/timer.h>
 
 PJ_BEGIN_DECL
 

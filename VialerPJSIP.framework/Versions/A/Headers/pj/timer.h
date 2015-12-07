@@ -23,8 +23,8 @@
  * @brief Timer Heap
  */
 
-#include <pj/types.h>
-#include <pj/lock.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pj/lock.h>
 
 PJ_BEGIN_DECL
 

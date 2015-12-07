@@ -24,7 +24,7 @@
  * @file os.h
  * @brief OS dependent functions
  */
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

@@ -25,7 +25,7 @@
  * @file sip_replaces.h
  * @brief SIP Replaces support (RFC 3891 - SIP "Replaces" Header)
  */
-#include <pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
 
 /**
  * @defgroup PJSIP_REPLACES SIP Replaces support (RFC 3891 - "Replaces" Header)

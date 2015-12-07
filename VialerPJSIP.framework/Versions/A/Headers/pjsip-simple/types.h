@@ -20,7 +20,7 @@
 #ifndef __PJSIP_SIMPLE_TYPES_H__
 #define __PJSIP_SIMPLE_TYPES_H__
 
-#include <pjsip/sip_types.h>
+#include <VialerPJSIP/pjsip/sip_types.h>
 
 
 #define PJSIP_EVSUB_POOL_LEN	4000

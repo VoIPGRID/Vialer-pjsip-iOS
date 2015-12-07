@@ -25,8 +25,8 @@
  * @brief Stream common functions.
  */
 
-#include <pjmedia/codec.h>
-#include <pjmedia/sdp.h>
+#include <VialerPJSIP/pjmedia/codec.h>
+#include <VialerPJSIP/pjmedia/sdp.h>
 
 
 PJ_BEGIN_DECL

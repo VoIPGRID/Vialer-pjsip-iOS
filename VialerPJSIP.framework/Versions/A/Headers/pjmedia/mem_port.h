@@ -24,7 +24,7 @@
  * @file mem_port.h
  * @brief Memory based media playback/capture port
  */
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 PJ_BEGIN_DECL
 

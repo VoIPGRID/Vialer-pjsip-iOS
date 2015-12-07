@@ -26,51 +26,51 @@
  */
 
 /* Base */
-#include <pjlib-util/errno.h>
-#include <pjlib-util/types.h>
+#include <VialerPJSIP/pjlib-util/errno.h>
+#include <VialerPJSIP/pjlib-util/types.h>
 
 /* Getopt */
-#include <pjlib-util/getopt.h>
+#include <VialerPJSIP/pjlib-util/getopt.h>
 
 /* Crypto */
-#include <pjlib-util/base64.h>
-#include <pjlib-util/crc32.h>
-#include <pjlib-util/hmac_md5.h>
-#include <pjlib-util/hmac_sha1.h>
-#include <pjlib-util/md5.h>
-#include <pjlib-util/sha1.h>
+#include <VialerPJSIP/pjlib-util/base64.h>
+#include <VialerPJSIP/pjlib-util/crc32.h>
+#include <VialerPJSIP/pjlib-util/hmac_md5.h>
+#include <VialerPJSIP/pjlib-util/hmac_sha1.h>
+#include <VialerPJSIP/pjlib-util/md5.h>
+#include <VialerPJSIP/pjlib-util/sha1.h>
 
 /* DNS and resolver */
-#include <pjlib-util/dns.h>
-#include <pjlib-util/resolver.h>
-#include <pjlib-util/srv_resolver.h>
+#include <VialerPJSIP/pjlib-util/dns.h>
+#include <VialerPJSIP/pjlib-util/resolver.h>
+#include <VialerPJSIP/pjlib-util/srv_resolver.h>
 
 /* Simple DNS server */
-#include <pjlib-util/dns_server.h>
+#include <VialerPJSIP/pjlib-util/dns_server.h>
 
 /* Text scanner and utilities */
-#include <pjlib-util/scanner.h>
-#include <pjlib-util/string.h>
+#include <VialerPJSIP/pjlib-util/scanner.h>
+#include <VialerPJSIP/pjlib-util/string.h>
 
 /* XML */
-#include <pjlib-util/xml.h>
+#include <VialerPJSIP/pjlib-util/xml.h>
 
 /* JSON */
-#include <pjlib-util/json.h>
+#include <VialerPJSIP/pjlib-util/json.h>
 
 /* Old STUN */
-#include <pjlib-util/stun_simple.h>
+#include <VialerPJSIP/pjlib-util/stun_simple.h>
 
 /* PCAP */
-#include <pjlib-util/pcap.h>
+#include <VialerPJSIP/pjlib-util/pcap.h>
 
 /* HTTP */
-#include <pjlib-util/http_client.h>
+#include <VialerPJSIP/pjlib-util/http_client.h>
 
 /** CLI **/
-#include <pjlib-util/cli.h>
-#include <pjlib-util/cli_console.h>
-#include <pjlib-util/cli_telnet.h>
+#include <VialerPJSIP/pjlib-util/cli.h>
+#include <VialerPJSIP/pjlib-util/cli_console.h>
+#include <VialerPJSIP/pjlib-util/cli_telnet.h>
 
 #endif	/* __PJLIB_UTIL_H__ */
 

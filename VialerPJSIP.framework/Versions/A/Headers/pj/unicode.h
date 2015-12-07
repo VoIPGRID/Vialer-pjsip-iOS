@@ -20,7 +20,7 @@
 #ifndef __PJ_UNICODE_H__
 #define __PJ_UNICODE_H__
 
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 
 /**

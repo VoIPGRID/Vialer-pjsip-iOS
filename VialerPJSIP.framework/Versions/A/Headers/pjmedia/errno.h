@@ -25,8 +25,8 @@
  * @brief PJMEDIA specific error codes.
  */
 
-#include <pjmedia/types.h>
-#include <pj/errno.h>
+#include <VialerPJSIP/pjmedia/types.h>
+#include <VialerPJSIP/pj/errno.h>
 
 /**
  * @defgroup PJMEDIA_ERRNO Error Codes

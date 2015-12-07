@@ -19,7 +19,7 @@
 #ifndef __VIDEODEV_IMP_H__
 #define __VIDEODEV_IMP_H__
 
-#include <pjmedia-videodev/videodev.h>
+#include <VialerPJSIP/pjmedia-videodev/videodev.h>
 
 /**
  * @defgroup s8_video_device_implementors_api Video Device Implementors API

@@ -24,7 +24,7 @@
  * @file tonegen.h
  * @brief Tone (sine, MF, DTMF) generator media port.
  */
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 
 /**

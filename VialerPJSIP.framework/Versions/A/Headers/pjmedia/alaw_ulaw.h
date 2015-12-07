@@ -20,7 +20,7 @@
 #ifndef __PJMEDIA_ALAW_ULAW_H__
 #define __PJMEDIA_ALAW_ULAW_H__
 
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 PJ_BEGIN_DECL
 

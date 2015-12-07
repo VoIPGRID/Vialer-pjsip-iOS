@@ -24,7 +24,7 @@
  * @file sip_config.h
  * @brief Compile time configuration.
  */
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 /**
  * @defgroup PJSIP_CORE Core SIP Library
@@ -1296,7 +1296,7 @@ PJ_END_DECL
  */
 
 
-#include <pj/config.h>
+#include <VialerPJSIP/pj/config.h>
 
 
 #endif	/* __PJSIP_SIP_CONFIG_H__ */

@@ -24,10 +24,10 @@
  * @file presence.h
  * @brief SIP Extension for Presence (RFC 3856)
  */
-#include <pjsip-simple/evsub.h>
-#include <pjsip-simple/pidf.h>
-#include <pjsip-simple/xpidf.h>
-#include <pjsip-simple/rpid.h>
+#include <VialerPJSIP/pjsip-simple/evsub.h>
+#include <VialerPJSIP/pjsip-simple/pidf.h>
+#include <VialerPJSIP/pjsip-simple/xpidf.h>
+#include <VialerPJSIP/pjsip-simple/rpid.h>
 
 
 PJ_BEGIN_DECL

@@ -20,7 +20,7 @@
 #ifndef __PJSIP_AUTH_SIP_AUTH_MSG_H__
 #define __PJSIP_AUTH_SIP_AUTH_MSG_H__
 
-#include <pjsip/sip_msg.h>
+#include <VialerPJSIP/pjsip/sip_msg.h>
 
 PJ_BEGIN_DECL
 

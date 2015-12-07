@@ -21,7 +21,7 @@
 #define __PJLIB_UTIL_ERRNO_H__
 
 
-#include <pj/errno.h>
+#include <VialerPJSIP/pj/errno.h>
 
 /**
  * @defgroup PJLIB_UTIL_ERROR Error Codes

@@ -25,10 +25,10 @@
  * @brief Format conversion utilities
  */
 
-#include <pjmedia/frame.h>
-#include <pjmedia/format.h>
-#include <pj/list.h>
-#include <pj/pool.h>
+#include <VialerPJSIP/pjmedia/frame.h>
+#include <VialerPJSIP/pjmedia/format.h>
+#include <VialerPJSIP/pj/list.h>
+#include <VialerPJSIP/pj/pool.h>
 
 
 /**

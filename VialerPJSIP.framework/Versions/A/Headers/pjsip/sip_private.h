@@ -25,7 +25,7 @@
  * @brief Private structures and functions for PJSIP Library.
  */ 
 
-#include <pjsip/sip_types.h>
+#include <VialerPJSIP/pjsip/sip_types.h>
 
 
 #endif /* __PJSIP_PRIVATE_I_H__ */

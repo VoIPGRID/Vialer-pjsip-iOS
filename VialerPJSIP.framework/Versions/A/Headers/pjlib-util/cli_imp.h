@@ -24,7 +24,7 @@
  * @brief Command Line Interface Implementor's API
  */
 
-#include <pjlib-util/cli.h>
+#include <VialerPJSIP/pjlib-util/cli.h>
 
 
 PJ_BEGIN_DECL

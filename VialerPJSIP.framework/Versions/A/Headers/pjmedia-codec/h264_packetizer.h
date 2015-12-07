@@ -24,7 +24,7 @@
  * @brief Packetizes H.264 bitstream into RTP payload and vice versa.
  */
 
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL
 

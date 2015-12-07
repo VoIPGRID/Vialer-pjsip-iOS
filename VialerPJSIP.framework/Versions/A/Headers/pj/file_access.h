@@ -24,7 +24,7 @@
  * @file file_access.h
  * @brief File manipulation and access.
  */
-#include <pj/types.h>
+#include <VialerPJSIP/pj/types.h>
 
 PJ_BEGIN_DECL 
 

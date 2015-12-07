@@ -25,7 +25,7 @@
  * @file rtp.h
  * @brief RTP packet and RTP session declarations.
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 
 PJ_BEGIN_DECL

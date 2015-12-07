@@ -37,9 +37,9 @@
  * to create a media session (#pjmedia_session_create()).
  */
 
-#include <pjmedia/codec.h>
-#include <pjmedia/sdp.h>
-#include <pjmedia/transport.h>
+#include <VialerPJSIP/pjmedia/codec.h>
+#include <VialerPJSIP/pjmedia/sdp.h>
+#include <VialerPJSIP/pjmedia/transport.h>
 
 
 PJ_BEGIN_DECL

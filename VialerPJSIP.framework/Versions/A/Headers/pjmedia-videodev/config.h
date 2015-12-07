@@ -23,8 +23,8 @@
  * @file config.h
  * @brief Video config.
  */
-#include <pjmedia/types.h>
-#include <pj/pool.h>
+#include <VialerPJSIP/pjmedia/types.h>
+#include <VialerPJSIP/pj/pool.h>
 
 
 PJ_BEGIN_DECL

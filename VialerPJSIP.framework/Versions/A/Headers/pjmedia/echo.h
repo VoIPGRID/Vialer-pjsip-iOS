@@ -25,7 +25,7 @@
  * @file echo.h
  * @brief Echo Cancellation  API.
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 
 

@@ -25,7 +25,7 @@
  * @file master_port.h
  * @brief Master port.
  */
-#include <pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/port.h>
 
 /**
  * @defgroup PJMEDIA_MASTER_PORT Master Port

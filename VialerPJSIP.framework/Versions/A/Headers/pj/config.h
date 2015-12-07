@@ -144,7 +144,7 @@
     /*
      * Autoconf configured
      */
-#include <pj/compat/m_auto.h>
+#include <VialerPJSIP/pj/compat/m_auto.h>
 
 #elif defined (PJ_M_I386) || defined(_i386_) || defined(i_386_) || \
 	defined(_X86_) || defined(x86) || defined(__i386__) || \
@@ -280,12 +280,12 @@
 #endif
 
 /* Include size_t definition. */
-#include <pj/compat/size_t.h>
+#include <VialerPJSIP/pj/compat/size_t.h>
 
 /* Include site/user specific configuration to control PJLIB features.
  * YOU MUST CREATE THIS FILE YOURSELF!!
  */
-#include <pj/config_site.h>
+#include <VialerPJSIP/pj/config_site.h>
 
 /********************************************************************
  * PJLIB Features.

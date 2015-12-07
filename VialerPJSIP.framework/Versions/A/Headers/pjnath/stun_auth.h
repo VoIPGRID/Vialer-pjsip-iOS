@@ -25,7 +25,7 @@
  * @brief STUN authentication.
  */
 
-#include <pjnath/stun_msg.h>
+#include <VialerPJSIP/pjnath/stun_msg.h>
 
 
 PJ_BEGIN_DECL

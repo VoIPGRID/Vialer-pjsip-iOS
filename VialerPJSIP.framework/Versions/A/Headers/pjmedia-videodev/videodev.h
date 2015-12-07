@@ -23,12 +23,12 @@
  * @file videodev.h
  * @brief Video device API.
  */
-#include <pjmedia-videodev/config.h>
-#include <pjmedia-videodev/errno.h>
-#include <pjmedia/event.h>
-#include <pjmedia/frame.h>
-#include <pjmedia/format.h>
-#include <pj/pool.h>
+#include <VialerPJSIP/pjmedia-videodev/config.h>
+#include <VialerPJSIP/pjmedia-videodev/errno.h>
+#include <VialerPJSIP/pjmedia/event.h>
+#include <VialerPJSIP/pjmedia/frame.h>
+#include <VialerPJSIP/pjmedia/format.h>
+#include <VialerPJSIP/pj/pool.h>
 
 
 PJ_BEGIN_DECL

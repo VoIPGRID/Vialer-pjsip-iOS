@@ -26,7 +26,7 @@
  * @brief Sound device wrapper using Audio Proxy Server on 
  * Symbian S60 3rd edition.
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 PJ_BEGIN_DECL
 

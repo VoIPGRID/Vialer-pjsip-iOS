@@ -24,11 +24,11 @@
  * @file ice_session.h
  * @brief ICE session management
  */
-#include <pjnath/types.h>
-#include <pjnath/stun_session.h>
-#include <pjnath/errno.h>
-#include <pj/sock.h>
-#include <pj/timer.h>
+#include <VialerPJSIP/pjnath/types.h>
+#include <VialerPJSIP/pjnath/stun_session.h>
+#include <VialerPJSIP/pjnath/errno.h>
+#include <VialerPJSIP/pj/sock.h>
+#include <VialerPJSIP/pj/timer.h>
 
 PJ_BEGIN_DECL
 

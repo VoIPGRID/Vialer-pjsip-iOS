@@ -25,7 +25,7 @@
  * @brief G711 Codec
  */
 
-#include <pjmedia-codec/types.h>
+#include <VialerPJSIP/pjmedia-codec/types.h>
 
 /**
  * @defgroup PJMED_G711 G.711 Codec

@@ -25,7 +25,7 @@
  * @file wave.h
  * @brief WAVE file manipulation.
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 /**
  * @defgroup PJMEDIA_FILE_FORMAT File Formats

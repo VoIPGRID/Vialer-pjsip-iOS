@@ -25,7 +25,7 @@
  * @brief Text Scanning.
  */
 
-#include <pjlib-util/types.h>
+#include <VialerPJSIP/pjlib-util/types.h>
 
 PJ_BEGIN_DECL
 

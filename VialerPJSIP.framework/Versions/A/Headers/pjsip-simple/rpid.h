@@ -24,8 +24,8 @@
  * @file rpid.h
  * @brief RPID: Rich Presence Extensions to the PIDF (RFC 4480)
  */
-#include <pjsip-simple/types.h>
-#include <pjsip-simple/pidf.h>
+#include <VialerPJSIP/pjsip-simple/types.h>
+#include <VialerPJSIP/pjsip-simple/pidf.h>
 
 PJ_BEGIN_DECL
 

@@ -25,10 +25,10 @@
  * @brief STUN endpoint.
  */
 
-#include <pjnath/stun_msg.h>
-#include <pj/assert.h>
-#include <pj/errno.h>
-#include <pj/string.h>
+#include <VialerPJSIP/pjnath/stun_msg.h>
+#include <VialerPJSIP/pj/assert.h>
+#include <VialerPJSIP/pj/errno.h>
+#include <VialerPJSIP/pj/string.h>
 
 
 PJ_BEGIN_DECL

@@ -27,9 +27,9 @@
  * RFC 3263 - Locating SIP Servers
  */
 
-#include <pjsip/sip_types.h>
-#include <pjlib-util/resolver.h>
-#include <pj/sock.h>
+#include <VialerPJSIP/pjsip/sip_types.h>
+#include <VialerPJSIP/pjlib-util/resolver.h>
+#include <VialerPJSIP/pj/sock.h>
 
 PJ_BEGIN_DECL
 

@@ -26,14 +26,14 @@
  * @brief Media Stream.
  */
 
-#include <pjmedia/codec.h>
-#include <pjmedia/endpoint.h>
-#include <pjmedia/jbuf.h>
-#include <pjmedia/port.h>
-#include <pjmedia/rtcp.h>
-#include <pjmedia/transport.h>
-#include <pjmedia/vid_codec.h>
-#include <pj/sock.h>
+#include <VialerPJSIP/pjmedia/codec.h>
+#include <VialerPJSIP/pjmedia/endpoint.h>
+#include <VialerPJSIP/pjmedia/jbuf.h>
+#include <VialerPJSIP/pjmedia/port.h>
+#include <VialerPJSIP/pjmedia/rtcp.h>
+#include <VialerPJSIP/pjmedia/transport.h>
+#include <VialerPJSIP/pjmedia/vid_codec.h>
+#include <VialerPJSIP/pj/sock.h>
 
 PJ_BEGIN_DECL
 

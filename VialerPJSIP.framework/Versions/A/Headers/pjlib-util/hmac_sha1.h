@@ -25,8 +25,8 @@
  * @brief HMAC SHA1 Message Authentication
  */
 
-#include <pj/types.h>
-#include <pjlib-util/sha1.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/pjlib-util/sha1.h>
 
 PJ_BEGIN_DECL
 

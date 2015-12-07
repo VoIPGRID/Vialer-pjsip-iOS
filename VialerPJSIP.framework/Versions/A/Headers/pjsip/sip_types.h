@@ -31,8 +31,8 @@
  * @brief Basic PJSIP types.
  */
 
-#include <pjsip/sip_config.h>
-#include <pj/types.h>
+#include <VialerPJSIP/pjsip/sip_config.h>
+#include <VialerPJSIP/pj/types.h>
 
 /**
  * @addtogroup PJSIP_BASE

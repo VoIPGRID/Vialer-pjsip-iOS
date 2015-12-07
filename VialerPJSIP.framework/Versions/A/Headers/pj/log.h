@@ -25,8 +25,8 @@
  * @brief Logging Utility.
  */
 
-#include <pj/types.h>
-#include <stdarg.h>
+#include <VialerPJSIP/pj/types.h>
+#include <VialerPJSIP/stdarg.h>
 
 PJ_BEGIN_DECL
 

@@ -25,7 +25,7 @@
  * @brief PJSIP Specific Error Code
  */
 
-#include <pj/errno.h>
+#include <VialerPJSIP/pj/errno.h>
 
 PJ_BEGIN_DECL
 

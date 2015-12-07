@@ -24,8 +24,8 @@
  * @file dns_server.h
  * @brief Simple DNS server
  */
-#include <pjlib-util/types.h>
-#include <pjlib-util/dns.h>
+#include <VialerPJSIP/pjlib-util/types.h>
+#include <VialerPJSIP/pjlib-util/dns.h>
 
 PJ_BEGIN_DECL
 

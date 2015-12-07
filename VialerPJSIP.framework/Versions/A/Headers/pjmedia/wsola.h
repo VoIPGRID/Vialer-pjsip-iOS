@@ -24,7 +24,7 @@
  * @file wsola.h
  * @brief Waveform Similarity Based Overlap-Add (WSOLA)
  */
-#include <pjmedia/types.h>
+#include <VialerPJSIP/pjmedia/types.h>
 
 /**
  * @defgroup PJMED_WSOLA Waveform Similarity Based Overlap-Add (WSOLA)
