@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
 	s.platform              = :ios, "9.0"
 	s.requires_arc          = false
 
-        #s.preserve_paths        = "VialerPJSIP.framework/*"
-        #s.public_header_files   = "VialerPJSIP.framework/Versions/A/Headers/**/*.{h,hpp}"
-        s.vendored_frameworks   = "VialerPJSIP.framework"
-
-        s.frameworks 		= "AudioToolbox", "AVFoundation", "CFNetwork"
+	s.preserve_paths        = "VialerPJSIP.framework/*"
+	s.public_header_files   = "VialerPJSIP.framework/Versions/A/Headers/**/*.{h,hpp}"
+	s.vendored_frameworks   = "VialerPJSIP.framework"
+	
+	s.frameworks            = "AudioToolbox", "AVFoundation", "CFNetwork"
 
   	s.xcconfig = {
             'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
