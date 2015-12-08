@@ -1,4 +1,4 @@
-/* $Id: stun_simple.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: stun_simple.c 3553 2011-05-05 06:14:19Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -49,8 +49,8 @@ PJ_DEF(pj_status_t) pjstun_create_bind_req( pj_pool_t *pool,
     return PJ_SUCCESS;
 }
 
-PJ_DEF(pj_status_t) pjstun_parse_msg( void *buf, pj_size_t buf_len, 
-				      pjstun_msg *msg)
+PJ_DEF(pj_status_t) pjstun_parse_msg( void *buf, pj_size_t len, 
+				       pjstun_msg *msg)
 {
     pj_uint16_t msg_type, msg_len;
     char *p_attr;
@@ -74,9 +74,9 @@ PJ_DEF(pj_status_t) pjstun_parse_msg( void *buf, pj_size_t buf_len,
     }
 
     msg_len = pj_ntohs(msg->hdr->length);
-    if (msg_len != buf_len - sizeof(pjstun_msg_hdr)) {
+    if (msg_len != len - sizeof(pjstun_msg_hdr)) {
 	PJ_LOG(4,(THIS_FILE, "Error: invalid msg_len %d (expecting %d)", 
-			     msg_len, buf_len - sizeof(pjstun_msg_hdr)));
+			     msg_len, len - sizeof(pjstun_msg_hdr)));
 	return PJLIB_UTIL_ESTUNINMSGLEN;
     }
 

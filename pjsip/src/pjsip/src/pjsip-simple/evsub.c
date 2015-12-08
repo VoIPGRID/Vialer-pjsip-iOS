@@ -1,4 +1,4 @@
-/* $Id: evsub.c 5195 2015-11-06 07:55:38Z riza $ */
+/* $Id: evsub.c 4969 2014-12-19 14:22:35Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -235,7 +235,6 @@ struct pjsip_evsub
     int			  pending_tsx;	/**< Number of pending transactions.*/
     pjsip_transaction	 *pending_sub;	/**< Pending UAC SUBSCRIBE tsx.	    */
     pj_timer_entry	 *pending_sub_timer; /**< Stop pending sub timer.   */
-    pj_grp_lock_t	 *grp_lock;	/* Session group lock	    */
 
     void		 *mod_data[PJSIP_MAX_MODULE];	/**< Module data.   */
 };
@@ -253,14 +252,13 @@ struct dlgsub
 
 
 /* Static vars. */
-static const pj_str_t STR_EVENT	       = { "Event", 5 };
-static const pj_str_t STR_EVENT_S      = { "o", 1 };
-static const pj_str_t STR_SUB_STATE    = { "Subscription-State", 18 };
-static const pj_str_t STR_TERMINATED   = { "terminated", 10 };
-static const pj_str_t STR_ACTIVE       = { "active", 6 };
-static const pj_str_t STR_PENDING      = { "pending", 7 };
-static const pj_str_t STR_TIMEOUT      = { "timeout", 7};
-static const pj_str_t STR_RETRY_AFTER  = { "Retry-After", 11 };
+static const pj_str_t STR_EVENT	     = { "Event", 5 };
+static const pj_str_t STR_EVENT_S    = { "o", 1 };
+static const pj_str_t STR_SUB_STATE  = { "Subscription-State", 18 };
+static const pj_str_t STR_TERMINATED = { "terminated", 10 };
+static const pj_str_t STR_ACTIVE     = { "active", 6 };
+static const pj_str_t STR_PENDING    = { "pending", 7 };
+static const pj_str_t STR_TIMEOUT    = { "timeout", 7};
 
 
 /*
@@ -516,26 +514,13 @@ static void set_timer( pjsip_evsub *sub, int timer_id,
 
 	timeout.sec = seconds;
 	timeout.msec = 0;
+	sub->timer.id = timer_id;
 
-	pj_timer_heap_schedule_w_grp_lock(
-			    pjsip_endpt_get_timer_heap(sub->endpt),
-			    &sub->timer, &timeout, timer_id, sub->grp_lock);
+	pjsip_endpt_schedule_timer(sub->endpt, &sub->timer, &timeout);
 
 	PJ_LOG(5,(sub->obj_name, "Timer %s scheduled in %d seconds", 
 		  timer_names[sub->timer.id], timeout.sec));
     }
-}
-
-
-/*
- * Destructor.
- */
-static void evsub_on_destroy(void *obj)
-{
-    pjsip_evsub *sub = (pjsip_evsub*)obj;
-
-    /* Decrement dialog's session */
-    pjsip_dlg_dec_session(sub->dlg, &mod_evsub.mod);
 }
 
 
@@ -571,7 +556,8 @@ static void evsub_destroy( pjsip_evsub *sub )
 	dlgsub = dlgsub->next;
     }
 
-    pj_grp_lock_dec_ref(sub->grp_lock);
+    /* Decrement dialog's session */
+    pjsip_dlg_dec_session(sub->dlg, &mod_evsub.mod);
 }
 
 /*
@@ -641,14 +627,6 @@ static void on_timer( pj_timer_heap_t *timer_heap,
     sub = (pjsip_evsub*) entry->user_data;
 
     pjsip_dlg_inc_lock(sub->dlg);
-
-    /* If this timer entry has just been rescheduled or cancelled
-     * while waiting for dialog mutex, just return (see #1885 scenario 1).
-     */
-    if (pj_timer_entry_running(entry) || entry->id == TIMER_TYPE_NONE) {
-	pjsip_dlg_dec_lock(sub->dlg);
-	return;
-    }
 
     timer_id = entry->id;
     entry->id = TIMER_TYPE_NONE;
@@ -862,16 +840,6 @@ PJ_DEF(pj_status_t) pjsip_evsub_create_uac( pjsip_dialog *dlg,
     /* Increment dlg session. */
     pjsip_dlg_inc_session(sub->dlg, &mod_evsub.mod);
 
-    /* Init group lock */
-    status = pj_grp_lock_create(dlg->pool, NULL, &sub->grp_lock);
-    if (status != PJ_SUCCESS) {
-	pjsip_dlg_dec_session(sub->dlg, &mod_evsub.mod);
-	goto on_return;
-    }
-
-    pj_grp_lock_add_ref(sub->grp_lock);
-    pj_grp_lock_add_handler(sub->grp_lock, dlg->pool, sub, &evsub_on_destroy);
-
     /* Done */
     *p_evsub = sub;
 
@@ -961,23 +929,12 @@ PJ_DEF(pj_status_t) pjsip_evsub_create_uas( pjsip_dialog *dlg,
     if (accept_hdr)
 	sub->accept = (pjsip_accept_hdr*)pjsip_hdr_clone(sub->pool,accept_hdr);
 
-    /* Increment dlg session. */
-    pjsip_dlg_inc_session(dlg, &mod_evsub.mod);
-
-    /* Init group lock */
-    status = pj_grp_lock_create(dlg->pool, NULL, &sub->grp_lock);
-    if (status != PJ_SUCCESS) {
-	pjsip_dlg_dec_session(sub->dlg, &mod_evsub.mod);
-	goto on_return;
-    }
-
-    pj_grp_lock_add_ref(sub->grp_lock);
-    pj_grp_lock_add_handler(sub->grp_lock, dlg->pool, sub, &evsub_on_destroy);
-
     /* We can start the session: */
 
+    pjsip_dlg_inc_session(dlg, &mod_evsub.mod);
     sub->pending_tsx++;
     tsx->mod_data[mod_evsub.mod.id] = sub;
+
 
     /* Done. */
     *p_evsub = sub;
@@ -2157,66 +2114,40 @@ static void on_tsx_state_uas( pjsip_evsub *sub, pjsip_transaction *tsx,
 
     } else if (pjsip_method_cmp(&tsx->method, &pjsip_notify_method)==0) {
 
-	/* Handle authentication */
+	/* Handle authentication */ 
 	if (tsx->state == PJSIP_TSX_STATE_COMPLETED &&
 	    (tsx->status_code==401 || tsx->status_code==407))
-	{	    
+	{
+	    pjsip_rx_data *rdata = event->body.tsx_state.src.rdata;
 	    pjsip_tx_data *tdata;
 	    pj_status_t status;
-	    pjsip_rx_data *rdata = event->body.tsx_state.src.rdata;
 
-	    status = pjsip_auth_clt_reinit_req(&sub->dlg->auth_sess, rdata,
-					       tsx->last_tx, &tdata);
+	    status = pjsip_auth_clt_reinit_req( &sub->dlg->auth_sess, rdata, 
+						tsx->last_tx, &tdata);
 	    if (status == PJ_SUCCESS)
-		status = pjsip_dlg_send_request(sub->dlg, tdata, -1, NULL);
+		status = pjsip_dlg_send_request( sub->dlg, tdata, -1, NULL );
 
 	    if (status != PJ_SUCCESS) {
 		/* Can't authenticate. Terminate session (?) */
-		set_state(sub, PJSIP_EVSUB_STATE_TERMINATED, NULL, NULL,
+		set_state(sub, PJSIP_EVSUB_STATE_TERMINATED, NULL, NULL, 
 			  &tsx->status_text);
 		return;
 	    }
 
 	}
-
-	if (sub->state == PJSIP_EVSUB_STATE_TERMINATED)
+	/*
+	 * Terminate event usage if we receive 481, 408, and 7 class
+	 * responses.
+	 */
+	if (sub->state != PJSIP_EVSUB_STATE_TERMINATED &&
+	    (tsx->status_code==481 || tsx->status_code==408 ||
+	     tsx->status_code/100 == 7))
+	{
+	    set_state(sub, PJSIP_EVSUB_STATE_TERMINATED, NULL, event,
+		      &tsx->status_text);
 	    return;
-
-	/* NOTIFY failure check */
-	if (tsx->status_code/100 != 2) {
-	    pj_bool_t should_terminate_sub = PJ_FALSE;
-
-	    if (event->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
-		if (tsx->status_code == 481) {
-		    should_terminate_sub = PJ_TRUE;
-		} else {
-		    pjsip_retry_after_hdr *retry_after;
-		    pjsip_rx_data *rdata = event->body.tsx_state.src.rdata;;
-		    pjsip_msg *msg = rdata->msg_info.msg;		    
-
-		    retry_after = (pjsip_retry_after_hdr*)
-		       pjsip_msg_find_hdr_by_name(msg, &STR_RETRY_AFTER, NULL);
-
-		    if (!retry_after) {
-			should_terminate_sub = PJ_TRUE;
-		    }
-		}
-	    } else if (event->body.tsx_state.type == PJSIP_EVENT_TIMER) {
-		if (tsx->status_code == 408) {
-		    should_terminate_sub = PJ_TRUE;
-		}
-	    }
-
-	    /*
-	     * Terminate event usage if we receive non 2xx without retry_after
-	     * parameter, 481, 408 responses.
-	     */
-	    if (should_terminate_sub) {
-		set_state(sub, PJSIP_EVSUB_STATE_TERMINATED, NULL, event,
-			  &tsx->status_text);
-		return;
-	    }
 	}
+
     } else {
 
 	/*

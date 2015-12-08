@@ -26,7 +26,7 @@
  */
 
 #if defined(PJ_HAS_MALLOC_H) && PJ_HAS_MALLOC_H != 0
-#  include <malloc.h>
+#  include <VialerPJSIP/malloc.h>
 #elif defined(PJ_HAS_STDLIB_H) && PJ_HAS_STDLIB_H != 0
 #  include <stdlib.h>
 #endif

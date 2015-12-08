@@ -1,4 +1,4 @@
-/* $Id: tsx_uas_test.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: tsx_uas_test.c 4893 2014-08-19 07:51:46Z bennylp $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -261,7 +261,7 @@ static void send_response( pjsip_rx_data *rdata,
 
 /* Schedule timer to send response for the specified UAS transaction */
 static void schedule_send_response( pjsip_rx_data *rdata,
-				    const pj_str_t *tsx_key_,
+				    const pj_str_t *tsx_key,
 				    int status_code,
 				    int msec_delay )
 {
@@ -280,7 +280,7 @@ static void schedule_send_response( pjsip_rx_data *rdata,
     }
 
     r = PJ_POOL_ALLOC_T(tdata->pool, struct response);
-    pj_strdup(tdata->pool, &r->tsx_key, tsx_key_);
+    pj_strdup(tdata->pool, &r->tsx_key, tsx_key);
     r->tdata = tdata;
 
     delay.sec = 0;

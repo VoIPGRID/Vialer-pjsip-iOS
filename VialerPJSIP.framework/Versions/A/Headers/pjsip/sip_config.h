@@ -1,4 +1,4 @@
-/* $Id: sip_config.h 5176 2015-09-11 02:59:01Z nanang $ */
+/* $Id: sip_config.h 5152 2015-08-07 09:00:52Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -56,7 +56,7 @@
  * Include sip_autoconf.h if autoconf is used (PJ_AUTOCONF is set)
  */
 #if defined(PJ_AUTOCONF)
-#   include <pjsip/sip_autoconf.h>
+#   include <VialerPJSIP/pjsip/sip_autoconf.h>
 #endif
 
 PJ_BEGIN_DECL
@@ -315,6 +315,8 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
 
 /**
  * Specify maximum URL size.
+ * This constant is used mainly when printing the URL for logging purpose 
+ * only.
  */
 #ifndef PJSIP_MAX_URL_SIZE
 #   define PJSIP_MAX_URL_SIZE		256

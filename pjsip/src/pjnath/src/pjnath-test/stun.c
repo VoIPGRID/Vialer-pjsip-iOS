@@ -1,4 +1,4 @@
-/* $Id: stun.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: stun.c 4910 2014-09-01 06:32:50Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -692,7 +692,7 @@ static int fingerprint_test_vector()
 	if (v->options & USE_MESSAGE_INTEGRITY) {
 	    if (PJ_STUN_IS_REQUEST(msg->hdr.type)) {
 		pj_stun_auth_cred cred;
-		pj_status_t status2;
+		pj_status_t status;
 
 		pj_bzero(&cred, sizeof(cred));
 		cred.type = PJ_STUN_AUTH_CRED_STATIC;
@@ -701,11 +701,11 @@ static int fingerprint_test_vector()
 		cred.data.static_cred.data = pj_str(v->password);
 		cred.data.static_cred.nonce = pj_str(v->nonce);
 
-		status2 = pj_stun_authenticate_request(buf, (unsigned)len, msg, 
+		status = pj_stun_authenticate_request(buf, (unsigned)len, msg, 
 						      &cred, pool, NULL, NULL);
-		if (status2 != PJ_SUCCESS) {
+		if (status != PJ_SUCCESS) {
 		    char errmsg[PJ_ERR_MSG_SIZE];
-		    pj_strerror(status2, errmsg, sizeof(errmsg));
+		    pj_strerror(status, errmsg, sizeof(errmsg));
 		    PJ_LOG(1,(THIS_FILE, 
 			      "    Request authentication failed: %s",
 			      errmsg));
@@ -714,12 +714,12 @@ static int fingerprint_test_vector()
 		}
 
 	    } else if (PJ_STUN_IS_RESPONSE(msg->hdr.type)) {
-		pj_status_t status2;
-		status2 = pj_stun_authenticate_response(buf, (unsigned)len, 
+		pj_status_t status;
+		status = pj_stun_authenticate_response(buf, (unsigned)len, 
 						       msg, &key);
-		if (status2 != PJ_SUCCESS) {
+		if (status != PJ_SUCCESS) {
 		    char errmsg[PJ_ERR_MSG_SIZE];
-		    pj_strerror(status2, errmsg, sizeof(errmsg));
+		    pj_strerror(status, errmsg, sizeof(errmsg));
 		    PJ_LOG(1,(THIS_FILE, 
 			      "    Response authentication failed: %s",
 			      errmsg));

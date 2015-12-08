@@ -36,7 +36,7 @@
 #endif
 
 /* For sprintf family */
-#include <VialerPJSIP/stdio.h>
+#include <stdio.h>
 
 /* On WinCE, string stuffs are declared in stdlib.h */
 #if defined(PJ_HAS_STDLIB_H) && PJ_HAS_STDLIB_H!=0
@@ -75,8 +75,8 @@
 #define pj_ansi_sprintf		sprintf
 
 #if defined(PJ_HAS_NO_SNPRINTF) && PJ_HAS_NO_SNPRINTF != 0
-#   include <pj/types.h>
-#   include <pj/compat/stdarg.h>
+#   include <VialerPJSIP/pj/types.h>
+#   include <VialerPJSIP/pj/compat/stdarg.h>
     PJ_BEGIN_DECL
     PJ_DECL(int) snprintf(char*s1, pj_size_t len, const char*s2, ...);
     PJ_DECL(int) vsnprintf(char*s1, pj_size_t len, const char*s2, va_list arg);

@@ -48,7 +48,7 @@
    /*
     * Linux kernel mode random number generator.
     */
-#  include <linux/random.h>
+#  include <VialerPJSIP/linux/random.h>
 #  define platform_srand(seed)
 
    PJ_INLINE(int) platform_rand(void)

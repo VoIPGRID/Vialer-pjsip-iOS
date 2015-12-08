@@ -1,4 +1,4 @@
-/* $Id: sip_multipart.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: sip_multipart.c 5107 2015-06-12 03:07:05Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -592,10 +592,10 @@ PJ_DEF(pjsip_msg_body*) pjsip_multipart_parse(pj_pool_t *pool,
     curptr = buf;
     endptr = buf + len;
     {
-	pj_str_t strbody;
+	pj_str_t body;
 
-	strbody.ptr = buf; strbody.slen = len;
-	curptr = pj_strstr(&strbody, &delim);
+	body.ptr = buf; body.slen = len;
+	curptr = pj_strstr(&body, &delim);
 	if (!curptr)
 	    return NULL;
     }

@@ -1301,29 +1301,6 @@ output/pjmedia-x86_64-apple-darwin_ios/echo_suppress.o: ../src/pjmedia/echo_supp
   ../../pjlib/include/pj/lock.h ../../pjlib/include/pj/log.h \
   ../../pjlib/include/pj/os.h ../../pjlib/include/pj/pool.h \
   ../../pjlib/include/pj/list.h ../src/pjmedia/echo_internal.h
-output/pjmedia-x86_64-apple-darwin_ios/echo_webrtc.o: ../src/pjmedia/echo_webrtc.c ../include/pjmedia/echo.h \
-  ../include/pjmedia/types.h ../include/pjmedia/config.h \
-  ../../pjlib/include/pj/config.h ../../pjlib/include/pj/compat/cc_gcc.h \
-  ../../pjlib/include/pj/compat/os_auto.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/TargetConditionals.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/Availability.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/AvailabilityInternal.h \
-  ../../pjlib/include/pj/compat/m_auto.h \
-  ../../pjlib/include/pj/compat/size_t.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stddef.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/__stddef_max_align_t.h \
-  ../../pjlib/include/pj/config_site.h ../include/pjmedia/config_auto.h \
-  ../../pjlib/include/pj/sock.h ../../pjlib/include/pj/types.h \
-  ../include/pjmedia/errno.h ../../pjlib/include/pj/errno.h \
-  ../../pjlib/include/pj/compat/errno.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stdarg.h \
-  ../../pjlib/include/pj/assert.h ../../pjlib/include/pj/compat/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/cdefs.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_symbol_aliasing.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_posix_availability.h \
-  ../../pjlib/include/pj/log.h ../../pjlib/include/pj/pool.h \
-  ../../pjlib/include/pj/list.h
 output/pjmedia-x86_64-apple-darwin_ios/endpoint.o: ../src/pjmedia/endpoint.c ../include/pjmedia/endpoint.h \
   ../include/pjmedia/codec.h ../include/pjmedia/port.h \
   ../include/pjmedia/clock.h ../include/pjmedia/types.h \
@@ -4851,13 +4828,13 @@ output/pjmedia-x86_64-apple-darwin_ios/transport_srtp.o: ../src/pjmedia/transpor
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/runetype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_wint_t.h \
   ../../pjlib/include/pj/lock.h ../../pjlib/include/pj/log.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/include/srtp.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/crypto_kernel.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/rand_source.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/err.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/datatypes.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/integers.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/build/srtp/srtp_config.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/include/srtp.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/crypto_kernel.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/rand_source.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/err.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/datatypes.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/integers.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/build/srtp/srtp_config.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/types.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_blkcnt_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_blksize_t.h \
@@ -4890,7 +4867,7 @@ output/pjmedia-x86_64-apple-darwin_ios/transport_srtp.o: ../src/pjmedia/transpor
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_pthread/_pthread_key_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_fsblkcnt_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_fsfilcnt_t.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/alloc.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/alloc.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/time.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_timespec.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/netinet/in.h \
@@ -4901,18 +4878,18 @@ output/pjmedia-x86_64-apple-darwin_ios/transport_srtp.o: ../src/pjmedia/transpor
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_socklen_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/sys/_types/_iovec_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk/usr/include/netinet6/in6.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/prng.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/aes.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/gf2_8.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/aes_icm.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/cipher.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/rdbx.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/auth.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/cryptoalg.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/stat.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/crypto_types.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/key.h \
-  /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/third_party/srtp/crypto/include/crypto.h
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/prng.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/aes.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/gf2_8.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/aes_icm.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/cipher.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/rdbx.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/auth.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/cryptoalg.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/stat.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/crypto_types.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/key.h \
+  /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/third_party/srtp/crypto/include/crypto.h
 output/pjmedia-x86_64-apple-darwin_ios/transport_udp.o: ../src/pjmedia/transport_udp.c \
   ../include/pjmedia/transport_udp.h ../include/pjmedia/stream.h \
   ../include/pjmedia/codec.h ../include/pjmedia/port.h \

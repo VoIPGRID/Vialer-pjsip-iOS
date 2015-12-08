@@ -1,4 +1,4 @@
-/* $Id: config.h 5164 2015-08-12 05:28:43Z riza $ */
+/* $Id: config.h 5160 2015-08-12 02:39:26Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -30,17 +30,17 @@
  * Include compiler specific configuration.
  */
 #if defined(_MSC_VER)
-#  include <pj/compat/cc_msvc.h>
+#  include <VialerPJSIP/pj/compat/cc_msvc.h>
 #elif defined(__GNUC__)
-#  include <pj/compat/cc_gcc.h>
+#  include <VialerPJSIP/pj/compat/cc_gcc.h>
 #elif defined(__CW32__)
-#  include <pj/compat/cc_mwcc.h>
+#  include <VialerPJSIP/pj/compat/cc_mwcc.h>
 #elif defined(__MWERKS__)
-#  include <pj/compat/cc_codew.h>
+#  include <VialerPJSIP/pj/compat/cc_codew.h>
 #elif defined(__GCCE__)
-#  include <pj/compat/cc_gcce.h>
+#  include <VialerPJSIP/pj/compat/cc_gcce.h>
 #elif defined(__ARMCC__)
-#  include <pj/compat/cc_armcc.h>
+#  include <VialerPJSIP/pj/compat/cc_armcc.h>
 #else
 #  error "Unknown compiler."
 #endif
@@ -57,13 +57,13 @@
     /*
      * Autoconf
      */
-#   include <pj/compat/os_auto.h>
+#   include <VialerPJSIP/pj/compat/os_auto.h>
 
 #elif defined(PJ_SYMBIAN) && PJ_SYMBIAN!=0
     /*
      * SymbianOS
      */
-#  include <pj/compat/os_symbian.h>
+#  include <VialerPJSIP/pj/compat/os_symbian.h>
 
 #elif defined(PJ_WIN32_WINCE) || defined(_WIN32_WCE) || defined(UNDER_CE)
     /*
@@ -71,7 +71,7 @@
      */
 #   undef PJ_WIN32_WINCE
 #   define PJ_WIN32_WINCE   1
-#   include <pj/compat/os_win32_wince.h>
+#   include <VialerPJSIP/pj/compat/os_win32_wince.h>
 
     /* Also define Win32 */
 #   define PJ_WIN32 1
@@ -88,13 +88,13 @@
 #   endif
 #   undef PJ_WIN32
 #   define PJ_WIN32 1
-#   include <pj/compat/os_win32.h>
+#   include <VialerPJSIP/pj/compat/os_win32.h>
 
 #elif defined(PJ_LINUX_KERNEL) && PJ_LINUX_KERNEL!=0
     /*
      * Linux kernel
      */
-#  include <pj/compat/os_linux_kernel.h>
+#  include <VialerPJSIP/pj/compat/os_linux_kernel.h>
 
 #elif defined(PJ_LINUX) || defined(linux) || defined(__linux)
     /*
@@ -102,13 +102,13 @@
      */
 #   undef PJ_LINUX
 #   define PJ_LINUX	    1
-#   include <pj/compat/os_linux.h>
+#   include <VialerPJSIP/pj/compat/os_linux.h>
 
 #elif defined(PJ_PALMOS) && PJ_PALMOS!=0
     /*
      * Palm
      */
-#  include <pj/compat/os_palmos.h>
+#  include <VialerPJSIP/pj/compat/os_palmos.h>
 
 #elif defined(PJ_SUNOS) || defined(sun) || defined(__sun)
     /*
@@ -116,7 +116,7 @@
      */
 #   undef PJ_SUNOS
 #   define PJ_SUNOS	    1
-#   include <pj/compat/os_sunos.h>
+#   include <VialerPJSIP/pj/compat/os_sunos.h>
 
 #elif defined(PJ_DARWINOS) || defined(__MACOSX__) || \
       defined (__APPLE__) || defined (__MACH__)
@@ -125,13 +125,13 @@
      */
 #   undef PJ_DARWINOS
 #   define PJ_DARWINOS	    1
-#   include <pj/compat/os_darwinos.h>
+#   include <VialerPJSIP/pj/compat/os_darwinos.h>
 
 #elif defined(PJ_RTEMS) && PJ_RTEMS!=0
     /*
      * RTEMS
      */
-#  include <pj/compat/os_rtems.h>
+#  include <VialerPJSIP/pj/compat/os_rtems.h>
 #else
 #   error "Please specify target os."
 #endif
@@ -1226,7 +1226,7 @@ PJ_BEGIN_DECL
  * Extra suffix for the version (e.g. "-trunk"), or empty for
  * web release version.
  */
-#define PJ_VERSION_NUM_EXTRA	"-svn"
+#define PJ_VERSION_NUM_EXTRA	""
 
 /**
  * PJLIB version number consists of three bytes with the following format:

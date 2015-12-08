@@ -219,7 +219,7 @@ on_return:
 /*
  * Simple implementation of app_main() for console targets
  */
-pj_status_t app_main(pj_cli_t *c)
+pj_status_t app_main(pj_cli_t *cli)
 {
     pj_status_t status;
     pj_cli_sess *sess;
@@ -231,7 +231,7 @@ pj_status_t app_main(pj_cli_t *c)
     /*
      * Create the console front end
      */
-    status = pj_cli_console_create(c, &console_cfg, &sess, NULL);
+    status = pj_cli_console_create(cli, &console_cfg, &sess, NULL);
     if (status != PJ_SUCCESS)
 	return status;
 
@@ -242,6 +242,7 @@ pj_status_t app_main(pj_cli_t *c)
      */
     for (;;) {
 	char cmdline[PJ_CLI_MAX_CMDBUF];
+        pj_status_t status;
 
         status = pj_cli_console_process(sess, &cmdline[0], sizeof(cmdline));
 	if (status != PJ_SUCCESS)

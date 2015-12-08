@@ -1,4 +1,4 @@
-/* $Id: pool_perf.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: pool_perf.c 3553 2011-05-05 06:14:19Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -47,14 +47,14 @@ static int pool_test_pool()
 	return -1;
 
     for (i=0; i<COUNT; ++i) {
-	char *ptr;
-	if ( (ptr=(char*)pj_pool_alloc(pool, sizes[i])) == NULL) {
+	char *p;
+	if ( (p=(char*)pj_pool_alloc(pool, sizes[i])) == NULL) {
 	    PJ_LOG(3,(THIS_FILE,"   error: pool failed to allocate %d bytes",
 		      sizes[i]));
 	    pj_pool_release(pool);
 	    return -1;
 	}
-	*ptr = '\0';
+	*p = '\0';
     }
 
     pj_pool_release(pool);

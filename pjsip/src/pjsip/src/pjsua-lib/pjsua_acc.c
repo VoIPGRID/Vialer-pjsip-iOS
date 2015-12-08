@@ -1,4 +1,4 @@
-/* $Id: pjsua_acc.c 5188 2015-10-08 08:55:52Z ming $ */
+/* $Id: pjsua_acc.c 5143 2015-07-31 11:35:20Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -2199,7 +2199,7 @@ static void regc_cb(struct pjsip_regc_cbparam *param)
 	    acc->rfc5626_status = OUTBOUND_UNKNOWN;
 
 	    /* Reset pointer to registration transport */
-	    //acc->auto_rereg.reg_tp = NULL;
+	    acc->auto_rereg.reg_tp = NULL;
 
 	    /* Stop keep-alive timer if any. */
 	    update_keep_alive(acc, PJ_FALSE, NULL);
@@ -2536,6 +2536,7 @@ PJ_DEF(pj_status_t) pjsua_acc_set_registration( pjsua_acc_id acc_id,
 				     &tdata);
 
 	if (0 && status == PJ_SUCCESS && pjsua_var.acc[acc_id].cred_cnt) {
+	    pjsua_acc *acc = &pjsua_var.acc[acc_id];
 	    pjsip_authorization_hdr *h;
 	    char *uri;
 	    int d;
@@ -2591,15 +2592,10 @@ PJ_DEF(pj_status_t) pjsua_acc_set_registration( pjsua_acc_id acc_id,
 
     /* Update pointer to registration transport */
     if (status == PJ_SUCCESS) {
-        /* Variable auto_rereg.reg_tp is currently unused since it may differ
-         * with the transport used by regc (for example, when a resolver is
-         * employed). A more reliable way is to query the regc directly
-         * when needed.
-         */
-	//pjsip_regc_info reg_info;
+	pjsip_regc_info reg_info;
 
-	//pjsip_regc_get_info(pjsua_var.acc[acc_id].regc, &reg_info);
-	//pjsua_var.acc[acc_id].auto_rereg.reg_tp = reg_info.transport;
+	pjsip_regc_get_info(pjsua_var.acc[acc_id].regc, &reg_info);
+	pjsua_var.acc[acc_id].auto_rereg.reg_tp = reg_info.transport;
         
         if (pjsua_var.ua_cfg.cb.on_reg_started) {
             (*pjsua_var.ua_cfg.cb.on_reg_started)(acc_id, renew);
@@ -3635,27 +3631,24 @@ void pjsua_acc_on_tp_state_changed(pjsip_transport *tp,
     for (i = 0; i < PJ_ARRAY_SIZE(pjsua_var.acc); ++i) {
 	pjsua_acc *acc = &pjsua_var.acc[i];
 
-	/* Skip if this account is not valid. */
-	if (!acc->valid)
+	/* Skip if this account is not valid OR auto re-registration
+	 * feature is disabled OR this transport is not used by this account.
+	 */
+	if (!acc->valid || !acc->cfg.reg_retry_interval || 
+	    tp != acc->auto_rereg.reg_tp)
+	{
 	    continue;
+	}
 
-	/* Release transport immediately if regc is using it
+	/* Release regc transport immediately
 	 * See https://trac.pjsip.org/repos/ticket/1481
 	 */
-	if (acc->regc) {
-	    pjsip_regc_info reg_info;
-
-	    pjsip_regc_get_info(acc->regc, &reg_info);
-	    if (reg_info.transport != tp)
-	        continue;
-
+	if (pjsua_var.acc[i].regc) {
 	    pjsip_regc_release_transport(pjsua_var.acc[i].regc);
-
-	    /* Schedule reregistration for this account */
-	    if (acc->cfg.reg_retry_interval) {
-	        schedule_reregistration(acc);
-	    }
 	}
+
+	/* Schedule reregistration for this account */
+	schedule_reregistration(acc);
     }
 
     PJSUA_UNLOCK();

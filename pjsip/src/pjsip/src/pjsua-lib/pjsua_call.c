@@ -1,4 +1,4 @@
-/* $Id: pjsua_call.c 5185 2015-10-02 02:08:17Z nanang $ */
+/* $Id: pjsua_call.c 5099 2015-05-20 08:46:11Z nanang $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -4181,14 +4181,8 @@ static void pjsua_call_on_create_offer(pjsip_inv_session *inv,
     }
 #endif
 
-    if (pjsua_var.ua_cfg.cb.on_call_tx_offer) {
-	cleanup_call_setting_flag(&call->opt);
-	(*pjsua_var.ua_cfg.cb.on_call_tx_offer)(call->index, NULL,
-						&call->opt);
-    }
-
     /* We may need to re-initialize media before creating SDP */
-    if (call->med_prov_cnt == 0 || pjsua_var.ua_cfg.cb.on_call_tx_offer) {
+    if (call->med_prov_cnt == 0) {
     	status = apply_call_setting(call, &call->opt, NULL);
     	if (status != PJ_SUCCESS)
 	    goto on_return;
@@ -4516,12 +4510,12 @@ static void on_call_transferred( pjsip_inv_session *inv,
 	/*
 	 * Always answer with 2xx.
 	 */
-	pjsip_tx_data *tdata2;
+	pjsip_tx_data *tdata;
 	const pj_str_t str_false = { "false", 5};
 	pjsip_hdr *hdr;
 
 	status = pjsip_dlg_create_response(inv->dlg, rdata, code, NULL,
-					   &tdata2);
+					   &tdata);
 	if (status != PJ_SUCCESS) {
 	    pjsua_perror(THIS_FILE, "Unable to create 2xx response to REFER",
 			 status);
@@ -4530,14 +4524,14 @@ static void on_call_transferred( pjsip_inv_session *inv,
 
 	/* Add Refer-Sub header */
 	hdr = (pjsip_hdr*)
-	       pjsip_generic_string_hdr_create(tdata2->pool, &str_refer_sub,
+	       pjsip_generic_string_hdr_create(tdata->pool, &str_refer_sub,
 					      &str_false);
-	pjsip_msg_add_hdr(tdata2->msg, hdr);
+	pjsip_msg_add_hdr(tdata->msg, hdr);
 
 
 	/* Send answer */
 	status = pjsip_dlg_send_response(inv->dlg, pjsip_rdata_get_tsx(rdata),
-					 tdata2);
+					 tdata);
 	if (status != PJ_SUCCESS) {
 	    pjsua_perror(THIS_FILE, "Unable to create 2xx response to REFER",
 			 status);

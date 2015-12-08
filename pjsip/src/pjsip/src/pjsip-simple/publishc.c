@@ -1,4 +1,4 @@
-/* $Id: publishc.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: publishc.c 4530 2013-05-30 09:27:49Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -434,14 +434,14 @@ static pj_status_t create_request(pjsip_publishc *pubc,
 
     /* Add user headers */
     if (!pj_list_empty(&pubc->usr_hdr)) {
-	const pjsip_hdr *uhdr;
+	const pjsip_hdr *hdr;
 
-	uhdr = pubc->usr_hdr.next;
-	while (uhdr != &pubc->usr_hdr) {
+	hdr = pubc->usr_hdr.next;
+	while (hdr != &pubc->usr_hdr) {
 	    pjsip_hdr *new_hdr = (pjsip_hdr*)
-	    			 pjsip_hdr_shallow_clone(tdata->pool, uhdr);
+	    			 pjsip_hdr_shallow_clone(tdata->pool, hdr);
 	    pjsip_msg_add_hdr(tdata->msg, new_hdr);
-	    uhdr = uhdr->next;
+	    hdr = hdr->next;
 	}
     }
 

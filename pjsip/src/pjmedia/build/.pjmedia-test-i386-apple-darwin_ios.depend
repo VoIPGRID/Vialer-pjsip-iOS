@@ -1490,4 +1490,4 @@ output/pjmedia-test-i386-apple-darwin_ios/sdp_neg_test.o: ../src/test/sdp_neg_te
   ../../pjlib/include/pj/rand.h ../../pjlib/include/pj/rbtree.h \
   ../../pjlib/include/pj/sock_select.h ../../pjlib/include/pj/ssl_sock.h \
   ../../pjlib/include/pj/unicode.h
-../bin/pjmedia-test-i386-apple-darwin_ios: ../lib/libpjmedia-i386-apple-darwin_ios.a ../lib/libpjmedia-codec-i386-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjnath/lib/libpjnath-i386-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjlib-util/lib/libpjlib-util-i386-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjlib/lib/libpj-i386-apple-darwin_ios.a
+../bin/pjmedia-test-i386-apple-darwin_ios: ../lib/libpjmedia-i386-apple-darwin_ios.a ../lib/libpjmedia-codec-i386-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjnath/lib/libpjnath-i386-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjlib-util/lib/libpjlib-util-i386-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjlib/lib/libpj-i386-apple-darwin_ios.a

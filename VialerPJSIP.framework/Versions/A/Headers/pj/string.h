@@ -703,7 +703,7 @@ PJ_INLINE(void*) pj_memchr(const void *buf, int c, pj_size_t size)
  */
 
 #if PJ_FUNCTIONS_ARE_INLINED
-#  include <pj/string_i.h>
+#  include <VialerPJSIP/pj/string_i.h>
 #endif
 
 PJ_END_DECL

@@ -1,4 +1,4 @@
-/* $Id: ios_dev.m 5166 2015-08-21 06:46:32Z ming $ */
+/* $Id: ios_dev.m 5138 2015-07-30 06:23:35Z ming $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -961,10 +961,6 @@ static pj_status_t ios_stream_set_cap(pjmedia_vid_dev_stream *s,
             
             strm->dev_input = new_dev_input;
             strm->param.cap_id = p->target_id;
-            
-            /* Set the orientation as well */
-            ios_stream_set_cap(s, PJMEDIA_VID_DEV_CAP_ORIENTATION,
-            		       &strm->param.orient);
             
             return PJ_SUCCESS;
         }

@@ -1,4 +1,4 @@
-/* $Id: sip_transport_tcp.c 5200 2015-11-16 04:42:42Z nanang $ */
+/* $Id: sip_transport_tcp.c 5152 2015-08-07 09:00:52Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1183,8 +1183,7 @@ static pj_bool_t on_accept_complete(pj_activesock_t *asock,
 	    }
 	    /* Start keep-alive timer */
 	    if (pjsip_cfg()->tcp.keep_alive_interval) {
-		pj_time_val delay = { 0 };
-		delay.sec = pjsip_cfg()->tcp.keep_alive_interval;
+		pj_time_val delay = {pjsip_cfg()->tcp.keep_alive_interval, 0};
 		pjsip_endpt_schedule_timer(listener->endpt, 
 					   &tcp->ka_timer, 
 					   &delay);
@@ -1470,16 +1469,8 @@ static pj_bool_t on_connect_complete(pj_activesock_t *asock,
     /* Mark that pending connect() operation has completed. */
     tcp->has_pending_connect = PJ_FALSE;
 
-    /* If transport is being shutdown/destroyed, proceed as error connect.
-     * Note that it is important to notify application via on_data_sent()
-     * as otherwise the transport reference counter may never reach zero
-     * (see #1898).
-     */
-    if ((tcp->base.is_shutdown || tcp->base.is_destroying) &&
-	status == PJ_SUCCESS)
-    {
-	status = PJ_ECANCELLED;
-    }
+    if (tcp->base.is_shutdown || tcp->base.is_destroying) 
+	return PJ_FALSE;
 
     /* Check connect() status */
     if (status != PJ_SUCCESS) {
@@ -1551,8 +1542,7 @@ static pj_bool_t on_connect_complete(pj_activesock_t *asock,
 
     /* Start keep-alive timer */
     if (pjsip_cfg()->tcp.keep_alive_interval) {
-	pj_time_val delay = { 0 };
-	delay.sec = pjsip_cfg()->tcp.keep_alive_interval;
+	pj_time_val delay = { pjsip_cfg()->tcp.keep_alive_interval, 0 };
 	pjsip_endpt_schedule_timer(tcp->base.endpt, &tcp->ka_timer, 
 				   &delay);
 	tcp->ka_timer.id = PJ_TRUE;

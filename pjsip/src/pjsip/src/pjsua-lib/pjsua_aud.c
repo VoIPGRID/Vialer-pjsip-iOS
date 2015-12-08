@@ -1,4 +1,4 @@
-/* $Id: pjsua_aud.c 5205 2015-12-03 11:33:25Z nanang $ */
+/* $Id: pjsua_aud.c 4982 2015-02-11 05:15:29Z nanang $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -588,7 +588,7 @@ pj_status_t pjsua_aud_channel_update(pjsua_call_media *call_med,
     si->rtcp_sdes_bye_disabled = pjsua_var.media_cfg.no_rtcp_sdes_bye;
 
     /* Check if no media is active */
-    if (local_sdp->media[strm_idx]->desc.port != 0) {
+    if (si->dir != PJMEDIA_DIR_NONE) {
 
 	/* Optionally, application may modify other stream settings here
 	 * (such as jitter buffer parameters, codec ptime, etc.)
@@ -1940,7 +1940,7 @@ PJ_DEF(pj_status_t) pjsua_set_snd_dev( int capture_dev,
 
     if (pjsua_var.cap_dev == capture_dev &&
 	pjsua_var.play_dev == playback_dev &&
-	pjsua_var.snd_is_on && !pjsua_var.no_snd)
+	pjsua_var.snd_is_on)
     {
 	PJ_LOG(4, (THIS_FILE, "No changes in capture and playback devices"));
         PJSUA_UNLOCK();

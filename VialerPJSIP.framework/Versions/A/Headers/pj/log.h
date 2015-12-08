@@ -26,7 +26,7 @@
  */
 
 #include <VialerPJSIP/pj/types.h>
-#include <VialerPJSIP/stdarg.h>
+#include <stdarg.h>
 
 PJ_BEGIN_DECL
 

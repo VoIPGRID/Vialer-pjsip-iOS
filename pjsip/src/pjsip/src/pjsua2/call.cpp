@@ -1,4 +1,4 @@
-/* $Id: call.cpp 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: call.cpp 4996 2015-03-18 08:25:24Z ming $ */
 /*
  * Copyright (C) 2012-2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -152,9 +152,9 @@ public:
 };
 
 
-void CallAudioMedia::setPortId(int pid)
+void CallAudioMedia::setPortId(int id)
 {
-    this->id = pid;
+    this->id = id;
 }
 
 CallOpParam::CallOpParam(bool useDefaultCallSetting)

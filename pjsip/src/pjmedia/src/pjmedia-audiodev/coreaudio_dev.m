@@ -1,4 +1,4 @@
-/* $Id: coreaudio_dev.m 5171 2015-08-27 02:23:55Z ming $ */
+/* $Id: coreaudio_dev.m 5142 2015-07-31 08:35:34Z nanang $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -2082,17 +2082,8 @@ static pj_status_t ca_stream_stop(pjmedia_aud_stream *strm)
 
 #if !COREAUDIO_MAC
     if (should_deactivate) {
-        if ([stream->sess 
-             respondsToSelector:@selector(setActive:withOptions:error:)])
-        {
-  	    [stream->sess setActive:NO
-  	    withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation 
-  	    error:nil];
-	} else {
-	    if ([stream->sess setActive:NO error:nil] != YES) {
-            	PJ_LOG(4, (THIS_FILE, "Warning: cannot deactivate "
-            			      "audio session"));
-            }
+	if ([stream->sess setActive:false error:nil] != YES) {
+            PJ_LOG(4, (THIS_FILE, "Warning: cannot deactivate audio session"));
         }
     }
 #endif

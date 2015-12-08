@@ -23,12 +23,8 @@ export RESAMPLE_CFLAGS = $(_CFLAGS)
 
 export RESAMPLE_LIB := libresample-$(TARGET_NAME)$(LIBEXT)
 
-ifneq ($(PJ_SHARED_LIBRARIES),)
-export RESAMPLE_SONAME := libresample.$(SHLIB_SUFFIX)
-export RESAMPLE_SHLIB := $(RESAMPLE_SONAME).$(PJ_VERSION_MAJOR)
-endif
-
-ifneq ($(PJ_RESAMPLE_DLL),)
+ifeq ($(PJ_SHARED_LIBRARIES),)
+else
 export RESAMPLE_SONAME := libresample.$(SHLIB_SUFFIX)
 export RESAMPLE_SHLIB := $(RESAMPLE_SONAME).$(PJ_VERSION_MAJOR)
 endif

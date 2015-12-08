@@ -1,4 +1,4 @@
-/* $Id: pjsua_media.c 5205 2015-12-03 11:33:25Z nanang $ */
+/* $Id: pjsua_media.c 5135 2015-07-14 08:38:29Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -439,12 +439,12 @@ static pj_status_t create_rtp_rtcp_sock(pjsua_call_media *call_med,
 
 	} else {
 	    if (acc->cfg.allow_sdp_nat_rewrite && acc->reg_mapped_addr.slen) {
-		pj_status_t status2;
+		pj_status_t status;
 
 		/* Take the address from mapped addr as seen by registrar */
-		status2 = pj_sockaddr_set_str_addr(af, &bound_addr,
-		                                   &acc->reg_mapped_addr);
-		if (status2 != PJ_SUCCESS) {
+		status = pj_sockaddr_set_str_addr(af, &bound_addr,
+		                                  &acc->reg_mapped_addr);
+		if (status != PJ_SUCCESS) {
 		    /* just leave bound_addr with whatever it was
 		    pj_bzero(pj_sockaddr_get_addr(&bound_addr),
 		             pj_sockaddr_get_addr_len(&bound_addr));
@@ -2757,7 +2757,7 @@ pj_status_t pjsua_media_channel_update(pjsua_call_id call_id,
 	    }
 
 	    /* Check if no media is active */
-	    if (local_sdp->media[mi]->desc.port == 0) {
+	    if (si->dir == PJMEDIA_DIR_NONE) {
 
 		/* Update call media state and direction */
 		call_med->state = PJSUA_CALL_MEDIA_NONE;

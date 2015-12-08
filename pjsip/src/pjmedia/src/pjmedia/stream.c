@@ -1,4 +1,4 @@
-/* $Id: stream.c 5187 2015-10-07 03:57:17Z ming $ */
+/* $Id: stream.c 5101 2015-05-28 07:07:17Z nanang $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1268,13 +1268,18 @@ static pj_status_t put_frame_imp( pjmedia_port *port,
 	       frame->buf == NULL &&
 	       stream->port.info.fmt.id == PJMEDIA_FORMAT_L16 &&
 	       (stream->dir & PJMEDIA_DIR_ENCODING) &&
-	       stream->enc_samples_per_pkt < PJ_ARRAY_SIZE(zero_frame))
+	       stream->codec_param.info.frm_ptime *
+	       stream->codec_param.info.channel_cnt *
+	       stream->codec_param.info.clock_rate/1000 <
+		  PJ_ARRAY_SIZE(zero_frame))
     {
 	pjmedia_frame silence_frame;
 
 	pj_bzero(&silence_frame, sizeof(silence_frame));
 	silence_frame.buf = zero_frame;
-	silence_frame.size = stream->enc_samples_per_pkt * 2;
+	silence_frame.size = stream->codec_param.info.frm_ptime * 2 *
+			     stream->codec_param.info.channel_cnt *
+			     stream->codec_param.info.clock_rate / 1000;
 	silence_frame.type = PJMEDIA_FRAME_TYPE_AUDIO;
 	silence_frame.timestamp.u32.lo = pj_ntohl(stream->enc->rtp.out_hdr.ts);
 
@@ -2081,7 +2086,7 @@ PJ_DEF(pj_status_t) pjmedia_stream_create( pjmedia_endpt *endpt,
 
     /* Get codec param: */
     if (info->param)
-	stream->codec_param = *stream->si.param;
+	stream->codec_param = *info->param;
     else {
 	status = pjmedia_codec_mgr_get_default_param(stream->codec_mgr,
 						     &info->fmt,
@@ -2384,9 +2389,6 @@ PJ_DEF(pj_status_t) pjmedia_stream_create( pjmedia_endpt *endpt,
 				    i);
     }
 #endif
-
-    /* Update the stream info's codec param */
-    stream->si.param = &stream->codec_param;
 
     /* Send RTCP SDES */
     if (!stream->rtcp_sdes_bye_disabled) {

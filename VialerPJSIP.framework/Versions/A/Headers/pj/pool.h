@@ -24,7 +24,7 @@
  * The alternate API is used e.g. to implement pool debugging.
  */
 #if PJ_HAS_POOL_ALT_API
-#  include <pj/pool_alt.h>
+#  include <VialerPJSIP/pj/pool_alt.h>
 #endif
 
 

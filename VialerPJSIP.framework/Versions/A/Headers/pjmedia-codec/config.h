@@ -38,7 +38,7 @@
  * Include config_auto.h if autoconf is used (PJ_AUTOCONF is set)
  */
 #if defined(PJ_AUTOCONF)
-#   include <pjmedia-codec/config_auto.h>
+#   include <VialerPJSIP/pjmedia-codec/config_auto.h>
 #endif
 
 

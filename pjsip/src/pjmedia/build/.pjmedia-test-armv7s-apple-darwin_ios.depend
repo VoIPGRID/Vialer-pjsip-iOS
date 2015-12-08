@@ -1508,4 +1508,4 @@ output/pjmedia-test-armv7s-apple-darwin_ios/sdp_neg_test.o: ../src/test/sdp_neg_
   ../../pjlib/include/pj/rand.h ../../pjlib/include/pj/rbtree.h \
   ../../pjlib/include/pj/sock_select.h ../../pjlib/include/pj/ssl_sock.h \
   ../../pjlib/include/pj/unicode.h
-../bin/pjmedia-test-armv7s-apple-darwin_ios: ../lib/libpjmedia-armv7s-apple-darwin_ios.a ../lib/libpjmedia-codec-armv7s-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjnath/lib/libpjnath-armv7s-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjlib-util/lib/libpjlib-util-armv7s-apple-darwin_ios.a /Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src/pjlib/lib/libpj-armv7s-apple-darwin_ios.a
+../bin/pjmedia-test-armv7s-apple-darwin_ios: ../lib/libpjmedia-armv7s-apple-darwin_ios.a ../lib/libpjmedia-codec-armv7s-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjnath/lib/libpjnath-armv7s-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjlib-util/lib/libpjlib-util-armv7s-apple-darwin_ios.a /Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src/pjlib/lib/libpj-armv7s-apple-darwin_ios.a

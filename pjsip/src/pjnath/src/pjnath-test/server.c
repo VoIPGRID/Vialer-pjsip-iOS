@@ -1,4 +1,4 @@
-/* $Id: server.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: server.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -424,7 +424,7 @@ static pj_bool_t turn_on_data_recvfrom(pj_activesock_t *asock,
 	//pj_str_t ip_addr;
 	pj_stun_username_attr *uname;
 	pj_activesock_cb alloc_sock_cb;
-	///turn_allocation *alloc;
+	turn_allocation *alloc;
 
 	/* Must be Allocate request */
 	if (req->hdr.type != PJ_STUN_ALLOCATE_REQUEST) {

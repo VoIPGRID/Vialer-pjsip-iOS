@@ -1,4 +1,4 @@
-/* $Id: ioq_udp.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: ioq_udp.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -263,21 +263,21 @@ static int compliance_test(pj_bool_t allow_concur)
 
     // Poll if pending.
     while (send_pending || recv_pending) {
-	int ret;
+	int rc;
 	pj_time_val timeout = { 5, 0 };
 
 	TRACE_("poll...");
 #ifdef PJ_SYMBIAN
-	ret = pj_symbianos_poll(-1, PJ_TIME_VAL_MSEC(timeout));
+	rc = pj_symbianos_poll(-1, PJ_TIME_VAL_MSEC(timeout));
 #else
-	ret = pj_ioqueue_poll(ioque, &timeout);
+	rc = pj_ioqueue_poll(ioque, &timeout);
 #endif
 
-	if (ret == 0) {
+	if (rc == 0) {
 	    PJ_LOG(1,(THIS_FILE, "...ERROR: timed out..."));
 	    status=-45; goto on_error;
-        } else if (ret < 0) {
-            app_perror("...ERROR in ioqueue_poll()", -ret);
+        } else if (rc < 0) {
+            app_perror("...ERROR in ioqueue_poll()", -rc);
 	    status=-50; goto on_error;
 	}
 

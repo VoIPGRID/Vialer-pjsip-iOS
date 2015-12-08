@@ -1,4 +1,4 @@
-/* $Id: codec_vectors.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: codec_vectors.c 5058 2015-04-09 08:15:48Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -159,14 +159,14 @@ static int codec_test_encode(pjmedia_codec_mgr *mgr,
 
     pos = 0;
     for (;;) {
-	pj_size_t count2;
+	pj_size_t count;
 	
-	count2 = fread(in_frame.buf, encoded_frame_len, 1, fref);
-	if (count2 != 1)
+	count = fread(in_frame.buf, encoded_frame_len, 1, fref);
+	if (count != 1)
 	    break;
 
-	count2 = fread(out_frame.buf, encoded_frame_len, 1, output);
-	if (count2 != 1)
+	count = fread(out_frame.buf, encoded_frame_len, 1, output);
+	if (count != 1)
 	    break;
 
 	if (memcmp(in_frame.buf, out_frame.buf, encoded_frame_len)) {
@@ -380,7 +380,7 @@ static int codec_test_decode(pjmedia_codec_mgr *mgr,
     for (;;) {
 	pjmedia_frame in_frame[2];
 	pj_timestamp ts;
-	unsigned count2;
+	unsigned count;
 	pj_bool_t has_frame;
 
 	if (is_itu_format) {
@@ -401,15 +401,15 @@ static int codec_test_decode(pjmedia_codec_mgr *mgr,
 	}
 
 	if (has_frame) {
-	    count2 = 2;
+	    count = 2;
 	    if (pjmedia_codec_parse(codec, pkt, encoded_len, &ts, 
-				    &count2, in_frame) != PJ_SUCCESS) 
+				    &count, in_frame) != PJ_SUCCESS) 
 	    {
 		rc = -100;
 		goto on_return;
 	    }
 
-	    if (count2 != 1) {
+	    if (count != 1) {
 		rc = -110;
 		goto on_return;
 	    }
@@ -459,14 +459,14 @@ static int codec_test_decode(pjmedia_codec_mgr *mgr,
 
     pos = 0;
     for (;;) {
-	pj_size_t count2;
+	pj_size_t count;
 	
-	count2 = fread(pkt, samples_per_frame*2, 1, fref);
-	if (count2 != 1)
+	count = fread(pkt, samples_per_frame*2, 1, fref);
+	if (count != 1)
 	    break;
 
-	count2 = fread(out_frame.buf, samples_per_frame*2, 1, output);
-	if (count2 != 1)
+	count = fread(out_frame.buf, samples_per_frame*2, 1, output);
+	if (count != 1)
 	    break;
 
 	if (memcmp(pkt, out_frame.buf, samples_per_frame*2)) {

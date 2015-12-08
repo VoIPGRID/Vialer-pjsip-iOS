@@ -1,4 +1,4 @@
-/* $Id: sip_tel_uri.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: sip_tel_uri.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -399,6 +399,7 @@ static void* tel_uri_parse( pj_scanner *scanner, pj_pool_t *pool,
     /* Get all parameters. */
     if (parse_params && *scanner->curptr==';') {
 	pj_str_t pname, pvalue;
+	const pjsip_parser_const_t *pc = pjsip_parser_const();
 
 	do {
 	    /* Eat the ';' separator. */

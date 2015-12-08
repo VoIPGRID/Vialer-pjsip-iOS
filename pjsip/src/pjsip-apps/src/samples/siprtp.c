@@ -1,4 +1,4 @@
-/* $Id: siprtp.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: siprtp.c 5035 2015-03-27 06:17:27Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1059,6 +1059,7 @@ static pj_status_t create_sdp( pj_pool_t *pool,
 
     {
 	pjmedia_sdp_rtpmap rtpmap;
+	pjmedia_sdp_attr *attr;
 	char ptstr[10];
 
 	sprintf(ptstr, "%d", app.audio_codec.pt);
@@ -2124,6 +2125,8 @@ int main(int argc, char *argv[])
 
     /* If URL is specified, then make call immediately */
     if (app.uri_to_call.slen) {
+	unsigned i;
+
 	PJ_LOG(3,(THIS_FILE, "Making %d calls to %s..", app.max_calls,
 		  app.uri_to_call.ptr));
 

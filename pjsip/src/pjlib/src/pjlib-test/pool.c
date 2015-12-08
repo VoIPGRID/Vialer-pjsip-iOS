@@ -1,4 +1,4 @@
-/* $Id: pool.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: pool.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -190,20 +190,20 @@ static int drain_test(pj_size_t size, pj_size_t increment)
 
     /* Drain the pool until there's nothing left. */
     while (freesize > 0) {
-	int size2;
+	int size;
 
 	if (freesize > 255)
-	    size2 = ((pj_rand() & 0x000000FF) + PJ_POOL_ALIGNMENT) & 
+	    size = ((pj_rand() & 0x000000FF) + PJ_POOL_ALIGNMENT) & 
 		   ~(PJ_POOL_ALIGNMENT - 1);
 	else
-	    size2 = (int)freesize;
+	    size = (int)freesize;
 
-	p = pj_pool_alloc(pool, size2);
+	p = pj_pool_alloc(pool, size);
 	if (!p) {
 	    status=-20; goto on_error;
 	}
 
-	freesize -= size2;
+	freesize -= size;
     }
 
     /* Check that capacity is zero. */

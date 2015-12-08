@@ -1,4 +1,4 @@
-/* $Id: sdp.c 5193 2015-10-30 00:37:14Z ming $ */
+/* $Id: sdp.c 5106 2015-06-12 03:03:48Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -144,7 +144,7 @@ PJ_DEF(pjmedia_sdp_attr*) pjmedia_sdp_attr_find (unsigned count,
     unsigned i;
     unsigned c_pt = 0xFFFF;
 
-    PJ_ASSERT_RETURN(count <= PJMEDIA_MAX_SDP_ATTR, NULL);
+    PJ_ASSERT_RETURN(count < PJMEDIA_MAX_SDP_ATTR, NULL);
 
     if (c_fmt)
 	c_pt = pj_strtoul(c_fmt);
@@ -201,7 +201,7 @@ PJ_DEF(unsigned) pjmedia_sdp_attr_remove_all(unsigned *count,
     pj_str_t attr_name;
 
     PJ_ASSERT_RETURN(count && attr_array && name, PJ_EINVAL);
-    PJ_ASSERT_RETURN(*count <= PJMEDIA_MAX_SDP_ATTR, PJ_ETOOMANY);
+    PJ_ASSERT_RETURN(*count < PJMEDIA_MAX_SDP_ATTR, PJ_ETOOMANY);
 
     attr_name.ptr = (char*)name;
     attr_name.slen = pj_ansi_strlen(name);
@@ -228,7 +228,7 @@ PJ_DEF(pj_status_t) pjmedia_sdp_attr_remove( unsigned *count,
     unsigned i, removed=0;
 
     PJ_ASSERT_RETURN(count && attr_array && attr, PJ_EINVAL);
-    PJ_ASSERT_RETURN(*count <= PJMEDIA_MAX_SDP_ATTR, PJ_ETOOMANY);
+    PJ_ASSERT_RETURN(*count < PJMEDIA_MAX_SDP_ATTR, PJ_ETOOMANY);
 
     for (i=0; i<*count; ) {
 	if (attr_array[i] == attr) {
@@ -1242,19 +1242,9 @@ PJ_DEF(pj_status_t) pjmedia_sdp_parse( pj_pool_t *pool,
 		    attr = parse_attr(pool, &scanner, &ctx);
 		    if (attr) {
 			if (media) {
-			    if (media->attr_count < PJMEDIA_MAX_SDP_ATTR)
-				pjmedia_sdp_media_add_attr(media, attr);
-			    else
-				PJ_PERROR(2, (THIS_FILE, PJ_ETOOMANY,
-					      "Error adding media attribute, "
-					      "attribute is ignored"));
+			    pjmedia_sdp_media_add_attr(media, attr);
 			} else {
-			    if (session->attr_count < PJMEDIA_MAX_SDP_ATTR)
-				pjmedia_sdp_session_add_attr(session, attr);
-			    else
-				PJ_PERROR(2, (THIS_FILE, PJ_ETOOMANY,
-					      "Error adding session attribute"
-					      ", attribute is ignored"));
+			    pjmedia_sdp_session_add_attr(session, attr);
 			}
 		    }
 		    break;
@@ -1304,19 +1294,9 @@ PJ_DEF(pj_status_t) pjmedia_sdp_parse( pj_pool_t *pool,
 		    bandw = PJ_POOL_ZALLOC_T(pool, pjmedia_sdp_bandw);
 		    parse_bandwidth_info(&scanner, bandw, &ctx);
 		    if (media) {
-			if (media->bandw_count < PJMEDIA_MAX_SDP_BANDW)
-			    media->bandw[media->bandw_count++] = bandw;
-			else
-			    PJ_PERROR(2, (THIS_FILE, PJ_ETOOMANY,
-					  "Error adding media bandwidth "
-					  "info, info is ignored"));
+			media->bandw[media->bandw_count++] = bandw;
 		    } else {
-			if (session->bandw_count < PJMEDIA_MAX_SDP_BANDW)
-			    session->bandw[session->bandw_count++] = bandw;
-			else
-			    PJ_PERROR(2, (THIS_FILE, PJ_ETOOMANY,
-					  "Error adding session bandwidth "
-					  "info, info is ignored"));
+			session->bandw[session->bandw_count++] = bandw;
 		    }
 		    break;
 		default:

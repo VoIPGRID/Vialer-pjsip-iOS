@@ -1,4 +1,4 @@
-/* $Id: types.h 5166 2015-08-21 06:46:32Z ming $ */
+/* $Id: types.h 3774 2011-09-27 05:24:06Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -202,34 +202,26 @@ typedef enum pjmedia_orient
     PJMEDIA_ORIENT_UNKNOWN,
 
     /**
-     * Natural orientation, i.e. the original orientation video will be
-     * displayed/captured without rotation.
+     * Natural orientation, e.g: sky upside on landscape view, head upside
+     * on human portrait.
      */
     PJMEDIA_ORIENT_NATURAL,
 
     /**
      * Specifies that the video/picture needs to be rotated 90 degrees
-     * from its natural orientation in clockwise direction from the user's
-     * perspective.
-     * Note that for devices with back cameras (which faces away
-     * from the user), the video will actually need to be rotated
-     * 270 degrees clockwise instead.
+     * clockwise to be displayed in natural orientation.
      */
     PJMEDIA_ORIENT_ROTATE_90DEG,
 
     /**
      * Specifies that the video/picture needs to be rotated 180 degrees
-     * from its natural orientation.
+     * clockwise to be displayed in natural orientation.
      */
     PJMEDIA_ORIENT_ROTATE_180DEG,
 
     /**
      * Specifies that the video/picture needs to be rotated 270 degrees
-     * from its natural orientation in clockwise direction from the user's
-     * perspective.
-     * Note that for devices with back cameras (which faces away
-     * from the user), the video will actually need to be rotated
-     * 90 degrees clockwise instead.
+     * clockwise to be displayed in natural orientation.
      */
     PJMEDIA_ORIENT_ROTATE_270DEG
 

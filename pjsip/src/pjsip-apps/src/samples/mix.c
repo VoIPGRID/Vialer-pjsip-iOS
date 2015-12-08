@@ -1,4 +1,4 @@
-/* $Id: mix.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: mix.c 3664 2011-07-19 03:42:28Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -195,14 +195,14 @@ int main(int argc, char *argv[])
     processed = 0;
     while (processed < longest + clock_rate * APPEND * 2 / 1000) {
 	pj_int16_t framebuf[PTIME * 48000 / 1000];
-	pjmedia_port *mp = pjmedia_conf_get_master_port(conf);
+	pjmedia_port *cp = pjmedia_conf_get_master_port(conf);
 	pjmedia_frame frame;
 
 	frame.buf = framebuf;
-	frame.size = PJMEDIA_PIA_SPF(&mp->info) * 2;
+	frame.size = PJMEDIA_PIA_SPF(&cp->info) * 2;
 	pj_assert(frame.size <= sizeof(framebuf));
 	
-	CHECK( pjmedia_port_get_frame(mp, &frame) );
+	CHECK( pjmedia_port_get_frame(cp, &frame) );
 
 	if (frame.type != PJMEDIA_FRAME_TYPE_AUDIO) {
 	    pj_bzero(frame.buf, frame.size);

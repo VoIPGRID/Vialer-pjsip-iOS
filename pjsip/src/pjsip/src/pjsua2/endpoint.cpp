@@ -1,4 +1,4 @@
-/* $Id: endpoint.cpp 5204 2015-12-01 09:01:39Z nanang $ */
+/* $Id: endpoint.cpp 5139 2015-07-30 13:42:51Z riza $ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -1073,25 +1073,6 @@ void Endpoint::on_call_rx_offer(pjsua_call_id call_id,
     *opt = prm.opt.toPj();
 }
 
-void Endpoint::on_call_tx_offer(pjsua_call_id call_id,
-				void *reserved,
-				pjsua_call_setting *opt)
-{
-    PJ_UNUSED_ARG(reserved);
-
-    Call *call = Call::lookup(call_id);
-    if (!call) {
-	return;
-    }
-
-    OnCallTxOfferParam prm;
-    prm.opt.fromPj(*opt);
-
-    call->onCallTxOffer(prm);
-
-    *opt = prm.opt.toPj();
-}
-
 pjsip_redirect_op Endpoint::on_call_redirected(pjsua_call_id call_id,
                                                const pjsip_uri *target,
                                                const pjsip_event *e)
@@ -1291,7 +1272,6 @@ void Endpoint::libInit(const EpConfig &prmEpConfig) throw(Error)
     ua_cfg.cb.on_call_replace_request2  = &Endpoint::on_call_replace_request2;
     ua_cfg.cb.on_call_replaced          = &Endpoint::on_call_replaced;
     ua_cfg.cb.on_call_rx_offer          = &Endpoint::on_call_rx_offer;
-    ua_cfg.cb.on_call_tx_offer          = &Endpoint::on_call_tx_offer;
     ua_cfg.cb.on_call_redirected        = &Endpoint::on_call_redirected;
     ua_cfg.cb.on_call_media_transport_state =
         &Endpoint::on_call_media_transport_state;
@@ -1336,8 +1316,6 @@ void Endpoint::libRegisterThread(const string &name) throw(Error)
     if (!desc) {
 	PJSUA2_RAISE_ERROR(PJ_ENOMEM);
     }
-
-    pj_bzero(desc, sizeof(pj_thread_desc));
 
     status = pj_thread_register(name.c_str(), *desc, &thread);
     if (status == PJ_SUCCESS) {
@@ -1705,7 +1683,7 @@ void Endpoint::updateCodecInfoList(pjsua_codec_info pj_codec[], unsigned count,
 	CodecInfo *codec_info = new CodecInfo;
 
 	codec_info->fromPj(pj_codec[i]);
-	codec_list.push_back(codec_info);
+	codecInfoList.push_back(codec_info);
     }
     pj_leave_critical_section();
 }
@@ -1720,7 +1698,7 @@ const CodecInfoVector &Endpoint::videoCodecEnum() throw(Error)
 
     updateCodecInfoList(pj_codec, count, videoCodecInfoList);
 #endif
-    return videoCodecInfoList;
+    return codecInfoList;
 }
 
 void Endpoint::videoCodecSetPriority(const string &codec_id,
@@ -1735,43 +1713,31 @@ void Endpoint::videoCodecSetPriority(const string &codec_id,
 #endif
 }
 
-VidCodecParam Endpoint::getVideoCodecParam(const string &codec_id) const 
-								   throw(Error)
-{    
-    VidCodecParam codec_param;
+CodecParam Endpoint::videoCodecGetParam(const string &codec_id) const
+	   throw(Error)
+{
+    pjmedia_vid_codec_param *pj_param = NULL;
 #if PJSUA_HAS_VIDEO
-    pjmedia_vid_codec_param pj_param;
-    pj_str_t codec_str = str2Pj(codec_id);    
+    pj_str_t codec_str = str2Pj(codec_id);
 
-    PJSUA2_CHECK_EXPR(pjsua_vid_codec_get_param(&codec_str, &pj_param));
-    codec_param.fromPj(pj_param);
+    PJSUA2_CHECK_EXPR(pjsua_vid_codec_get_param(&codec_str, pj_param));
 #else
     PJ_UNUSED_ARG(codec_id);
 #endif
-    return codec_param;
+    return pj_param;
 }
 
-void Endpoint::setVideoCodecParam(const string &codec_id,
-				  const VidCodecParam &param) throw(Error)
+void Endpoint::videoCodecSetParam(const string &codec_id,
+				  const CodecParam param) throw(Error)
 {
 #if PJSUA_HAS_VIDEO
     pj_str_t codec_str = str2Pj(codec_id);
-    pjmedia_vid_codec_param pj_param = param.toPj();
-    
-    PJSUA2_CHECK_EXPR(pjsua_vid_codec_set_param(&codec_str, &pj_param));
+    pjmedia_vid_codec_param *pj_param = (pjmedia_vid_codec_param*)param;
+
+    PJSUA2_CHECK_EXPR(pjsua_vid_codec_set_param(&codec_str, pj_param));
 #else
     PJ_UNUSED_ARG(codec_id);
     PJ_UNUSED_ARG(param);
 #endif
 }
 
-void Endpoint::resetVideoCodecParam(const string &codec_id) throw(Error)
-{
-#if PJSUA_HAS_VIDEO
-    pj_str_t codec_str = str2Pj(codec_id);    
-    
-    PJSUA2_CHECK_EXPR(pjsua_vid_codec_set_param(&codec_str, NULL));
-#else
-    PJ_UNUSED_ARG(codec_id);    
-#endif	
-}

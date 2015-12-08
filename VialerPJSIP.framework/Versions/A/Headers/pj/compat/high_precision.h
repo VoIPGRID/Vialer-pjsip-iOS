@@ -33,7 +33,7 @@
 
 #elif defined(PJ_LINUX_KERNEL) && PJ_LINUX_KERNEL != 0
 
-#   include <asm/div64.h>
+#   include <VialerPJSIP/asm/div64.h>
     
     typedef pj_int64_t pj_highprec_t;
 

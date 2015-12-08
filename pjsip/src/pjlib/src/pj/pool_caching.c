@@ -1,4 +1,4 @@
-/* $Id: pool_caching.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: pool_caching.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -90,8 +90,8 @@ PJ_DEF(void) pj_caching_pool_destroy( pj_caching_pool *cp )
 
     /* Delete all pool in free list */
     for (i=0; i < PJ_CACHING_POOL_ARRAY_SIZE; ++i) {
+	pj_pool_t *pool = (pj_pool_t*) cp->free_list[i].next;
 	pj_pool_t *next;
-	pool = (pj_pool_t*) cp->free_list[i].next;
 	for (; pool != (void*)&cp->free_list[i]; pool = next) {
 	    next = pool->next;
 	    pj_list_erase(pool);

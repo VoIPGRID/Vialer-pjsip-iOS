@@ -1,4 +1,4 @@
-/* $Id: xml.c 5206 2015-12-03 11:43:58Z nanang $ */
+/* $Id: xml.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -130,9 +130,7 @@ static pj_xml_node *xml_parse_node( pj_pool_t *pool, pj_scanner *scanner)
 	on_syntax_error(scanner);
 
     /* Sub nodes. */
-    while (*scanner->curptr == '<' && *(scanner->curptr+1) != '/'
-				   && *(scanner->curptr+1) != '!')
-    {
+    while (*scanner->curptr == '<' && *(scanner->curptr+1) != '/') {
 	pj_xml_node *sub_node = xml_parse_node(pool, scanner);
 	pj_list_push_back( &node->node_head, sub_node );
     }
@@ -140,20 +138,6 @@ static pj_xml_node *xml_parse_node( pj_pool_t *pool, pj_scanner *scanner)
     /* Content. */
     if (!pj_scan_is_eof(scanner) && *scanner->curptr != '<') {
 	pj_scan_get_until_ch(scanner, '<', &node->content);
-    }
-
-    /* CDATA content. */
-    if (*scanner->curptr == '<' && *(scanner->curptr+1) == '!' &&
-	pj_scan_strcmp(scanner, "<![CDATA[", 9) == 0)
-    {
-	pj_scan_advance_n(scanner, 9, PJ_FALSE);
-	pj_scan_get_until_ch(scanner, ']', &node->content);
-	while (pj_scan_strcmp(scanner, "]]>", 3)) {
-	    pj_str_t dummy;
-	    pj_scan_get_until_ch(scanner, ']', &dummy);
-	}
-	node->content.slen = scanner->curptr - node->content.ptr;
-	pj_scan_advance_n(scanner, 3, PJ_TRUE);
     }
 
     /* Enclosing node. */

@@ -853,7 +853,7 @@ obj-$(CONFIG_GENERIC_ISA_DMA) += dma.o
  *    <pre>
  *      ...
  *      #elif defined (PJ_M_ALPHA) && PJ_M_ALPHA != 0
- *      #   include <pj/compat/m_alpha.h>
+ *      #   include <VialerPJSIP/pj/compat/m_alpha.h>
  *      ...
  *    </pre>
  *  - done. Build PJLIB with:
@@ -885,7 +885,7 @@ obj-$(CONFIG_GENERIC_ISA_DMA) += dma.o
  \verbatim
  ...
  #elif defined(PJ_XOS)
- #  include <pj/compat/os_xos.h>
+ #  include <VialerPJSIP/pj/compat/os_xos.h>
  #else
  #...
  \endverbatim

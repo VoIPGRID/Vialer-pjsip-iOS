@@ -9,78 +9,80 @@ set -o errtrace
 export PRE=" ───── "
 
 function help() {
-cat <<EOF
-vialerbuild help          # shows this help message.
-vialerbuild svn_checkout  # Get the latest PJSIP sources from SVN
-vialerbuild clean         # cleans the pjsip source folder.
+    cat <<EOF
+        vialerbuild help          # shows this help message.
+        vialerbuild svn_checkout  # Get the latest PJSIP sources from SVN
+        vialerbuild clean         # cleans the pjsip source folder.
 
-vialerbuild all           # build fat binary that works on all architectures.
-vialerbuild armv7         # build armv7 static lib.
-vialerbuild armv7s        # build armv7s static lib.
-vialerbuild arm64         # build arm64 static lib.
-vialerbuild i386          # build i386 static lib.
-vialerbuild x86_64        # build x86_64 static lib.
+        vialerbuild all           # build fat binary that works on all architectures.
+        vialerbuild armv7         # build armv7 static lib.
+        vialerbuild armv7s        # build armv7s static lib.
+        vialerbuild arm64         # build arm64 static lib.
+        vialerbuild i386          # build i386 static lib.
+        vialerbuild x86_64        # build x86_64 static lib.
 
-vialerbuild info armv7    # show architecture information for armv7 libs.
-vialerbuild info armv7s   # show architecture information for armv7s libs.
-vialerbuild info arm64    # show architecture information for arm64 libs.
-vialerbuild info i386     # show architecture information for i386 libs.
-vialerbuild info x86_64   # show architecture information for x86_64 libs.
+        vialerbuild info armv7    # show architecture information for armv7 libs.
+        vialerbuild info armv7s   # show architecture information for armv7s libs.
+        vialerbuild info arm64    # show architecture information for arm64 libs.
+        vialerbuild info i386     # show architecture information for i386 libs.
+        vialerbuild info x86_64   # show architecture information for x86_64 libs.
 
-vialerbuild complete	  # Downloads, builds and copies files.
-EOF
+        vialerbuild complete	  # Downloads, builds and copies files.
+    EOF
 }
 
 function complete() {
-clean
-svn_checkout
-mkdir -p "$BASE_DIR"/pjsip/logs/
-all
-copy_headers
-create_framework
+    clean
+    svn_checkout $1
+    mkdir -p "$BASE_DIR"/pjsip/logs/
+    all
+    copy_headers
+    create_framework
 }
 
 function clean() {
-echo "$PRE CLEAN"
-echo "WARNING: About to clean directory: $BASE_DIR/logs"
-echo "WARNING: About to clean directory: $BASE_DIR/src"
-echo "WARNING: About to clean directory: $BASE_DIR/VialerPjsip"
-echo "waiting 5 seconds for sanity check... CTRL-C to abort now"
-sleep 1 && echo "4..." && \
-sleep 1 && echo "3..." && \
-sleep 1 && echo "2..." && \
-sleep 1 && echo "1..." && \
-sleep 1
+    echo "$PRE CLEAN"
+    echo "WARNING: About to clean directory: $BASE_DIR/pjsip"
+    echo "WARNING: About to clean directory: $BASE_DIR/Pod"
+    echo "WARNING: About to clean directory: $BASE_DIR/VialerPJSIP.framework"
+    echo "waiting 5 seconds for sanity check... CTRL-C to abort now"
+    sleep 1 && echo "4..." && \
+    sleep 1 && echo "3..." && \
+    sleep 1 && echo "2..." && \
+    sleep 1 && echo "1..." && \
+    sleep 1
 
-rm -Rf "$BASE_DIR"/pjsip/
-rm -Rf "$BASE_DIR"/Pod/lib/
+    rm -rf "$BASE_DIR/pjsip/"
+    rm -rf "$BASE_DIR/Pod/"
+    rm -rf "$BASE_DIR/VialerPJSIP.framework/"
 }
 
 # Checks out the supplied PJSIP version source from SVN. If no version provided latest version is used.
 function svn_checkout() {
-BASE_URL="http://svn.pjsip.org/repos/pjproject"
+    BASE_URL="http://svn.pjsip.org/repos/pjproject"
 
-if [ -z ${1} ]; then
-echo "No version provided, checking out \"trunk\""
-CHECKOUT_URL="${BASE_URL}/trunk/"
-else
-echo "Checking out version ${1}"
-CHECKOUT_URL="${BASE_URL}/tags/${1}/"
-fi
+    if [ -z ${1} ]; then
+        echo "No version provided, checking out \"trunk\""
+        CHECKOUT_URL="${BASE_URL}/trunk/"
+    else
+        echo "Checking out version ${1}"
+        CHECKOUT_URL="${BASE_URL}/tags/${1}/"
+    fi
 
-if [ ! -d "${BASE_DIR}/src/" ]; then
-# Src does not exist, assuming no previous version downloaded, using checkout.
-svn checkout "${CHECKOUT_URL}" pjsip/src/
-# Svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.2.1/ src/
-else
-# Src directory exists, using switch to prevent 'is already a working copy for a different URL' error.
-svn switch "${CHECKOUT_URL}" pjsip/src/
-fi
+    if [ ! -d "${BASE_DIR}/src/" ]; then
+        # Src does not exist, assuming no previous version downloaded, using checkout.
+        svn export "${CHECKOUT_URL}" pjsip/src/
+        # Svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.2.1/ src/
+    else
+        # Src directory exists, using switch to prevent 'is already a working copy for a different URL' error.
+        svn switch "${CHECKOUT_URL}" pjsip/src/
+    fi
 }
 
+# Function Prints info about the created libraries.
 function info() {
 echo "$PRE ARCH"
-find lib/$1/*.a | \
+find Pod/$1/*.a | \
 xargs lipo -info 2>/dev/null | grep "rchitecture" | \
 sed -El "s/^.+\: .+\/(.+) (are|is architecture)\: (.+)$/\\3 - \\1/g" | \
 sort
@@ -90,11 +92,14 @@ echo "$PRE INCLUDES"
 find src | grep "\\include$" | sort
 }
 
-
+# Shortcut function for building armv7 lib
 function armv7() { _build "armv7"; }
+# Shortcut function for building armv7s lib
 function armv7s() { _build "armv7s"; }
+# Shortcut function for building arm64 lib
 function arm64() { _build "arm64"; }
 
+# Shortcut function for building i386 lib
 function i386() {
 export DEVPATH=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
 export CFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
@@ -102,6 +107,7 @@ export LDFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
 _build "i386"
 }
 
+# Shortcut function for building x86_64 lib
 function x86_64() {
 export DEVPATH=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
 export CFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
@@ -109,13 +115,14 @@ export LDFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
 _build "x86_64"
 }
 
+# Shortcut function for building all architectures.
 function all() {
 armv7 && echo && armv7s && echo && arm64 && echo && i386 && echo && x86_64
 echo
 _merge
 }
 
-
+# Build function doing the actual library building for the specific architecture
 function _build() {
 echo "$PRE BUILD"
 echo "building for $1. this may take a while, tail -f $1.log to see progress."
@@ -133,6 +140,8 @@ echo
 _collect $1
 }
 
+# The _build function's output is always stored in the same location causing files to be overridden when another architecture is build.
+# This function collects the architecture specific build files and stores them in an appropriate directory.
 function _collect() {
 echo "$PRE COLLECT"
 cd "$BASE_DIR"
@@ -144,21 +153,25 @@ cp -v ./$x ./pjsip/temp/$1
 done | tee "$BASE_DIR"/pjsip/logs/collect.log
 }
 
+# Finds all the created architecture specific libraries, stored by the _collect function and merges all libraries in one fat lib suitable for all architectures.
 function _merge() {
 echo "$PRE MERGE"
 cd "$BASE_DIR"
 
 mkdir -p "$BASE_DIR"/Pod
-libtool -o Pod/libVialer-pjsip.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
+libtool -o Pod/VialerPJSIP.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
 #rm -Rf "$BASE_DIR"/pjsip/temp
 }
 
+# Copies header files form the PJSIP src into a temporary directory.
 function copy_headers() {
+echo "$PRE Copying header files to temporary location"
 cd "$BASE_DIR"/pjsip/src
 find . -path ./third_party -prune -o -path ./pjsip-apps -prune -o -path ./include -prune -o -type f -wholename '*include/*.h*' -exec bash -c 'copy_to_lib_dir "{}"' ';'
 cd "$BASE_DIR"
 }
 
+# helper function used by copy_headers
 function copy_to_lib_dir() {
 OLD_PATH=$1
 NEW_PATH=()
@@ -180,13 +193,14 @@ mkdir -p $d
 cp $OLD_PATH $d
 }
 
+# Function creates the framework skeleton copies the files into it and adapts the header files so the #include statements point to the correct location.
 function create_framework() {
 PRODUCT_NAME="VialerPJSIP"
 PUBLIC_HEADERS_FOLDER_PATH="${BASE_DIR}/Pod/vialer-pjsip-include"
 LIBRARY_LOCATION="${BASE_DIR}/Pod/"
 export FRAMEWORK_LOCN="${BASE_DIR}/${PRODUCT_NAME}.framework"
 
-Echo "Creating the $PRODUCT_NAME framework in $FRAMEWORK_LOCN"
+Echo "$PRE Creating the $PRODUCT_NAME framework in $FRAMEWORK_LOCN"
 
 # Create the path to the real Headers die
 mkdir -p "${FRAMEWORK_LOCN}/Versions/A/Headers"
@@ -195,34 +209,47 @@ mkdir -p "${FRAMEWORK_LOCN}/Versions/A/Headers"
 /bin/ln -sfh A "${FRAMEWORK_LOCN}/Versions/Current"
 /bin/ln -sfh Versions/Current/Headers "${FRAMEWORK_LOCN}/Headers"
 /bin/ln -sfh "Versions/Current/${PRODUCT_NAME}" \
-             "${FRAMEWORK_LOCN}/${PRODUCT_NAME}"
+"${FRAMEWORK_LOCN}/${PRODUCT_NAME}"
 
 # Copy the public headers into the framework
 /bin/cp -a "${PUBLIC_HEADERS_FOLDER_PATH}/" \
-           "${FRAMEWORK_LOCN}/Versions/A/Headers"
+"${FRAMEWORK_LOCN}/Versions/A/Headers"
 
-cp -a "${LIBRARY_LOCATION}/libVialer-pjsip.a" \
+cp -a "${LIBRARY_LOCATION}/VialerPJSIP.a" \
 "${BASE_DIR}/${PRODUCT_NAME}.framework/Versions/A/${PRODUCT_NAME}"
 
 
-Echo "Adapting the framework's header files"
+Echo "$PRE Adapting the framework's header files"
 #Now, replace the #include statements of the framework headers
 #To prevent a sed "sed: RE error: illegal byte sequence" error. Set these.
-export LC_CTYPE=C 
+export LC_CTYPE=C
 export LANG=C
 
 i=0
 while IFS= read -r -d '' file; do
-	sed -i '' "s/#include\ </#include <$PRODUCT_NAME\//" "$file"	
-	#to prevent $product_name is inserted multiple times, run a second sed command
-	sed -i '' "s/<$PRODUCT_NAME\/$PRODUCT_NAME\//<$PRODUCT_NAME\//" "$file"
-	
-	EXIT_CODE=$?
-	if [[ $EXIT_CODE != 0 ]]; then 
-		 echo "Error processing file ${file}"
-	fi
-	
-    i=$((i+1))
+sed -i '' "s/include\ </include <$PRODUCT_NAME\//" "$file"
+#to prevent $product_name is inserted multiple times, run a second sed command
+sed -i '' "s/<$PRODUCT_NAME\/$PRODUCT_NAME\//<$PRODUCT_NAME\//" "$file"
+
+#DO NOT REPLACE the default C++ lib's, undo the change
+sed -i '' "s/include\ <$PRODUCT_NAME\/stdio.h/include\ <stdio.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/stddef.h/include\ <stddef.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/stdarg.h/include\ <stdarg.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/string.h/include\ <string.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/stdlib.h/include\ <stdlib.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/assert.h/include\ <assert.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/math.h/include\ <math.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/ctype.h/include\ <ctype.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/setjmp.h/include\ <setjmp.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/stdarg.h/include\ <stdarg.h/" "$file"
+sed -i '' "s/include\ <$PRODUCT_NAME\/stdarg.h/include\ <stdarg.h/" "$file"
+
+EXIT_CODE=$?
+if [[ $EXIT_CODE != 0 ]]; then
+echo "Error processing file ${file}"
+fi
+
+i=$((i+1))
 done < <(find "${FRAMEWORK_LOCN}/Versions/A/Headers" -type f -name "*.h" -print0)
 echo "$i files processed"
 }

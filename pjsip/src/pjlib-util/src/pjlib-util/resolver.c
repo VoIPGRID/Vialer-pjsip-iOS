@@ -1,4 +1,4 @@
-/* $Id: resolver.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: resolver.c 4649 2013-11-07 08:20:30Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1633,6 +1633,7 @@ PJ_DEF(void) pj_dns_resolver_dump(pj_dns_resolver *resolver,
 
     PJ_LOG(3,(resolver->name.ptr, "  Name servers:"));
     for (i=0; i<resolver->ns_count; ++i) {
+	const char *state_names[] = { "probing", "active", "bad"};
 	struct nameserver *ns = &resolver->ns[i];
 
 	PJ_LOG(3,(resolver->name.ptr,

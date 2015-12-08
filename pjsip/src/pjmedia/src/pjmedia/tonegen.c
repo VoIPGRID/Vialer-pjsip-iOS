@@ -1,4 +1,4 @@
-/* $Id: tonegen.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: tonegen.c 4537 2013-06-19 06:47:43Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -665,16 +665,16 @@ static pj_status_t tonegen_get_frame(pjmedia_port *port,
 	    {
 		/* Fade in */
 		short *samp = (dst - cnt);
-		short *samp_end;
+		short *end;
 
 		if (cnt > tonegen->fade_in_len)
 		    cnt = tonegen->fade_in_len;
-		samp_end = samp + cnt;
+		end = samp + cnt;
 		if (cnt) {
 		    const unsigned step = 0xFFFF / cnt;
 		    unsigned scale = 0;
 
-		    for (; samp < samp_end; ++samp) {
+		    for (; samp < end; ++samp) {
 			(*samp) = (short)(((*samp) * scale) >> 16);
 			scale += step;
 		    }

@@ -1,4 +1,4 @@
-/* $Id: sip_dialog.c 5180 2015-09-17 06:11:01Z ming $ */
+/* $Id: sip_dialog.c 4911 2014-09-02 03:21:38Z nanang $ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -108,10 +108,9 @@ on_error:
     return status;
 }
 
-static void destroy_dialog( pjsip_dialog *dlg, pj_bool_t unlock_mutex )
+static void destroy_dialog( pjsip_dialog *dlg )
 {
     if (dlg->mutex_) {
-        if (unlock_mutex) pj_mutex_unlock(dlg->mutex_);
 	pj_mutex_destroy(dlg->mutex_);
 	dlg->mutex_ = NULL;
     }
@@ -243,25 +242,25 @@ PJ_DEF(pj_status_t) pjsip_dlg_create_uac( pjsip_user_agent *ua,
 	pjsip_sip_uri *sip_uri = (pjsip_sip_uri *)
 				 pjsip_uri_get_uri(dlg->remote.info->uri);
 	if (!pj_list_empty(&sip_uri->header_param)) {
-	    pj_str_t tmp2;
+	    pj_str_t tmp;
 
 	    /* Remove all header param */
 	    pj_list_init(&sip_uri->header_param);
 
 	    /* Print URI */
-	    tmp2.ptr = (char*) pj_pool_alloc(dlg->pool,
+	    tmp.ptr = (char*) pj_pool_alloc(dlg->pool,
 	    				    dlg->remote.info_str.slen);
-	    tmp2.slen = pjsip_uri_print(PJSIP_URI_IN_FROMTO_HDR,
-				       sip_uri, tmp2.ptr,
+	    tmp.slen = pjsip_uri_print(PJSIP_URI_IN_FROMTO_HDR,
+				       sip_uri, tmp.ptr,
 				       dlg->remote.info_str.slen);
 
-	    if (tmp2.slen < 1) {
+	    if (tmp.slen < 1) {
 		status = PJSIP_EURITOOLONG;
 		goto on_error;
 	    }
 
 	    /* Assign remote.info_str */
-	    dlg->remote.info_str = tmp2;
+	    dlg->remote.info_str = tmp;
 	}
     }
 
@@ -303,7 +302,7 @@ PJ_DEF(pj_status_t) pjsip_dlg_create_uac( pjsip_user_agent *ua,
     return PJ_SUCCESS;
 
 on_error:
-    destroy_dialog(dlg, PJ_FALSE);
+    destroy_dialog(dlg);
     return status;
 }
 
@@ -392,12 +391,12 @@ PJ_DEF(pj_status_t) pjsip_dlg_create_uas(   pjsip_user_agent *ua,
      *  MUST be a SIPS URI.
      */
     if (contact) {
-	pj_str_t tmp2;
+	pj_str_t tmp;
 
-	pj_strdup_with_null(dlg->pool, &tmp2, contact);
+	pj_strdup_with_null(dlg->pool, &tmp, contact);
 	dlg->local.contact = (pjsip_contact_hdr*)
-			     pjsip_parse_hdr(dlg->pool, &HCONTACT, tmp2.ptr,
-					     tmp2.slen, NULL);
+			     pjsip_parse_hdr(dlg->pool, &HCONTACT, tmp.ptr,
+					     tmp.slen, NULL);
 	if (!dlg->local.contact) {
 	    status = PJSIP_EINVALIDURI;
 	    goto on_error;
@@ -552,7 +551,7 @@ on_error:
 	--dlg->tsx_count;
     }
 
-    destroy_dialog(dlg, PJ_FALSE);
+    destroy_dialog(dlg);
     return status;
 }
 
@@ -726,7 +725,7 @@ PJ_DEF(pj_status_t) pjsip_dlg_fork( const pjsip_dialog *first_dlg,
     return PJ_SUCCESS;
 
 on_error:
-    destroy_dialog(dlg, PJ_FALSE);
+    destroy_dialog(dlg);
     return status;
 }
 
@@ -734,8 +733,7 @@ on_error:
 /*
  * Destroy dialog.
  */
-static pj_status_t unregister_and_destroy_dialog( pjsip_dialog *dlg,
-						  pj_bool_t unlock_mutex )
+static pj_status_t unregister_and_destroy_dialog( pjsip_dialog *dlg )
 {
     pj_status_t status;
 
@@ -759,7 +757,7 @@ static pj_status_t unregister_and_destroy_dialog( pjsip_dialog *dlg,
     PJ_LOG(5,(dlg->obj_name, "Dialog destroyed"));
 
     /* Destroy this dialog. */
-    destroy_dialog(dlg, unlock_mutex);
+    destroy_dialog(dlg);
 
     return PJ_SUCCESS;
 }
@@ -776,7 +774,7 @@ PJ_DEF(pj_status_t) pjsip_dlg_terminate( pjsip_dialog *dlg )
     /* MUST not have pending transactions. */
     PJ_ASSERT_RETURN(dlg->tsx_count==0, PJ_EINVALIDOP);
 
-    return unregister_and_destroy_dialog(dlg, PJ_FALSE);
+    return unregister_and_destroy_dialog(dlg);
 }
 
 
@@ -895,11 +893,7 @@ PJ_DEF(void) pjsip_dlg_dec_lock(pjsip_dialog *dlg)
     if (dlg->sess_count==0 && dlg->tsx_count==0) {
 	pj_mutex_unlock(dlg->mutex_);
 	pj_mutex_lock(dlg->mutex_);
-	/* We are holding the dialog mutex here, so before we destroy
-	 * the dialog, make sure that we unlock it first to avoid
-	 * undefined behaviour on some platforms. See ticket #1886.
-	 */
-	unregister_and_destroy_dialog(dlg, PJ_TRUE);
+	unregister_and_destroy_dialog(dlg);
     } else {
 	pj_mutex_unlock(dlg->mutex_);
     }

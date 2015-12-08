@@ -433,7 +433,7 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src'
+ac_pwd='/Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src'
 srcdir='.'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
@@ -632,8 +632,6 @@ S["libcrypto_present"]=""
 S["libssl_present"]=""
 S["openssl_h_present"]=""
 S["ac_no_ssl"]="1"
-S["ac_webrtc_ldflags"]=""
-S["ac_webrtc_cflags"]=""
 S["ac_libyuv_ldflags"]=""
 S["ac_libyuv_cflags"]=""
 S["ac_openh264_ldflags"]=""
@@ -681,14 +679,14 @@ S["ac_external_speex"]="0"
 S["ac_shared_libraries"]=""
 S["ac_os_objs"]="ioqueue_select.o file_access_unistd.o file_io_ansi.o os_core_unix.o os_error_unix.o os_time_unix.o os_timestamp_posix.o os_info_iphone.o guid_simple"\
 ".o os_core_darwin.o"
-S["EGREP"]="/usr/local/bin/grep -E"
-S["GREP"]="/usr/local/bin/grep"
+S["EGREP"]="/usr/bin/grep -E"
+S["GREP"]="/usr/bin/grep"
 S["CPP"]="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/../../../Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -"\
 "arch x86_64 -E -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk"
 S["ac_cross_compile"]="x86_64-apple-darwin_ios-"
 S["ac_shlib_suffix"]="dylib"
 S["ac_build_mak_vars"]=""
-S["ac_pjdir"]="/Users/redmer/Projects/Vialer-pjsip-iOS/pjsip/src"
+S["ac_pjdir"]="/Users/Harold/Programming/Vialer-PJSIP-pod/pjsip/src"
 S["CC_CFLAGS"]="-Wall"
 S["CC_OPTIMIZE"]="-O2"
 S["CC_DEF"]="-D"

@@ -1,4 +1,4 @@
-/* $Id: sdp_neg.c 5170 2015-08-25 08:45:46Z nanang $ */
+/* $Id: sdp_neg.c 5129 2015-07-08 10:17:26Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1176,18 +1176,18 @@ static pj_status_t match_offer(pj_pool_t *pool,
 			{
 			    /* Match! */
 			    if (is_codec) {
-				pjmedia_sdp_media *o_med, *a_med;
+				pjmedia_sdp_media *o, *a;
 				unsigned o_fmt_idx, a_fmt_idx;
 
-				o_med = (pjmedia_sdp_media*)offer;
-				a_med = (pjmedia_sdp_media*)preanswer;
+				o = (pjmedia_sdp_media*)offer;
+				a = (pjmedia_sdp_media*)preanswer;
 				o_fmt_idx = prefer_remote_codec_order? i:j;
 				a_fmt_idx = prefer_remote_codec_order? j:i;
 
 				/* Call custom format matching callbacks */
 				if (custom_fmt_match(pool, &or_.enc_name,
-						     o_med, o_fmt_idx,
-						     a_med, a_fmt_idx,
+						     o, o_fmt_idx,
+						     a, a_fmt_idx,
 						     ALLOW_MODIFY_ANSWER) !=
 				    PJ_SUCCESS)
 				{
