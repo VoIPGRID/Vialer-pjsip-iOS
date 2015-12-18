@@ -18,6 +18,10 @@ pod 'Vialer-pjsip-iOS'
 
 #### Current issues:
 When using the pod as a dependency in another podspec, linting generates the following error:
-```ruby
+```
 The 'Pods' target has transitive dependencies that include static binaries: VialerPJSIP.framework
+```
+As a workaround you can use
+```
+pod spec lint --use-libraries
 ```
