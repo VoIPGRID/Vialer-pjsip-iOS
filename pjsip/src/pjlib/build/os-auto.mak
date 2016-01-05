@@ -24,7 +24,7 @@ export TEST_OBJS +=	main.o
 # Additional LDFLAGS for pjlib-test
 #
 # Disabled, as this causes duplicated LDFLAGS, which may raise linking errors
-#export TEST_LDFLAGS += -O2 -m32 -mios-simulator-version-min=9.0 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.1.sdk -framework AudioToolbox -framework Foundation -lm -lpthread  -framework CoreAudio -framework CoreFoundation -framework AudioToolbox -framework CFNetwork -framework UIKit -framework UIKit -framework OpenGLES -framework AVFoundation -framework CoreGraphics -framework QuartzCore -framework CoreVideo -framework CoreMedia
+#export TEST_LDFLAGS += -O2 -m32 -mios-simulator-version-min=9.0 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.2.sdk -framework AudioToolbox -framework Foundation -lm -lpthread  -framework CoreAudio -framework CoreFoundation -framework AudioToolbox -framework CFNetwork -framework UIKit -framework UIKit -framework OpenGLES -framework AVFoundation -framework CoreGraphics -framework QuartzCore -framework CoreVideo -framework CoreMedia
 
 #
 # TARGETS are make targets in the Makefile, to be executed for this given

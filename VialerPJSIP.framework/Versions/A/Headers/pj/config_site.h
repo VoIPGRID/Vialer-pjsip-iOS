@@ -23,6 +23,8 @@
  * PJLIB settings.
  */
 
+#define PJ_CONFIG_IPHONE 1
+
 /* Both armv6 and armv7 has FP hardware support.
  * See https://trac.pjsip.org/repos/ticket/1589 for more info
  */
