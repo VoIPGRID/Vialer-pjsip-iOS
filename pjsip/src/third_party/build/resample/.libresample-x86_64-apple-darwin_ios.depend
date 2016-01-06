@@ -1,4 +1,0 @@
-output/libresample-x86_64-apple-darwin_ios/resamplesubs.o: ../../resample/src/resamplesubs.c \
-  ../../resample/include/resamplesubs.h config.h \
-  ../../resample/src/stddefs.h ../../resample/src/resample.h \
-  ../../resample/src/smallfilter.h ../../resample/src/largefilter.h
