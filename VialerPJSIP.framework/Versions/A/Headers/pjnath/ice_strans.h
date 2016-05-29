@@ -1,4 +1,4 @@
-/* $Id: ice_strans.h 4606 2013-10-01 05:00:57Z ming $ */
+/* $Id: ice_strans.h 5282 2016-05-09 03:29:28Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -125,10 +125,14 @@ typedef enum pj_ice_strans_op
     /** Negotiation */
     PJ_ICE_STRANS_OP_NEGOTIATION,
 
-    /** This operatino is used to report failure in keep-alive operation.
+    /** This operation is used to report failure in keep-alive operation.
      *  Currently it is only used to report TURN Refresh failure.
      */
-    PJ_ICE_STRANS_OP_KEEP_ALIVE
+    PJ_ICE_STRANS_OP_KEEP_ALIVE,
+
+    /** IP address change notification from STUN keep-alive operation.
+     */
+    PJ_ICE_STRANS_OP_ADDR_CHANGE
 
 } pj_ice_strans_op;
 

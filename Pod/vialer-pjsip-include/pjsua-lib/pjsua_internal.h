@@ -1,4 +1,4 @@
-/* $Id: pjsua_internal.h 5217 2015-12-24 12:25:58Z nanang $ */
+/* $Id: pjsua_internal.h 5288 2016-05-10 14:58:41Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -189,6 +189,13 @@ struct pjsua_call
     pj_timer_entry	 reinv_timer;  /**< Reinvite retry timer.	    */
     pj_bool_t	 	 reinv_pending;/**< Pending until CONFIRMED state.  */
     pj_bool_t	 	 reinv_ice_sent;/**< Has reinvite for ICE upd sent? */
+    pjsip_rx_data	*incoming_data;/**< Cloned incoming call rdata.
+				            On pjsua2, when handling incoming 
+					    call, onCreateMediaTransport() will
+					    not be called since the call isn't
+					    created yet. This temporary 
+					    variable is used to handle such 
+					    case, see ticket #1916.	    */
 };
 
 
@@ -478,6 +485,7 @@ struct pjsua_data
     pjmedia_master_port	*null_snd;  /**< Master port for null sound.	*/
     pjmedia_port	*null_port; /**< Null port.			*/
     pj_bool_t		 snd_is_on; /**< Media flow is currently active */
+    unsigned		 snd_mode;  /**< Sound device mode.		*/
 
     /* Video device */
     pjmedia_vid_dev_index vcap_dev;  /**< Capture device ID.		*/
