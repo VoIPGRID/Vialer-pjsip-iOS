@@ -1,4 +1,4 @@
-/* $Id: config.h 5186 2015-10-06 05:57:51Z ming $ */
+/* $Id: config.h 5242 2016-02-18 03:15:19Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -972,6 +972,7 @@
  * See:
  *  - G.722      : RFC 3551 4.5.2
  *  - MPEG audio : RFC 3551 4.5.13 & RFC 3119
+ *  - OPUS	 : RFC 7587
  *
  * Also when this feature is enabled, some handling will be performed
  * to deal with clock rate incompatibilities of some phones.
@@ -1320,6 +1321,7 @@
 #   endif
 #endif
 
+
 /**
  * Specify if libyuv is available.
  *
@@ -1328,6 +1330,15 @@
 #ifndef PJMEDIA_HAS_LIBYUV
 #   define PJMEDIA_HAS_LIBYUV				0
 #endif
+
+
+/**
+ * Specify if dtmf flash in RFC 2833 is available.
+ */
+#ifndef PJMEDIA_HAS_DTMF_FLASH
+#   define PJMEDIA_HAS_DTMF_FLASH			1
+#endif
+
 
 /**
  * @}

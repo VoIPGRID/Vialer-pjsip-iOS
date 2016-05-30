@@ -1,4 +1,4 @@
-/* $Id: sip_transport.h 5097 2015-05-18 04:42:42Z ming $ */
+/* $Id: sip_transport.h 5246 2016-02-25 04:38:34Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -799,6 +799,8 @@ struct pjsip_transport
     
     pjsip_endpoint	   *endpt;	    /**< Endpoint instance.	    */
     pjsip_tpmgr		   *tpmgr;	    /**< Transport manager.	    */
+    pjsip_tpfactory	   *factory;	    /**< Factory instance. Note: it
+					         may be invalid/shutdown.   */
     pj_timer_entry	    idle_timer;	    /**< Timer when ref cnt is zero.*/
 
     pj_timestamp	    last_recv_ts;   /**< Last time receiving data.  */

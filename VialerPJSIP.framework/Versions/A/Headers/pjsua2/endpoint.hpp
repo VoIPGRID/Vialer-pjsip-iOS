@@ -1,4 +1,4 @@
-/* $Id: endpoint.hpp 5185 2015-10-02 02:08:17Z nanang $ */
+/* $Id: endpoint.hpp 5278 2016-04-19 07:29:54Z ming $ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -1310,7 +1310,8 @@ private:
                            pjsua_acc_id acc_id);
     static void on_mwi_info(pjsua_acc_id acc_id,
                             pjsua_mwi_info *mwi_info);
-
+    static void on_acc_find_for_incoming(const pjsip_rx_data *rdata,
+				     	 pjsua_acc_id* acc_id);
     static void on_buddy_state(pjsua_buddy_id buddy_id);
     // Call callbacks
     static void on_call_state(pjsua_call_id call_id, pjsip_event *e);
