@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
 
 	s.preserve_paths        = "VialerPJSIP.framework/*"
 	s.public_header_files   = "VialerPJSIP.framework/Versions/A/Headers/**/*.{h,hpp}"
+	s.source_files		    = "VialerPJSIP.framework/Versions/A/Headers/**/*.{h,hpp}"
 	s.vendored_frameworks   = "VialerPJSIP.framework"
 	
 	s.frameworks            = "AudioToolbox", "AVFoundation", "CFNetwork"
