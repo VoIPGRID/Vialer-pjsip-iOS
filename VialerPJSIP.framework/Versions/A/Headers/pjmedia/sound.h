@@ -1,4 +1,4 @@
-/* $Id: sound.h 5255 2016-03-10 05:02:07Z ming $ */
+/* $Id: sound.h 5321 2016-05-26 04:51:07Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -153,7 +153,13 @@ PJ_INLINE(pj_status_t) pjmedia_snd_init(pj_pool_factory *factory)
  *
  * @return		Number of devices.
  */
-PJ_DECL(int) pjmedia_snd_get_dev_count(void);
+PJ_INLINE(int) pjmedia_snd_get_dev_count(void)
+{
+    /* This function is inlined to avoid pjmedia's dependency on
+     * pjmedia-audiodev.
+     */
+    return (int)pjmedia_aud_dev_count();
+}
 
 
 /**

@@ -1,4 +1,4 @@
-/* $Id: sip_transport.h 5246 2016-02-25 04:38:34Z nanang $ */
+/* $Id: sip_transport.h 5308 2016-05-19 06:55:16Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -994,6 +994,7 @@ struct pjsip_tpfactory
     pjsip_transport_type_e  type;	    /**< Transport type.	*/
     char		   *type_name;      /**< Type string name.	*/
     unsigned		    flag;	    /**< Transport flag.	*/
+    char		   *info;	    /**< Transport info/description.*/
 
     pj_sockaddr		    local_addr;	    /**< Bound address.		*/
     pjsip_host_port	    addr_name;	    /**< Published name.	*/

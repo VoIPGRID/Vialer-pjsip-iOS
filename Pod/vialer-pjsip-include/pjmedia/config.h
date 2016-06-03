@@ -1,4 +1,4 @@
-/* $Id: config.h 5242 2016-02-18 03:15:19Z riza $ */
+/* $Id: config.h 5301 2016-05-17 15:25:51Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1138,15 +1138,6 @@
  */
 #ifndef PJMEDIA_HAS_LIBAVDEVICE
 #   define PJMEDIA_HAS_LIBAVDEVICE			PJMEDIA_HAS_FFMPEG
-#endif
-
-/**
- * Specify if FFMPEG libavcore is available.
- *
- * Default: PJMEDIA_HAS_FFMPEG (or detected by configure)
- */
-#ifndef PJMEDIA_HAS_LIBAVCORE
-#   define PJMEDIA_HAS_LIBAVCORE			PJMEDIA_HAS_FFMPEG
 #endif
 
 /**

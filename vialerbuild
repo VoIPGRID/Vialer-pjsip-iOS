@@ -42,7 +42,7 @@ function complete() {
 function rebuild() {
 	rm -rf "$BASE_DIR/Pod/"
     rm -rf "$BASE_DIR/VialerPJSIP.framework/"
-    rm $BASE_DIR/pjsip/logs/*
+    rm -rf "$BASE_DIR/pjsip/logs/"
 	mkdir -p "$BASE_DIR"/pjsip/logs/
     all
     copy_headers

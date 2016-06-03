@@ -1,4 +1,4 @@
-/* $Id: config.h 5239 2016-02-04 06:11:58Z ming $ */
+/* $Id: config.h 5304 2016-05-17 16:14:36Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -472,10 +472,10 @@
 /**
  * Specify if FFMPEG codecs are available.
  *
- * Default: PJMEDIA_HAS_LIBAVCODEC
+ * Default: PJMEDIA_HAS_LIBAVFORMAT
  */
 #ifndef PJMEDIA_HAS_FFMPEG_CODEC
-#   define PJMEDIA_HAS_FFMPEG_CODEC		PJMEDIA_HAS_LIBAVCODEC
+#   define PJMEDIA_HAS_FFMPEG_CODEC		PJMEDIA_HAS_LIBAVFORMAT
 #endif
 
 
