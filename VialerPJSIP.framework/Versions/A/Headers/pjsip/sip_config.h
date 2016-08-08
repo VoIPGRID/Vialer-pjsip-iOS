@@ -1,4 +1,4 @@
-/* $Id: sip_config.h 5176 2015-09-11 02:59:01Z nanang $ */
+/* $Id: sip_config.h 5336 2016-06-07 10:07:57Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1122,6 +1122,16 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
 #   define PJSIP_REGISTER_CLIENT_ADD_XUID_PARAM	0
 #endif
 
+/**
+ * Maximum size of pool allowed for auth client session in pjsip_regc.
+ * After the size exceeds because of Digest authentication processing,
+ * the pool is reset.
+ *
+ * Default is 20 kB
+ */
+#ifndef PJSIP_AUTH_CACHED_POOL_MAX_SIZE
+#   define PJSIP_AUTH_CACHED_POOL_MAX_SIZE	(20 * 1024)
+#endif
 
 /*****************************************************************************
  *  SIP Event framework and presence settings.
