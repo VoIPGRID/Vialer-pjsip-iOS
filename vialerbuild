@@ -2,6 +2,7 @@
 
 cd `dirname $BASH_SOURCE`
 export BASE_DIR=`pwd -P`
+export IOS_DEPLOY_TGT="9.0"
 
 set -o errexit
 set -o errtrace
@@ -28,13 +29,21 @@ vialerbuild info i386     # show architecture information for i386 libs.
 vialerbuild info x86_64   # show architecture information for x86_64 libs.
 
 vialerbuild complete	  # Downloads, builds and copies files.
+vialerbuild rebuild		  # Delete old framework files and rebuild for all architectures
 EOF
 }
 
 function complete() {
     clean
     svn_checkout $1
-    mkdir -p "$BASE_DIR"/pjsip/logs/
+    rebuild
+}
+
+function rebuild() {
+	rm -rf "$BASE_DIR/Pod/"
+    rm -rf "$BASE_DIR/VialerPJSIP.framework/"
+    rm -rf "$BASE_DIR/pjsip/logs/"
+	mkdir -p "$BASE_DIR"/pjsip/logs/
     all
     copy_headers
     create_framework
@@ -93,14 +102,27 @@ function info() {
 }
 
 # Shortcut function for building armv7 lib
-function armv7() { _build "armv7"; }
+function armv7() {
+	unset CFLAGS LDFLAGS
+	export CFLAGS="-miphoneos-version-min=$IOS_DEPLOY_TGT"
+	_build "armv7"; 
+}
 # Shortcut function for building armv7s lib
-function armv7s() { _build "armv7s"; }
+function armv7s() {
+	unset CFLAGS LDFLAGS
+	export CFLAGS="-miphoneos-version-min=$IOS_DEPLOY_TGT"
+	_build "armv7s"; 
+}
 # Shortcut function for building arm64 lib
-function arm64() { _build "arm64"; }
+function arm64() {
+	unset CFLAGS LDFLAGS
+	export CFLAGS="-miphoneos-version-min=$IOS_DEPLOY_TGT"
+	_build "arm64"; 
+}
 
 # Shortcut function for building i386 lib
 function i386() {
+	unset CFLAGS LDFLAGS
     export DEVPATH=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
     export CFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
     export LDFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
@@ -109,6 +131,7 @@ function i386() {
 
 # Shortcut function for building x86_64 lib
 function x86_64() {
+	unset CFLAGS LDFLAGS
     export DEVPATH=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
     export CFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"
     export LDFLAGS="-O2 -m32 -mios-simulator-version-min=9.0"

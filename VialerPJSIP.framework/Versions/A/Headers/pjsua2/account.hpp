@@ -1,4 +1,4 @@
-/* $Id: account.hpp 4957 2014-11-04 08:00:15Z nanang $ */
+/* $Id: account.hpp 5410 2016-08-05 07:26:18Z riza $ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -830,6 +830,21 @@ struct AccountVideoConfig : public PersistentObject
      * Default: 0 (follow codec maximum bitrate).
      */
     unsigned			rateControlBandwidth;
+
+    /**
+     * The number of keyframe to be sent after the stream is created.
+     *
+     * Default: PJMEDIA_VID_STREAM_START_KEYFRAME_CNT
+     */
+    unsigned			    startKeyframeCount;
+
+    /**
+     * The keyframe sending interval after the stream is created.
+     *
+     * Default: PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC
+     */
+    unsigned			    startKeyframeInterval;
+
 
 public:
     /**

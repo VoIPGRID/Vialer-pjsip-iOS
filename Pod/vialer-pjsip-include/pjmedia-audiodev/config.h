@@ -1,4 +1,4 @@
-/* $Id: config.h 5201 2015-11-19 04:03:00Z ming $ */
+/* $Id: config.h 5268 2016-03-23 07:52:41Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -59,17 +59,10 @@ PJ_BEGIN_DECL
 /**
  * This setting controls whether PortAudio support should be included.
  *
- * By default it is enabled except on Windows platforms (including
- * Windows Mobile) and Symbian.
+ * By default it is disabled.
  */
 #ifndef PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO
-#   if (defined(PJ_WIN32) && PJ_WIN32!=0) || \
-       (defined(PJ_WIN64) && PJ_WIN64!=0) || \
-       (defined(PJ_SYMBIAN) && PJ_SYMBIAN!=0)
-#	define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO	0
-#   else
-#	define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO	1
-#   endif
+#   define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO	0
 #endif
 
 /**

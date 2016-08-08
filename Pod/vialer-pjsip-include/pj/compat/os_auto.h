@@ -1,5 +1,5 @@
 /* pjlib/include/pj/compat/os_auto.h.  Generated from os_auto.h.in by configure.  */
-/* $Id: os_auto.h.in 3841 2011-10-24 09:28:13Z ming $ */
+/* $Id: os_auto.h.in 5403 2016-08-02 08:35:28Z ming $ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -84,6 +84,7 @@
 /* #undef PJ_HAS_WINSOCK2_H */
 /* #undef PJ_HAS_WS2TCPIP_H */
 
+#define PJ_SOCK_HAS_IPV6_V6ONLY 1
 #define PJ_SOCK_HAS_INET_ATON 1
 #define PJ_SOCK_HAS_INET_PTON 1
 #define PJ_SOCK_HAS_INET_NTOP 1
@@ -128,6 +129,9 @@
  * Default: 0
  */
 #define PJ_SELECT_NEEDS_NFDS 0
+
+/* Was Linux epoll support enabled */
+/* #undef PJ_HAS_LINUX_EPOLL */
 
 /* Is errno a good way to retrieve OS errors?
  */

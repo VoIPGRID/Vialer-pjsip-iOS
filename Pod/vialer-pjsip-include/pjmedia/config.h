@@ -1,4 +1,4 @@
-/* $Id: config.h 5186 2015-10-06 05:57:51Z ming $ */
+/* $Id: config.h 5410 2016-08-05 07:26:18Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -972,6 +972,7 @@
  * See:
  *  - G.722      : RFC 3551 4.5.2
  *  - MPEG audio : RFC 3551 4.5.13 & RFC 3119
+ *  - OPUS	 : RFC 7587
  *
  * Also when this feature is enabled, some handling will be performed
  * to deal with clock rate incompatibilities of some phones.
@@ -1137,15 +1138,6 @@
  */
 #ifndef PJMEDIA_HAS_LIBAVDEVICE
 #   define PJMEDIA_HAS_LIBAVDEVICE			PJMEDIA_HAS_FFMPEG
-#endif
-
-/**
- * Specify if FFMPEG libavcore is available.
- *
- * Default: PJMEDIA_HAS_FFMPEG (or detected by configure)
- */
-#ifndef PJMEDIA_HAS_LIBAVCORE
-#   define PJMEDIA_HAS_LIBAVCORE			PJMEDIA_HAS_FFMPEG
 #endif
 
 /**
@@ -1320,6 +1312,7 @@
 #   endif
 #endif
 
+
 /**
  * Specify if libyuv is available.
  *
@@ -1328,6 +1321,34 @@
 #ifndef PJMEDIA_HAS_LIBYUV
 #   define PJMEDIA_HAS_LIBYUV				0
 #endif
+
+
+/**
+ * Specify if dtmf flash in RFC 2833 is available.
+ */
+#ifndef PJMEDIA_HAS_DTMF_FLASH
+#   define PJMEDIA_HAS_DTMF_FLASH			1
+#endif
+
+/**
+ * Specify the number of keyframe needed to be sent after the stream is 
+ * created. Setting this to 0 will disable it.
+ *
+ * Default : 5
+ */
+#ifndef PJMEDIA_VID_STREAM_START_KEYFRAME_CNT
+#   define PJMEDIA_VID_STREAM_START_KEYFRAME_CNT	5
+#endif
+
+/**
+ * Specify the interval to send keyframe after the stream is created, in msec.
+ *
+ * Default : 1000
+ */
+#ifndef PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC
+#   define PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC  1000
+#endif
+
 
 /**
  * @}
