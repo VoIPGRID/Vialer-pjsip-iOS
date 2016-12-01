@@ -3,6 +3,7 @@
 cd `dirname $BASH_SOURCE`
 export BASE_DIR=`pwd -P`
 export IOS_DEPLOY_TGT="9.0"
+export OPUS_ABSOLUT_PATH="$2"
 
 set -o errexit
 set -o errtrace
@@ -28,8 +29,8 @@ vialerbuild info arm64    # show architecture information for arm64 libs.
 vialerbuild info i386     # show architecture information for i386 libs.
 vialerbuild info x86_64   # show architecture information for x86_64 libs.
 
-vialerbuild complete	  # Downloads, builds and copies files.
-vialerbuild rebuild		  # Delete old framework files and rebuild for all architectures
+vialerbuild complete ABSOLUT_PATH_TO_OPUS_LIB   # Downloads, builds and copies files with opus lib
+vialerbuild rebuild	ABSOLUT_PATH_TO_OPUS_LIB	  # Delete old framework files and rebuild for all architectures with opus lib
 EOF
 }
 
@@ -153,7 +154,7 @@ function _build() {
 
     cp "$BASE_DIR"/config_site.h "$BASE_DIR"/pjsip/src/pjlib/include/pj
     cd "$BASE_DIR"/pjsip/src
-    ARCH="-arch $1" ./configure-iphone 2>&1 > "$BASE_DIR"/pjsip/logs/$1.log
+    ARCH="-arch $1" ./configure-iphone --with-opus=$OPUS_ABSOLUT_PATH 2>&1 > "$BASE_DIR"/pjsip/logs/$1.log
 
     make dep 2>&1 >> "$BASE_DIR"/pjsip/logs/$1.log
     make clean 2>&1 >> "$BASE_DIR"/pjsip/logs/$1.log
@@ -270,7 +271,7 @@ function create_framework() {
 
 export -f copy_to_lib_dir
 
-if [ -n "$1" ]; then
+if [ -n "$1" ] && [ -n "$2" ] ; then
     CMD=$1
     shift
     $CMD $*
