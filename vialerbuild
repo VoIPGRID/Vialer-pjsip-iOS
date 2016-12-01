@@ -3,7 +3,6 @@
 cd `dirname $BASH_SOURCE`
 export BASE_DIR=`pwd -P`
 export IOS_DEPLOY_TGT="9.0"
-export OPUS_ABSOLUT_PATH="$2"
 
 set -o errexit
 set -o errtrace
@@ -273,7 +272,10 @@ export -f copy_to_lib_dir
 
 if [ -n "$1" ] && [ -n "$2" ] ; then
     CMD=$1
+    export OPUS_ABSOLUT_PATH="$2"
+    
     shift
+    shift #shift out path to opus
     $CMD $*
 
     echo
