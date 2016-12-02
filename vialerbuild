@@ -156,7 +156,7 @@ function _build() {
 
     cp "$BASE_DIR"/config_site.h "$BASE_DIR"/pjsip/src/pjlib/include/pj
     cd "$BASE_DIR"/pjsip/src
-    ARCH="-arch $1" ./configure-iphone --with-opus=$OPUS_ABSOLUT_PATH 2>&1 > "$BASE_DIR"/pjsip/logs/$1.log
+    ARCH="-arch $1" ./configure-iphone --with-opus=$OPUS_ABSOLUT_PATH/opus --with-openh264=$OPUS_ABSOLUT_PATH/libopenh264_arm_7_7s_64 2>&1 > "$BASE_DIR"/pjsip/logs/$1.log
 
     make dep 2>&1 >> "$BASE_DIR"/pjsip/logs/$1.log
     make clean 2>&1 >> "$BASE_DIR"/pjsip/logs/$1.log
@@ -185,8 +185,13 @@ function _merge() {
     cd "$BASE_DIR"
 
     mkdir -p "$BASE_DIR"/Pod
-    cp -r "$BASE_DIR"/dependencies/lib/* "$BASE_DIR"/pjsip/temp
+
+    cp -r "$BASE_DIR"/dependencies/opus/lib/* "$BASE_DIR"/pjsip/temp
+    cp -r "$BASE_DIR"/dependencies/libopenh264_arm_7_7s_64/lib/* "$BASE_DIR"/pjsip/temp
+
     mv "$BASE_DIR"/pjsip/temp/libopus.a "$BASE_DIR"/pjsip/temp/libopus-darwin_ios.a
+    mv "$BASE_DIR"/pjsip/temp/libopenh264.a "$BASE_DIR"/pjsip/temp/libopenh264-darwin_ios.a
+
     libtool -o Pod/VialerPJSIP.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
     #rm -Rf "$BASE_DIR"/pjsip/temp
 }
@@ -197,7 +202,8 @@ function copy_headers() {
     cd "$BASE_DIR"/pjsip/src
     find . -path ./third_party -prune -o -path ./pjsip-apps -prune -o -path ./include -prune -o -type f -wholename '*include/*.h*' -exec bash -c 'copy_to_lib_dir "{}"' ';'
     cd "$BASE_DIR"
-    find ./dependencies/include/opus  -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
+    find ./dependencies/opus/include/opus  -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
+    find ./dependencies/libopenh264_arm_7_7s_64/include/wels  -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
 }
 
 # helper function used by copy_headers
