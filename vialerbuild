@@ -182,6 +182,8 @@ function _merge() {
     cd "$BASE_DIR"
 
     mkdir -p "$BASE_DIR"/Pod
+    cp -r "$BASE_DIR"/dependencies/lib/* "$BASE_DIR"/pjsip/temp
+    mv "$BASE_DIR"/pjsip/temp/libopus.a "$BASE_DIR"/pjsip/temp/libopus-darwin_ios.a
     libtool -o Pod/VialerPJSIP.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
     #rm -Rf "$BASE_DIR"/pjsip/temp
 }
@@ -192,6 +194,7 @@ function copy_headers() {
     cd "$BASE_DIR"/pjsip/src
     find . -path ./third_party -prune -o -path ./pjsip-apps -prune -o -path ./include -prune -o -type f -wholename '*include/*.h*' -exec bash -c 'copy_to_lib_dir "{}"' ';'
     cd "$BASE_DIR"
+    find ./dependencies/include/opus  -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
 }
 
 # helper function used by copy_headers
