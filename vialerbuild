@@ -34,12 +34,15 @@ EOF
 }
 
 function complete() {
+    export OPUS_ABSOLUT_PATH="$1"
+    shift
     clean
     svn_checkout $1
-    rebuild
+    rebuild $OPUS_ABSOLUT_PATH
 }
 
 function rebuild() {
+    export OPUS_ABSOLUT_PATH="$1"
 	rm -rf "$BASE_DIR/Pod/"
     rm -rf "$BASE_DIR/VialerPJSIP.framework/"
     rm -rf "$BASE_DIR/pjsip/logs/"
@@ -273,12 +276,9 @@ function create_framework() {
 
 export -f copy_to_lib_dir
 
-if [ -n "$1" ] && [ -n "$2" ] ; then
+if [ -n "$1" ] ; then
     CMD=$1
-    export OPUS_ABSOLUT_PATH="$2"
-    
     shift
-    shift #shift out path to opus
     $CMD $*
 
     echo
