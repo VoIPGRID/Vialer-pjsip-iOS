@@ -28,21 +28,21 @@ vialerbuild info arm64    # show architecture information for arm64 libs.
 vialerbuild info i386     # show architecture information for i386 libs.
 vialerbuild info x86_64   # show architecture information for x86_64 libs.
 
-vialerbuild complete ABSOLUT_PATH_TO_OPUS_LIB   # Downloads, builds and copies files with opus lib
-vialerbuild rebuild	ABSOLUT_PATH_TO_OPUS_LIB	  # Delete old framework files and rebuild for all architectures with opus lib
+vialerbuild complete ABSOLUTE_PATH_TO_DEPENDENCY_LIB   # Downloads, builds and copies files with opus lib
+vialerbuild rebuild	ABSOLUTE_PATH_TO_DEPENDENCY_LIB	  # Delete old framework files and rebuild for all architectures with opus lib
 EOF
 }
 
 function complete() {
-    export OPUS_ABSOLUT_PATH="$1"
+    export DEP_ABSOLUTE_PATH="$1"
     shift
     clean
     svn_checkout $1
-    rebuild $OPUS_ABSOLUT_PATH
+    rebuild $DEP_ABSOLUTE_PATH
 }
 
 function rebuild() {
-    export OPUS_ABSOLUT_PATH="$1"
+    export DEP_ABSOLUTE_PATH="$1"
 	rm -rf "$BASE_DIR/Pod/"
     rm -rf "$BASE_DIR/VialerPJSIP.framework/"
     rm -rf "$BASE_DIR/pjsip/logs/"
@@ -156,7 +156,7 @@ function _build() {
 
     cp "$BASE_DIR"/config_site.h "$BASE_DIR"/pjsip/src/pjlib/include/pj
     cd "$BASE_DIR"/pjsip/src
-    ARCH="-arch $1" ./configure-iphone --with-opus=$OPUS_ABSOLUT_PATH/opus --with-openh264=$OPUS_ABSOLUT_PATH/libopenh264_arm_7_7s_64 2>&1 > "$BASE_DIR"/pjsip/logs/$1.log
+    ARCH="-arch $1" ./configure-iphone --with-opus=$DEP_ABSOLUTE_PATH/opus --with-openh264=$DEP_ABSOLUTE_PATH/libopenh264_arm_7_7s_64 2>&1 > "$BASE_DIR"/pjsip/logs/$1.log
 
     make dep 2>&1 >> "$BASE_DIR"/pjsip/logs/$1.log
     make clean 2>&1 >> "$BASE_DIR"/pjsip/logs/$1.log
