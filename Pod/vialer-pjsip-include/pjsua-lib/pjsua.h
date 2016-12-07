@@ -1,4 +1,4 @@
-/* $Id: pjsua.h 5410 2016-08-05 07:26:18Z riza $ */
+/* $Id: pjsua.h 5326 2016-05-31 04:28:00Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -3304,13 +3304,6 @@ typedef struct pjsua_acc_config
      * Default: see #pjmedia_vid_stream_rc_config
      */
     pjmedia_vid_stream_rc_config vid_stream_rc_cfg;
-
-    /**
-     * Specify the send keyframe config for video stream.
-     *
-     * Default: see #pjmedia_vid_stream_sk_config
-     */
-    pjmedia_vid_stream_sk_config vid_stream_sk_cfg;
 
     /**
      * Media transport config.
