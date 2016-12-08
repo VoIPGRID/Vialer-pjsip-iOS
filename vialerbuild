@@ -3,6 +3,7 @@
 cd `dirname $BASH_SOURCE`
 export BASE_DIR=`pwd -P`
 export IOS_DEPLOY_TGT="9.0"
+export MIN_IOS="-miphoneos-version-min=9.0"
 
 set -o errexit
 set -o errtrace
@@ -183,7 +184,6 @@ function _merge() {
 
     mkdir -p "$BASE_DIR"/Pod
     libtool -o Pod/VialerPJSIP.a `find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
-    #rm -Rf "$BASE_DIR"/pjsip/temp
 }
 
 # Copies header files form the PJSIP src into a temporary directory.
