@@ -1,4 +1,4 @@
-/* $Id: config.h 5394 2016-07-21 03:28:11Z ming $ */
+/* $Id: config.h 5472 2016-10-27 07:58:01Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -842,6 +842,9 @@
 /** QoS backend for Symbian */
 #define PJ_QOS_SYMBIAN	    4
 
+/** QoS backend for Darwin */
+#define PJ_QOS_DARWIN	    5
+
 /**
  * Force the use of some QoS backend API for some platforms.
  */
@@ -884,6 +887,16 @@
  */
 #ifndef PJ_SSL_SOCK_OSSL_CIPHERS
 #  define PJ_SSL_SOCK_OSSL_CIPHERS   "HIGH:-COMPLEMENTOFDEFAULT"
+#endif
+
+
+/**
+ * Define the maximum number of curves supported by the secure socket.
+ *
+ * Default: 32
+ */
+#ifndef PJ_SSL_SOCK_MAX_CURVES
+#  define PJ_SSL_SOCK_MAX_CURVES   32
 #endif
 
 
@@ -1226,7 +1239,7 @@ PJ_BEGIN_DECL
  * Extra suffix for the version (e.g. "-trunk"), or empty for
  * web release version.
  */
-#define PJ_VERSION_NUM_EXTRA	""
+#define PJ_VERSION_NUM_EXTRA	"-svn"
 
 /**
  * PJLIB version number consists of three bytes with the following format:
