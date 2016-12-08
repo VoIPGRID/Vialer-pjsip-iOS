@@ -105,19 +105,19 @@ function info() {
 function armv7() {
 	unset CFLAGS LDFLAGS
 	export CFLAGS="-miphoneos-version-min=$IOS_DEPLOY_TGT"
-	_build "armv7"; 
+	_build "armv7";
 }
 # Shortcut function for building armv7s lib
 function armv7s() {
 	unset CFLAGS LDFLAGS
 	export CFLAGS="-miphoneos-version-min=$IOS_DEPLOY_TGT"
-	_build "armv7s"; 
+	_build "armv7s";
 }
 # Shortcut function for building arm64 lib
 function arm64() {
 	unset CFLAGS LDFLAGS
 	export CFLAGS="-miphoneos-version-min=$IOS_DEPLOY_TGT"
-	_build "arm64"; 
+	_build "arm64";
 }
 
 # Shortcut function for building i386 lib
@@ -257,6 +257,7 @@ function create_framework() {
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/setjmp.h/include\ <setjmp.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdarg.h/include\ <stdarg.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdarg.h/include\ <stdarg.h/" "$file"
+        LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/inttypes.h/include\ <inttypes.h/" "$file"
 
         EXIT_CODE=$?
         if [[ $EXIT_CODE != 0 ]]; then
