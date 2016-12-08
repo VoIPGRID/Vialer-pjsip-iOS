@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 	s.homepage              = "https://www.wearespindle.com"
 
 	s.license               = { :type => "GNU GPLv3", :file => "LICENSE" }
-	s.author                = { "Devhouse Spindle" => "vialersiplib@wearespindle.com }
+	s.author                = { "Devhouse Spindle" => "vialersiplib@wearespindle.com" }
 
 	s.source                = { :git => "https://github.com/VoIPGRID/Vialer-pjsip-iOS.git", :tag => s.version.to_s }
 	s.social_media_url      = "https://twitter.com/wearespindle"
