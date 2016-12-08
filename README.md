@@ -7,12 +7,11 @@ The most important part of the project is the "vialerbuild" script. It will:
 - wrap the fat library in a framework.
 
 #### Usage:
-You can add the pod to your framework by defining the source for the spec in you podfile:
+
+Install via CocoaPods:
+
 ```ruby
-source 'https://github.com/VoIPGRID/PrivatePodSpecs-iOS.git'
-```
-and add:
-```ruby
+platform :ios, '9.0'
 pod 'Vialer-pjsip-iOS'
 ```
 
@@ -25,3 +24,5 @@ As a workaround you can use
 ```
 pod spec lint --use-libraries
 ```
+
+The library is a fat static library and cannot be included in an use_frameworks! enviroment at this moment. We're trying to find a solution for this and implement a way to create a dynamic library.

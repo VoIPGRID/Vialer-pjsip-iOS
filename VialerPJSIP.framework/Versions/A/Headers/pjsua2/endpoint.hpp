@@ -1,4 +1,4 @@
-/* $Id: endpoint.hpp 5297 2016-05-13 10:56:48Z ming $ */
+/* $Id: endpoint.hpp 5417 2016-08-12 03:47:26Z ming $ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -1402,6 +1402,10 @@ private:
                               unsigned media_idx,
                               pjmedia_transport *base_tp,
                               unsigned flags);
+    static void
+    on_create_media_transport_srtp(pjsua_call_id call_id,
+                                   unsigned media_idx,
+                                   pjmedia_srtp_setting *srtp_opt);
 
 private:
     void clearCodecInfoList(CodecInfoVector &codec_list);

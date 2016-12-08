@@ -1,5 +1,5 @@
 /* pjlib/include/pj/compat/os_auto.h.  Generated from os_auto.h.in by configure.  */
-/* $Id: os_auto.h.in 5403 2016-08-02 08:35:28Z ming $ */
+/* $Id: os_auto.h.in 5485 2016-11-17 04:38:25Z ming $ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -167,6 +167,9 @@
 #   define PJ_OS_HAS_CHECK_STACK    0
 #endif
 
+/* Is localtime_r() available? */
+#define PJ_HAS_LOCALTIME_R 1
+
 /* Unicode? */
 #define PJ_NATIVE_STRING_IS_UNICODE 0
 
@@ -177,13 +180,18 @@
 #define PJ_ATOMIC_VALUE_TYPE long
 
 #if defined(PJ_DARWINOS) && PJ_DARWINOS!=0
+     /* Disable local host resolution in pj_gethostip() (see ticket #1342) */
+#    define PJ_GETHOSTIP_DISABLE_LOCAL_RESOLUTION 1
+     /* Use pj_getaddrinfo() (instead of pj_inet_pton()) in
+      * pj_sockaddr_set_str_addr()
+      */
+#    define PJ_SOCKADDR_USE_GETADDRINFO 1
+
 #    include "TargetConditionals.h"
 #    if TARGET_OS_IPHONE
 #	include "Availability.h"
 	/* Use CFHost API for pj_getaddrinfo() (see ticket #1246) */
 #	define PJ_GETADDRINFO_USE_CFHOST 1
-	/* Disable local host resolution in pj_gethostip() (see ticket #1342) */
-#	define PJ_GETHOSTIP_DISABLE_LOCAL_RESOLUTION 1
 #    	ifdef __IPHONE_4_0
  	    /* Is multitasking support available?  (see ticket #1107) */
 #	    define PJ_IPHONE_OS_HAS_MULTITASKING_SUPPORT 	1
