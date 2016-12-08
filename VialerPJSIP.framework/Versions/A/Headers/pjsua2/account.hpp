@@ -1,4 +1,4 @@
-/* $Id: account.hpp 5410 2016-08-05 07:26:18Z riza $ */
+/* $Id: account.hpp 5455 2016-10-07 07:42:22Z ming $ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -68,6 +68,17 @@ struct AccountRegConfig : public PersistentObject
      * request.
      */
     SipHeaderVector	headers;
+
+    /**
+     * Additional parameters that will be appended in the Contact header
+     * of the registration requests. This will be appended after
+     * \a AccountSipConfig.contactParams;
+     *
+     * The parameters should be preceeded by semicolon, and all strings must
+     * be properly escaped. Example:
+     *	 ";my-param=X;another-param=Hi%20there"
+     */
+    string	    	contactParams;
 
     /**
      * Optional interval for registration, in seconds. If the value is zero,

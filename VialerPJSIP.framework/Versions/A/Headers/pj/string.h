@@ -1,4 +1,4 @@
-/* $Id: string.h 4704 2014-01-16 05:30:46Z ming $ */
+/* $Id: string.h 5468 2016-10-24 03:22:46Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -469,6 +469,8 @@ PJ_IDECL(void) pj_strcat2(pj_str_t *dst, const char *src);
  */
 PJ_INLINE(char*) pj_strchr( const pj_str_t *str, int chr)
 {
+    if (str->slen == 0)
+	return NULL;
     return (char*) memchr((char*)str->ptr, chr, str->slen);
 }
 
