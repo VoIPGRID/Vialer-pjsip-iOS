@@ -1,4 +1,4 @@
-/* $Id: pjsua.h 5455 2016-10-07 07:42:22Z ming $ */
+/* $Id: pjsua.h 5493 2016-12-06 11:23:39Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -4284,7 +4284,30 @@ typedef enum pjsua_call_flag
      * #pjsua_call_update()/update2(). For re-invite/update, specifying
      * PJSUA_CALL_UNHOLD will take precedence over this flag.
      */
-    PJSUA_CALL_NO_SDP_OFFER = 8
+    PJSUA_CALL_NO_SDP_OFFER = 8,
+
+    /**
+     * Deinitialize and recreate media, including media transport. This flag
+     * is useful in IP address change situation, if the media transport
+     * address (or address family) changes, for example during IPv4/IPv6
+     * network handover.
+     * This flag is only valid for #pjsua_call_reinvite()/reinvite2(), or
+     * #pjsua_call_update()/update2().
+     *
+     * Warning: If the re-INVITE/UPDATE fails, the old media will not be
+     * reverted.
+     */
+    PJSUA_CALL_REINIT_MEDIA = 16,
+    
+    /**
+     * Update the local invite session's Via with the via address from
+     * the account. This flag is only valid for #pjsua_call_set_hold2(),
+     * #pjsua_call_reinvite() and #pjsua_call_update(). Similar to
+     * the flag PJSUA_CALL_UPDATE_CONTACT above, this flag is useful
+     * in IP address change situation, after the local account's Via has
+     * been updated (typically with re-registration).
+     */
+    PJSUA_CALL_UPDATE_VIA = 32
 
 } pjsua_call_flag;
 
