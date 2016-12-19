@@ -86,7 +86,7 @@
 #elif defined(__BEOS__)
 
    /* Be */
-#  include <VialerPJSIP/inttypes.h>
+#  include <inttypes.h>
    typedef int16 opus_int16;
    typedef u_int16 opus_uint16;
    typedef int32_t opus_int32;
