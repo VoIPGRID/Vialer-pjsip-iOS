@@ -6,8 +6,15 @@ The most important part of the project is the "vialerbuild" script. It will:
 - build a fat static library.
 - wrap the fat library in a framework.
 
-#### Usage:
+### Usage:
 
+## Requirements
+For MacOS a newer version of nasm is required when you want to build openh264.
+```bash
+brew install nasm
+```
+
+## Running
 Install via CocoaPods:
 
 ```ruby
