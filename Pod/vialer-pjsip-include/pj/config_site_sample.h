@@ -365,8 +365,6 @@
  */
 #if PJ_CONFIG_ANDROID
 
-    #define PJ_ANDROID                          1
-
     /*
      * PJLIB settings.
      */
@@ -392,9 +390,6 @@
     /* Fine tune Speex's default settings for best performance/quality */
     #define PJMEDIA_CODEC_SPEEX_DEFAULT_QUALITY	5
     
-    /* Increase number of video device's supported formats */
-    #define PJMEDIA_VID_DEV_INFO_FMT_CNT	128
-
     /*
      * PJSIP settings.
      */
