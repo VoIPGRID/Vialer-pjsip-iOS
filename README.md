@@ -3,6 +3,7 @@ The Vialer PJSIP pod exposes the <a href="http://www.pjsip.org/">PJSIP</a> libra
 The most important part of the project is the "vialerbuild" script. It will:
 - download a specified version of PJSIP from SVN.
 - compile PJSIP for all iOS architectures.
+- Decide whether to compile OpenSSL, OpenH264 and OPUS into the PJSIP source. By default they are included for all iOS architectures.
 - build a fat static library.
 - wrap the fat library in a framework.
 
