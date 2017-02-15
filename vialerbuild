@@ -718,13 +718,13 @@ fi
 if [ $SHOW_HELP = true ]; then
     show_help
 else
-    # clean_pjsip
-    # download_pjsip
-    # build_h264
-    # build_ssl
-    # build_opus
-    # config_site
-    # build_archs
-    # _merge
+    clean_pjsip
+    download_pjsip
+    build_h264
+    build_ssl
+    build_opus
+    config_site
+    build_archs
+    _merge
     create_framework
 fi
