@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 	s.name                  = "Vialer-pjsip-iOS"
-	s.version               = "1.1.0"
-	s.summary               = "PJSIP 2.5.5 for iOS"
-	s.description           = "Pod for distributing PJSIP wrapped in a framework."
+	s.version               = "2.0.0"
+	s.summary               = "PJSIP 2.6 for iOS"
+	s.description           = "Pod for distributing PJSIP wrapped in a framework. With Opus, OpenSSL and openh264."
 	s.homepage              = "https://www.wearespindle.com"
 
 	s.license               = { :type => "GNU GPLv3", :file => "LICENSE" }
@@ -18,10 +18,11 @@ Pod::Spec.new do |s|
 	s.public_header_files   = "VialerPJSIP.framework/Versions/A/Headers/**/*.{h,hpp}"
 	s.source_files		    = "VialerPJSIP.framework/Versions/A/Headers/**/*.{h,hpp}"
 	s.vendored_frameworks   = "VialerPJSIP.framework"
-
-	s.frameworks            = "AudioToolbox", "AVFoundation", "CFNetwork"
+	
+	s.libraries 			= 'stdc++'
+	s.frameworks            = "AudioToolbox", "AVFoundation", "CFNetwork",  "CoreMedia"
 
   	s.xcconfig = {
-            'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
+        'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
   	}
 end
