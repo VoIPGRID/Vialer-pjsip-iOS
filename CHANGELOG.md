@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [2.0.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree.2.0.0) (15/02/2017)
+## [2.0.1](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/2.0.1) (16/02/2017)
+Released on Thursday, February 16, 2017
+
+### Changed
+* Building on the iOS simulators works again [#12](https://github.com/VoIPGRID/Vialer-pjsip-iOS/issues/12)
+
+## [2.0.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/2.0.0) (15/02/2017)
 Released on Wednesday, February 15, 2017
 
 ### Changed
