@@ -92,7 +92,7 @@ for i in "$@"; do
         shift
         ;;
         -v | --version | version)
-        echo "Vialer PJSIP Compile script version: 2.0"
+        echo "Vialer PJSIP Compile script version: 2.0.0"
         exit 1
         shift
         ;;
@@ -179,8 +179,6 @@ function build_h264 () {
 
     h264_lipo_args=""
     for arch in "${USE_ARCHS[@]}"; do
-        # h264_makefile="${h264_target_path}/Makefile"
-        # h264_makefile_bak="${h264_target_path}/Makefile.bak"
         h264_makefile="Makefile"
         h264_makefile_bak="Makefile.bak"
         h264_prefix="${H264_BUILD_DIR}/build/${arch}"
@@ -208,12 +206,9 @@ function build_h264 () {
         rm ${h264_makefile}.deleteme
         
         echo "--- Run make file for ${arch}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} >> "${h264_log}" 2>&1 &
-        spinner /$!
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} install >> "${h264_log}" 2>&1 &
-        spinner $!
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} clean >> "${h264_log}" 2>&1 &
-        spinner $!
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} >> "${h264_log}"
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} install >> "${h264_log}"
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} clean >> "${h264_log}"
 
         mv "${h264_makefile_bak}" "${h264_makefile}"
 
@@ -226,11 +221,8 @@ function build_h264 () {
         mkdir -p "${H264_BUILD_DIR}/lib"
     fi
 
-    echo $h264_lipo_args
-
     echo "--- Lipo openH264"
-    xcrun -sdk iphoneos lipo ${h264_lipo_args} -create -output "${H264_BUILD_DIR}/lib/libopenh264.a" &
-    spinner $!
+    lipo ${h264_lipo_args} -create -output "${H264_BUILD_DIR}/lib/libopenh264.a"
 
     echo "--- Copying header files"
     cp -R "${H264_BUILD_DIR}/build/${USE_ARCHS[0]}/include/" "${H264_BUILD_DIR}/include"
@@ -360,8 +352,7 @@ function build_opus () {
         if [ -n "$opus_input_libs" ]; then
             echo "** lipo libs"
 
-            lipo -create $opus_input_libs -output "$opus_output_dir/lib/${opus_output_lib}" &
-            spinner $!
+            lipo -create $opus_input_libs -output "$opus_output_dir/lib/${opus_output_lib}"
         else
             echo "$opus_output_lib does not exist, skipping (are the dependencies installed?)"
         fi
@@ -421,6 +412,7 @@ function clean_pjsip () {
 
         rm -rf $PJSIP_DIR
         rm -rf $PJSIP_FINAL_LIB_DIR
+        rm -rf "${BASE_DIR}/VialerPJSIP.framework"
         echo "Done cleaning PJSIP source"
         echo "============================="
     fi
