@@ -83,7 +83,7 @@ for i in "$@"; do
         OPUS_SUPPORT=true
         shift
         ;;
-        -h264 | --use-h264 | h264)
+        -h264 | --h264 | h264)
         H264_SUPPORT=true
         shift
         ;;
@@ -238,31 +238,20 @@ function build_ssl () {
     
     echo "Use ssl"
     rm -rf $SSL_BUILD_DIR
-
     mkdir -p $SSL_BUILD_DIR
-    mkdir -p "$SSL_BUILD_DIR/scripts/"
-
-    ssl_url="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/master/build-libssl.sh"
-    ssl_save_sh="$SSL_BUILD_DIR/build_libssl.sh"
-
-    ssl_scripts_url_1="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/master/scripts/build-loop-targets.sh"
-    ssl_scripts_url_2="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/master/scripts/build-loop-archs.sh"
-
-    echo "Download build_libssl.sh"
-    curl -L -# -o ${ssl_save_sh} ${ssl_url}
-
-    echo "Download libssl build scripts"
-    curl -L -# -o "$SSL_BUILD_DIR/scripts/build-loop-targets.sh" $ssl_scripts_url_1
-    curl -L -# -o "$SSL_BUILD_DIR/scripts/build-loop-archs.sh" $ssl_scripts_url_2
-
+    
     pushd . > /dev/null
     cd $SSL_BUILD_DIR
     
-    chmod +x build_libssl.sh
-    ./build_libssl.sh --archs="${USE_ARCHS[*]// /\s}"
+    # Download OpenSSL repo.
+    ssl_url="https://github.com/x2on/OpenSSL-for-iPhone/archive/master.tar.gz"
+    curl -LO $ssl_url
+    tar zxf "master.tar.gz" --strip 1
+    rm "master.tar.gz"
+    ./build-libssl.sh --archs="${USE_ARCHS[*]// /\s}"
     mv include include2
     mkdir -p include
-    mv include2 include/openssl
+    mv include2/openssl include/openssl
     popd > /dev/null
     echo "Using SSL..."
 }
