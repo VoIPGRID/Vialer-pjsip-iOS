@@ -1,4 +1,4 @@
-/* $Id: call.hpp 5417 2016-08-12 03:47:26Z ming $ */
+/* $Id: call.hpp 5645 2017-09-06 03:44:35Z riza $ */
 /*
  * Copyright (C) 2012-2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -601,9 +601,14 @@ struct StreamInfo
     unsigned            codecClockRate;
     
     /**
-     * Optional codec param.
+     * Optional audio codec param.
      */
-    CodecParam          codecParam;
+    CodecParam          audCodecParam;
+
+    /**
+     * Optional video codec param.
+     */
+    VidCodecParam       vidCodecParam;
 
 public:
     /**
