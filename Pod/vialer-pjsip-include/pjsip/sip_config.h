@@ -1,4 +1,4 @@
-/* $Id: sip_config.h 5336 2016-06-07 10:07:57Z riza $ */
+/* $Id: sip_config.h 5557 2017-02-20 01:23:54Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -1238,6 +1238,18 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
  */
 #ifndef PJSIP_SESS_TIMER_DEF_SE
 #   define PJSIP_SESS_TIMER_DEF_SE		1800
+#endif
+
+
+/**
+ * Default delay for retrying session refresh request upon
+ * receiving transport error (503). Set it to -1 to end the session
+ * immediately instead.
+ *
+ * Default: 10 seconds
+ */
+#ifndef PJSIP_SESS_TIMER_RETRY_DELAY
+#   define PJSIP_SESS_TIMER_RETRY_DELAY		10
 #endif
 
 

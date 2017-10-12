@@ -142,7 +142,7 @@ function spinner() {
         local temp=${spinstr#?}
         printf " [%c]  " "$spinstr"
         local spinstr=$temp${spinstr%"$temp"}
-        sleep $delay
+        # sleep $delay
         printf "\b\b\b\b\b\b"
     done
     printf "    \b\b\b\b"
@@ -157,7 +157,7 @@ function build_h264 () {
 
     rm -rf $H264_BUILD_DIR
 
-    h264_version="1.6.0";
+    h264_version="1.7.0";
     h264_url="https://github.com/cisco/openh264/archive/v${h264_version}.tar.gz"
     h264_target_path="$H264_BUILD_DIR/src"
     
@@ -263,7 +263,7 @@ function build_opus () {
 
     rm -rf $OPUS_BUILD_DIR
 
-    opus_version="1.1.4"
+    opus_version="1.1.5"
     opus_opt_cflags="-Ofast -flto -g"
     opus_opt_ldflags="-flto"
     opus_opt_config_args=""
@@ -316,8 +316,10 @@ function build_opus () {
             CFLAGS="$CFLAGS ${opus_extra_cflags} ${opus_opt_cflags} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION} -I${opus_output_dir}/include -isysroot ${xcode_dev_path}/Platforms/${os_platform}.platform/Developer/SDKs/${os_platform}.sdk" \
         
         make -j4
+        
         make install
-        make clean
+
+        make clean 
     done
 
     echo "Building opus library..."
@@ -511,7 +513,7 @@ function _build () {
     fi
 
     export LDFLAGS="${LDFLAGS} -lstdc++"
-    export MIN_IOS="${MIN_IOS_VERSION}"
+    export MIN_IOS="-miphoneos-version-min=${MIN_IOS_VERSION}"
 
     echo "Building for $arch"
 
@@ -666,6 +668,7 @@ function create_framework {
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdarg.h/include\ <stdarg.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/string.h/include\ <string.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdlib.h/include\ <stdlib.h/" "$file"
+        LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdint.h/include\ <stdint.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/assert.h/include\ <assert.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/math.h/include\ <math.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/ctype.h/include\ <ctype.h/" "$file"
