@@ -39,6 +39,7 @@ export PJSIP_LIB_OUTPUT="$BASE_DIR/lib"
 
 export BUILD_DIR="$PJSIP_DIR/external"
 export SSL_BUILD_DIR="$BUILD_DIR/ssl"
+export ZRTP_BUILD_DIR="$BUILD_DIR/zrtp"
 export OPUS_BUILD_DIR="$BUILD_DIR/opus"
 export H264_BUILD_DIR="$BUILD_DIR/h264"
 
@@ -254,6 +255,27 @@ function build_ssl () {
     mv include2/openssl include/openssl
     popd > /dev/null
     echo "Using SSL..."
+
+    build_zrtp
+}
+
+function build_zrtp () {
+    echo "Use ZRTP"
+	rm -rf $ZRTP_BUILD_DIR
+	rm -rf $PJSIP_SRC_DIR/third_party/ZRTP4PJ
+    mkdir -p $ZRTP_BUILD_DIR
+    pushd . > /dev/null
+    cd $ZRTP_BUILD_DIR
+    git clone https://github.com/wernerd/ZRTP4PJ
+    cd ZRTP4PJ/zsrtp
+	sh getzrtp.sh
+	cd $ZRTP_BUILD_DIR
+	mv ZRTP4PJ $PJSIP_SRC_DIR/third_party
+	cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
+	sed -i '' -e 's#'~/devhome/pjproject.git'#'"$PJSIP_SRC_DIR"'#' Makefile
+	cd ../../zsrtp
+	sed -i '' -e 's/#define THIS_FILE "transport_zrtp.c"/#define THIS_FILE "transport_zrtp.c"\
+#define DYNAMIC_TIMER 1/' transport_zrtp.c
 }
 
 function build_opus () {
@@ -530,6 +552,15 @@ function _build () {
     make >> $arch_log 2>&1 &
     spinner $!
 
+    if [ $SSL_SUPPORT = true ]; then
+        cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
+        make dep >> $arch_log 2>&1 &
+        spinner $!
+
+        make >> $arch_log 2>&1 &
+        spinner $!
+    fi
+
     echo "Done building for $arch"
     echo "============================="
 
@@ -607,6 +638,10 @@ function copy_headers () {
     
     if [ $SSL_SUPPORT = true ]; then
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
+
+        cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+        cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+        cp -R ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/zrtp/zrtp/libzrtpcpp/ "$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp/"
     fi
 
     cd "$BASE_DIR"
