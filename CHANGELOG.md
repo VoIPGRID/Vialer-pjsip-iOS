@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.1.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.1.0) (20/10/2017)
+Released on Friday, October 20, 2017
+* Added the possibility to also use ZRTP
+
 ## [3.0.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.0.0) (12/10/2017)
 Released on Thursday, October 12, 2017
 * Update to PJSIP to release 2.7
