@@ -17,6 +17,7 @@ export CLEAN_PJSIP_SRC=true
 export SSL_SUPPORT=false
 export OPUS_SUPPORT=false
 export H264_SUPPORT=false
+export INDEPENDENT_WEBRTC=false
 export SHOW_HELP=false
 
 export PJSIP_VERSION="latest"
