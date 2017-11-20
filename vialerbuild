@@ -17,6 +17,7 @@ export CLEAN_PJSIP_SRC=true
 export SSL_SUPPORT=false
 export OPUS_SUPPORT=false
 export H264_SUPPORT=false
+export INDEPENDENT_WEBRTC=false
 export SHOW_HELP=false
 
 export PJSIP_VERSION="latest"
@@ -88,6 +89,10 @@ for i in "$@"; do
         H264_SUPPORT=true
         shift
         ;;
+        --independent-webrtc)
+        INDEPENDENT_WEBRTC=true
+        shift
+        ;;
         -h | --help | help)
         SHOW_HELP=true
         shift
@@ -120,6 +125,8 @@ function show_help () {
     echo " --no-clean-pjsip-src         Don't clean the PJSIP source"
     echo 
     echo " --pjsip-version              Download specific PJSIP version tag. Default the newest tag is downloaded." 
+    echo
+    echo " --independent-webrtc         Using pjsia with WebRTC independent, otherwise WebRTC may render remote video abnormal."
     echo
     echo " --extra-config-site-options  Extra custom options to put in the config_site.h. "
     echo "                              Also if SSL or H264 are given as options they will be defined in the config_site.h."
@@ -440,6 +447,10 @@ function config_site () {
 
     echo "#define PJ_CONFIG_IPHONE 1" >> $PJSIP_CONFIG_SITE_H
 
+    if [ $INDEPENDENT_WEBRTC = true ]; then
+        echo "#define PJMEDIA_HAS_SRTP 0" >> $PJSIP_CONFIG_SITE_H
+    fi
+
     if [ $H264_SUPPORT = true ]; then
         echo "#define PJMEDIA_HAS_VIDEO 1" >> $PJSIP_CONFIG_SITE_H
         echo "#define PJMEDIA_HAS_OPENH264_CODEC 1" >> $PJSIP_CONFIG_SITE_H
@@ -576,6 +587,10 @@ function _collect () {
     for x in `find pjsip/src -name *$1*.a`; do
         cp -v ./$x ./pjsip/temp/$1
     done | tee "$BASE_DIR"/pjsip/logs/collect.log
+
+    if [ $INDEPENDENT_WEBRTC = true ]; then
+        rm ./pjsip/temp/$1/libsrtp*.a
+    fi
 }
 
 function _merge () {
@@ -747,3 +762,4 @@ else
     _merge
     create_framework
 fi
+

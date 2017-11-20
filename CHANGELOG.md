@@ -3,9 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.2.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.2.0) (20/11/2017)
+Released on Monday, November 20, 2017
+* Updated PJSIP to 2.7.1
+* Flag when compiling to ignore libsrtp when there is an independent webrtc build
+
+## [3.1.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.1.0) (20/10/2017)
+Released on Friday, October 20, 2017
+* Added the possibility to also use ZRTP
+
 ## [3.0.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.0.0) (12/10/2017)
 Released on Thursday, October 12, 2017
-* Update to PJSIP to release 2.7
+* Updated to PJSIP to release 2.7
 
 ## [2.0.1](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/2.0.1) (16/02/2017)
 Released on Thursday, February 16, 2017
