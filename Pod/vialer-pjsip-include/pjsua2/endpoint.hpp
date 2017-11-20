@@ -1,4 +1,4 @@
-/* $Id: endpoint.hpp 5649 2017-09-15 05:32:08Z riza $ */
+/* $Id: endpoint.hpp 5676 2017-10-24 07:31:39Z ming $ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -1651,6 +1651,9 @@ private:
     static void on_acc_find_for_incoming(const pjsip_rx_data *rdata,
 				     	 pjsua_acc_id* acc_id);
     static void on_buddy_state(pjsua_buddy_id buddy_id);
+    static void on_buddy_evsub_state(pjsua_buddy_id buddy_id,
+				     pjsip_evsub *sub,
+				     pjsip_event *event);
     // Call callbacks
     static void on_call_state(pjsua_call_id call_id, pjsip_event *e);
     static void on_call_tsx_state(pjsua_call_id call_id,
@@ -1661,10 +1664,8 @@ private:
                                     pjmedia_sdp_session *sdp,
                                     pj_pool_t *pool,
                                     const pjmedia_sdp_session *rem_sdp);
-    static void on_stream_created(pjsua_call_id call_id,
-                                  pjmedia_stream *strm,
-                                  unsigned stream_idx,
-                                  pjmedia_port **p_port);
+    static void on_stream_created2(pjsua_call_id call_id,
+				   pjsua_on_stream_created_param *param);
     static void on_stream_destroyed(pjsua_call_id call_id,
                                     pjmedia_stream *strm,
                                     unsigned stream_idx);
