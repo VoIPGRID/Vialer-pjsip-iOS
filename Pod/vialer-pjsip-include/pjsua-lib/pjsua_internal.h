@@ -1,4 +1,4 @@
-/* $Id: pjsua_internal.h 5649 2017-09-15 05:32:08Z riza $ */
+/* $Id: pjsua_internal.h 5676 2017-10-24 07:31:39Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -51,6 +51,8 @@ struct pjsua_call_media
 	/** Audio stream */
 	struct {
 	    pjmedia_stream *stream;    /**< The audio stream.		    */
+	    pjmedia_port   *media_port;/**< The media port.                 */
+	    pj_bool_t	    destroy_port;/**< Destroy the media port?	    */
 	    int		    conf_slot; /**< Slot # in conference bridge.    */
 	} a;
 
