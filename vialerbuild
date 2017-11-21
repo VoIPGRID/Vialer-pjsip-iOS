@@ -18,6 +18,7 @@ export SSL_SUPPORT=false
 export OPUS_SUPPORT=false
 export H264_SUPPORT=false
 export INDEPENDENT_WEBRTC=false
+export HAS_BITCODE=false
 export SHOW_HELP=false
 
 export PJSIP_VERSION="latest"
@@ -93,6 +94,10 @@ for i in "$@"; do
         INDEPENDENT_WEBRTC=true
         shift
         ;;
+        --bitcode | bitcode)
+        HAS_BITCODE=true
+        shift
+        ;;
         -h | --help | help)
         SHOW_HELP=true
         shift
@@ -127,6 +132,8 @@ function show_help () {
     echo " --pjsip-version              Download specific PJSIP version tag. Default the newest tag is downloaded." 
     echo
     echo " --independent-webrtc         Using pjsia with WebRTC independent, otherwise WebRTC may render remote video abnormal."
+    echo
+    echo " --bitcode, bitcode           Building pjsip and dependencies with bitcode enabled."
     echo
     echo " --extra-config-site-options  Extra custom options to put in the config_site.h. "
     echo "                              Also if SSL or H264 are given as options they will be defined in the config_site.h."
@@ -528,6 +535,10 @@ function _build () {
     clean_pjsip_libs $arch
 
     configure="./configure-iphone"
+
+    if [ $HAS_BITCODE = true ]; then
+        export CFLAGS="${CFLAGS} -fembed-bitcode"
+    fi
 
     if [ $SSL_SUPPORT = true ]; then
         configure="$configure --with-ssl=${SSL_BUILD_DIR}"
