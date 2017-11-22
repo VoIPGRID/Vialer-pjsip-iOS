@@ -18,7 +18,7 @@ export SSL_SUPPORT=false
 export OPUS_SUPPORT=false
 export H264_SUPPORT=false
 export INDEPENDENT_WEBRTC=false
-export HAS_BITCODE=false
+export HAS_BITCODE=true
 export SHOW_HELP=false
 
 export PJSIP_VERSION="latest"
@@ -94,8 +94,8 @@ for i in "$@"; do
         INDEPENDENT_WEBRTC=true
         shift
         ;;
-        --bitcode | bitcode)
-        HAS_BITCODE=true
+        --no-bitcode)
+        HAS_BITCODE=false
         shift
         ;;
         -h | --help | help)
@@ -133,7 +133,7 @@ function show_help () {
     echo
     echo " --independent-webrtc         Using pjsia with WebRTC independent, otherwise WebRTC may render remote video abnormal."
     echo
-    echo " --bitcode, bitcode           Building pjsip and dependencies with bitcode enabled."
+    echo " --no-bitcode                 Building pjsip and dependencies without bitcode"
     echo
     echo " --extra-config-site-options  Extra custom options to put in the config_site.h. "
     echo "                              Also if SSL or H264 are given as options they will be defined in the config_site.h."
