@@ -19,6 +19,7 @@ export OPUS_SUPPORT=false
 export H264_SUPPORT=false
 export INDEPENDENT_WEBRTC=false
 export HAS_BITCODE=true
+export HAS_IPV6=false
 export SHOW_HELP=false
 
 export PJSIP_VERSION="latest"
@@ -98,6 +99,10 @@ for i in "$@"; do
         HAS_BITCODE=false
         shift
         ;;
+        --enable-ipv6)
+        HAS_IPV6=true
+        shift
+        ;;
         -h | --help | help)
         SHOW_HELP=true
         shift
@@ -134,6 +139,8 @@ function show_help () {
     echo " --independent-webrtc         Using pjsia with WebRTC independent, otherwise WebRTC may render remote video abnormal."
     echo
     echo " --no-bitcode                 Building pjsip and dependencies without bitcode"
+    echo
+    echo " --enable-ipv6                Building pjsip with IP v6 support"
     echo
     echo " --extra-config-site-options  Extra custom options to put in the config_site.h. "
     echo "                              Also if SSL or H264 are given as options they will be defined in the config_site.h."
@@ -414,6 +421,10 @@ function download_pjsip () {
     
     checkout_url="${PJSIP_BASE_URL}/tags/${PJSIP_VERSION}"
 
+    if [ $PJSIP_VERSION = "trunk" ]; then
+        checkout_url="${PJSIP_BASE_URL}/trunk"
+    fi
+
     if [ $DOWNLOAD_PJSIP_SRC = true ]; then
         echo "Download PJSIP version: ${PJSIP_VERSION}"
         mkdir -p $PJSIP_DIR
@@ -465,6 +476,10 @@ function config_site () {
         echo "#define PJMEDIA_VIDEO_DEV_HAS_OPENGL_ES 1" >> $PJSIP_CONFIG_SITE_H
         echo "#define PJMEDIA_VIDEO_DEV_HAS_IOS_OPENGL 1" >> $PJSIP_CONFIG_SITE_H
         echo "#include <OpenGLES/ES3/glext.h>" >> $PJSIP_CONFIG_SITE_H
+    fi
+
+    if [ $HAS_IPV6 = true ]; then
+        echo " #define PJ_HAS_IPV6 1"
     fi
 
     while IFS=',' read -ra CONFIG_SITE_OPTION; do
