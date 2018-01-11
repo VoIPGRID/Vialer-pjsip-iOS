@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.3.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.0) (11/01/2018)
+Released on Monday, January 11, 2018
+* Bitcode is enabled by default [#20](https://github.com/VoIPGRID/Vialer-pjsip-iOS/pull/20)
+* IP v6 is compiled in to PJSIP
+
 ## [3.2.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.2.0) (20/11/2017)
 Released on Monday, November 20, 2017
 * Updated PJSIP to 2.7.1
