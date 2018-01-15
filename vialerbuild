@@ -479,7 +479,7 @@ function config_site () {
     fi
 
     if [ $HAS_IPV6 = true ]; then
-        echo " #define PJ_HAS_IPV6 1"
+        echo "#define PJ_HAS_IPV6 1" >> $PJSIP_CONFIG_SITE_H
     fi
 
     while IFS=',' read -ra CONFIG_SITE_OPTION; do
