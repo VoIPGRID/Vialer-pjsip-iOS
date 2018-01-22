@@ -1,4 +1,4 @@
-/* $Id: endpoint.hpp 5676 2017-10-24 07:31:39Z ming $ */
+/* $Id: endpoint.hpp 5704 2017-11-27 08:37:37Z ming $ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -460,6 +460,15 @@ struct UaConfig : public PersistentObject
     StringVector	nameserver;
 
     /**
+     * Specify the URL of outbound proxies to visit for all outgoing requests.
+     * The outbound proxies will be used for all accounts, and it will
+     * be used to build the route set for outgoing requests. The final
+     * route set for outgoing requests will consists of the outbound proxies
+     * and the proxy configured in the account.
+     */
+    StringVector	outboundProxies;
+
+    /**
      * Optional user agent string (default empty). If it's empty, no
      * User-Agent header will be sent with outgoing requests.
      */
@@ -494,8 +503,8 @@ struct UaConfig : public PersistentObject
      *
      * Default: FALSE
      */
-
     bool	    	stunTryIpv6;
+
     /**
      * This specifies if the library startup should ignore failure with the
      * STUN servers. If this is set to PJ_FALSE, the library will refuse to
