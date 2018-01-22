@@ -1,4 +1,4 @@
-/* $Id: sock.h 5636 2017-08-02 02:51:59Z ming $ */
+/* $Id: sock.h 5719 2018-01-05 09:48:31Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -629,8 +629,6 @@ typedef struct pj_ip_mreq {
     pj_in_addr imr_interface;	/**< local IP address of interface. */
 } pj_ip_mreq;
 
-/* Maximum number of socket options. */
-#define PJ_MAX_SOCKOPT_PARAMS 4
 
 /**
  * Options to be set for the socket. 
