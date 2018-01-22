@@ -8,7 +8,7 @@ AVIALABLE_ARCHS=(
 )
 export BASE_DIR=`pwd -P`
 export MIN_IOS_VERSION="9.0"
-export IOS_SDK_VERSION="10.0"
+export IOS_SDK_VERSION="11.2"
 export AVIALABLE_ARCHS
 export USE_ARCHS=()
 
@@ -22,7 +22,7 @@ export HAS_BITCODE=true
 export HAS_IPV6=false
 export SHOW_HELP=false
 
-export PJSIP_VERSION="latest"
+export PJSIP_VERSION="trunk"
 export PJSIP_BASE_URL="http://svn.pjsip.org/repos/pjproject"
 export PJSIP_DIR="$BASE_DIR/pjsip"
 export PJSIP_FINAL_LIB_DIR="$BASE_DIR/lib"
@@ -228,9 +228,9 @@ function build_h264 () {
         rm ${h264_makefile}.deleteme
         
         echo "--- Run make file for ${arch}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} >> "${h264_log}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} install >> "${h264_log}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} clean >> "${h264_log}"
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No >> "${h264_log}"
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No install >> "${h264_log}"
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No clean >> "${h264_log}"
 
         mv "${h264_makefile_bak}" "${h264_makefile}"
 
@@ -244,7 +244,7 @@ function build_h264 () {
     fi
 
     echo "--- Lipo openH264"
-    lipo ${h264_lipo_args} -create -output "${H264_BUILD_DIR}/lib/libopenh264.a"
+    xcrun -sdk iphoneos lipo ${h264_lipo_args} -create -output "${H264_BUILD_DIR}/lib/libopenh264.a"
 
     echo "--- Copying header files"
     cp -R "${H264_BUILD_DIR}/build/${USE_ARCHS[0]}/include/" "${H264_BUILD_DIR}/include"
@@ -479,7 +479,7 @@ function config_site () {
     fi
 
     if [ $HAS_IPV6 = true ]; then
-        echo " #define PJ_HAS_IPV6 1"
+        echo " #define PJ_HAS_IPV6 1" >> $PJSIP_CONFIG_SITE_H
     fi
 
     while IFS=',' read -ra CONFIG_SITE_OPTION; do

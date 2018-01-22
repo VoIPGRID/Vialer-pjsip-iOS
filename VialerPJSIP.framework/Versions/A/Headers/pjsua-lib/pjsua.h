@@ -1,4 +1,4 @@
-/* $Id: pjsua.h 5677 2017-10-27 06:30:50Z ming $ */
+/* $Id: pjsua.h 5721 2018-01-08 04:08:35Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -348,6 +348,22 @@ typedef struct pj_stun_resolve_result pj_stun_resolve_result;
  */
 #ifndef PJSUA_VID_REQ_KEYFRAME_INTERVAL
 #   define PJSUA_VID_REQ_KEYFRAME_INTERVAL	3000
+#endif
+
+
+/**
+ * Specify whether timer heap events will be polled by a separate worker
+ * thread. If this is set/enabled, a worker thread will be dedicated to
+ * poll timer heap events only, and the rest worker thread(s) will poll
+ * ioqueue/network events only.
+ *
+ * Note that if worker thread count setting (i.e: pjsua_config.thread_cnt)
+ * is set to zero, this setting will be ignored.
+ *
+ * Default: 0 (disabled)
+ */
+#ifndef PJSUA_SEPARATE_WORKER_FOR_TIMER
+#   define PJSUA_SEPARATE_WORKER_FOR_TIMER	0
 #endif
 
 
@@ -1968,8 +1984,9 @@ struct pjsua_msg_data
 {
     /**
      * Optional remote target URI (i.e. Target header). If NULL, the target
-     * will be set to the remote URI (To header). At the moment this field
-     * is only used by #pjsua_call_make_call() and #pjsua_im_send().
+     * will be set to the remote URI (To header). This field is used by
+     * pjsua_call_make_call(), pjsua_im_send(), pjsua_call_reinvite(),
+     * pjsua_call_set_hold(), and pjsua_call_update().
      */
     pj_str_t    target_uri;
 
@@ -2758,6 +2775,19 @@ PJ_DECL(pj_status_t) pjsua_transport_create(pjsip_transport_type_e type,
 PJ_DECL(pj_status_t) pjsua_transport_register(pjsip_transport *tp,
 					      pjsua_transport_id *p_id);
 
+
+/**
+ * Register transport factory that has been created by application.
+ * This function is useful if application wants to implement custom SIP
+ * transport and use it with pjsua.
+ *
+ * @param tf		Transport factory instance.
+ * @param p_id		Optional pointer to receive transport ID.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DEF(pj_status_t) pjsua_tpfactory_register( pjsip_tpfactory *tf,
+					      pjsua_transport_id *p_id);
 
 /**
  * Enumerate all transports currently created in the system. This function
@@ -4610,7 +4640,16 @@ typedef enum pjsua_call_flag
      * in IP address change situation, after the local account's Via has
      * been updated (typically with re-registration).
      */
-    PJSUA_CALL_UPDATE_VIA = 32
+    PJSUA_CALL_UPDATE_VIA = 32,
+
+    /**
+     * Update dialog target to URI specified in pjsua_msg_data.target_uri.
+     * This flag is only valid for pjsua_call_set_hold(),
+     * pjsua_call_reinvite(), and pjsua_call_update(). This flag can be
+     * useful in IP address change scenario where IP version has been changed
+     * and application needs to update target IP address.
+     */
+    PJSUA_CALL_UPDATE_TARGET = 64
 
 } pjsua_call_flag;
 
@@ -7013,6 +7052,69 @@ PJ_DECL(pj_status_t) pjsua_snd_set_setting(pjmedia_aud_dev_cap cap,
  */
 PJ_DECL(pj_status_t) pjsua_snd_get_setting(pjmedia_aud_dev_cap cap,
 					   void *pval);
+
+
+/**
+ * Opaque type of extra sound device, an additional sound device
+ * beside the primary sound device (the one instantiated via
+ * pjsua_set_snd_dev() or pjsua_set_snd_dev2()). This sound device is
+ * also registered to conference bridge so it can be used as a normal
+ * conference bridge port, e.g: connect it to/from other ports,
+ * adjust/check audio level, etc. The conference bridge port ID can be
+ * queried using pjsua_ext_snd_dev_get_conf_port().
+ *
+ * Application may also use this API to improve media clock. Normally
+ * media clock is driven by sound device in master port, but unfortunately
+ * some sound devices may produce jittery clock. To improve media clock,
+ * application can install Null Sound Device (i.e: using
+ * pjsua_set_null_snd_dev()), which will act as a master port, and instantiate
+ * the sound device as extra sound device. But note that extra sound device
+ * will not have auto-close upon idle feature.
+ */
+typedef struct pjsua_ext_snd_dev pjsua_ext_snd_dev;
+
+
+/**
+ * Create an extra sound device and register it to conference bridge.
+ *
+ * @param snd_param	Sound device port param.
+ * @param p_snd		The extra sound device instance.
+ *
+ * @return		PJ_SUCCESS on success or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_ext_snd_dev_create(pjmedia_snd_port_param *param,
+					      pjsua_ext_snd_dev **p_snd);
+
+
+/**
+ * Destroy an extra sound device and unregister it from conference bridge.
+ *
+ * @param p_snd		The extra sound device instance.
+ *
+ * @return		PJ_SUCCESS on success or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_ext_snd_dev_destroy(pjsua_ext_snd_dev *snd);
+
+
+/**
+ * Get sound port instance of an extra sound device.
+ *
+ * @param snd		The extra sound device instance.
+ *
+ * @return		The sound port instance.
+ */
+PJ_DECL(pjmedia_snd_port*) pjsua_ext_snd_dev_get_snd_port(
+					    pjsua_ext_snd_dev *snd);
+
+/**
+ * Get conference port ID of an extra sound device.
+ *
+ * @param snd		The extra sound device instance.
+ *
+ * @return		The conference port ID.
+ */
+PJ_DECL(pjsua_conf_port_id) pjsua_ext_snd_dev_get_conf_port(
+					    pjsua_ext_snd_dev *snd);
 
 
 /*****************************************************************************
