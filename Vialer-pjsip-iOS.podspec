@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name                  = "Vialer-pjsip-iOS"
-	s.version               = "3.3.0"
+	s.version               = "3.3.1"
 	s.summary               = "PJSIP 2.7.1 for iOS"
 	s.description           = "Pod for distributing PJSIP 2.7.1 wrapped in a framework. With Opus, OpenSSL and openh264."
 	s.homepage              = "https://www.wearespindle.com"
