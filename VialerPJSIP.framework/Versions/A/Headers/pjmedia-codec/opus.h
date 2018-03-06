@@ -1,4 +1,4 @@
-/* $Id: opus.h 5239 2016-02-04 06:11:58Z ming $ */
+/* $Id: opus.h 5734 2018-02-12 06:18:22Z ming $ */
 /*
  * Copyright (C) 2015-2016 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2012-2015 Zaark Technology AB
@@ -99,6 +99,7 @@ typedef struct pjmedia_codec_opus_config
 {
     unsigned   sample_rate; /**< Sample rate in Hz.                     */
     unsigned   channel_cnt; /**< Number of channels.                    */
+    unsigned   frm_ptime;   /**< Frame time in msec.   			*/
     unsigned   bit_rate;    /**< Encoder bit rate in bps.		*/
     unsigned   packet_loss; /**< Encoder's expected packet loss pct.	*/
     unsigned   complexity;  /**< Encoder complexity, 0-10(10 is highest)*/

@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 AVIALABLE_ARCHS=(
     "armv7"
     "armv7s"
@@ -18,6 +21,7 @@ export SSL_SUPPORT=false
 export OPUS_SUPPORT=false
 export H264_SUPPORT=false
 export INDEPENDENT_WEBRTC=false
+export ENABLE_ZRTP=false
 export HAS_BITCODE=true
 export HAS_IPV6=false
 export SHOW_HELP=false
@@ -99,6 +103,10 @@ for i in "$@"; do
         HAS_BITCODE=false
         shift
         ;;
+        --enable-zrtp)
+        ENABLE_ZRTP=true
+        shift
+        ;;
         --enable-ipv6)
         HAS_IPV6=true
         shift
@@ -136,7 +144,9 @@ function show_help () {
     echo 
     echo " --pjsip-version              Download specific PJSIP version tag. Default the newest tag is downloaded." 
     echo
-    echo " --independent-webrtc         Using pjsia with WebRTC independent, otherwise WebRTC may render remote video abnormal."
+    echo " --independent-webrtc         Using pjsip with WebRTC independent, otherwise WebRTC may render remote video abnormal."
+    echo
+    echo " --enable-zrtp                Enable ZRTP with SSL."
     echo
     echo " --no-bitcode                 Building pjsip and dependencies without bitcode"
     echo
@@ -248,7 +258,6 @@ function build_h264 () {
 
     echo "--- Copying header files"
     cp -R "${H264_BUILD_DIR}/build/${USE_ARCHS[0]}/include/" "${H264_BUILD_DIR}/include"
-    # cp -r "${H264_BUILD_DIR}/arm64/include/wels" "${H264_BUILD_DIR}/include"
 
     echo "Done compiling openh264"
 }
@@ -277,7 +286,9 @@ function build_ssl () {
     popd > /dev/null
     echo "Using SSL..."
 
-    build_zrtp
+    if [ $ENABLE_ZRTP = true ]; then
+        build_zrtp
+    fi
 }
 
 function build_zrtp () {
@@ -590,12 +601,15 @@ function _build () {
     spinner $!
 
     if [ $SSL_SUPPORT = true ]; then
-        cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
-        make dep >> $arch_log 2>&1 &
-        spinner $!
+        if [ $ENABLE_ZRTP = true ]; then
+            cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
+        
+            make dep >> $arch_log 2>&1 &
+            spinner $!
 
-        make >> $arch_log 2>&1 &
-        spinner $!
+            make >> $arch_log 2>&1 &
+            spinner $!
+        fi
     fi
 
     echo "Done building for $arch"
@@ -680,9 +694,11 @@ function copy_headers () {
     if [ $SSL_SUPPORT = true ]; then
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
 
-        cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h "$BASE_DIR/Pod/vialer-pjsip-include/"
-        cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
-        cp -R ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/zrtp/zrtp/libzrtpcpp/ "$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp/"
+        if [ $ENABLE_ZRTP = true ]; then
+            cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+            cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+            cp -R ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/zrtp/zrtp/libzrtpcpp/ "$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp/"
+        fi
     fi
 
     cd "$BASE_DIR"

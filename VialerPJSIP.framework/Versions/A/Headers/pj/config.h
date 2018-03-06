@@ -1,4 +1,4 @@
-/* $Id: config.h 5725 2018-01-15 08:52:29Z ming $ */
+/* $Id: config.h 5732 2018-01-24 03:42:35Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -938,10 +938,15 @@
  * which uses GnuTLS. Setting this to PJ_SSL_SOCK_IMP_NONE will disable
  * secure socket.
  *
- * Default is PJ_SSL_SOCK_IMP_NONE
+ * Default is PJ_SSL_SOCK_IMP_NONE if PJ_HAS_SSL_SOCK is not set, otherwise
+ * it is PJ_SSL_SOCK_IMP_OPENSSL.
  */
 #ifndef PJ_SSL_SOCK_IMP
-#   define PJ_SSL_SOCK_IMP		    PJ_SSL_SOCK_IMP_NONE
+#   if PJ_HAS_SSL_SOCK==0
+#	define PJ_SSL_SOCK_IMP		    PJ_SSL_SOCK_IMP_NONE
+#   else
+#	define PJ_SSL_SOCK_IMP		    PJ_SSL_SOCK_IMP_OPENSSL
+#   endif
 #endif
 
 
