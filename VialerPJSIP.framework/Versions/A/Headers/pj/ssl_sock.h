@@ -1,4 +1,4 @@
-/* $Id: ssl_sock.h 5472 2016-10-27 07:58:01Z ming $ */
+/* $Id: ssl_sock.h 5725 2018-01-15 08:52:29Z ming $ */
 /* 
  * Copyright (C) 2009-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -183,6 +183,11 @@ typedef struct pj_ssl_cert_info {
 
     pj_str_t raw;		    /**< Raw certificate in PEM format, only
 					 available for remote certificate. */
+
+    struct {
+        unsigned    	cnt;        /**< # of entry     */
+        pj_str_t       *cert_raw;
+    } raw_chain;
 
 } pj_ssl_cert_info;
 

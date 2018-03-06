@@ -1,4 +1,4 @@
-/* $Id: pjsua_internal.h 5676 2017-10-24 07:31:39Z ming $ */
+/* $Id: pjsua_internal.h 5748 2018-02-27 03:37:53Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -138,6 +138,8 @@ struct pjsua_call
     pjsua_call_hold_type call_hold_type; /**< How to do call hold.	    */
     pj_bool_t		 local_hold;/**< Flag for call-hold by local.	    */
     void		*hold_msg;  /**< Outgoing hold tx_data.		    */
+    pj_str_t		 cname;	    /**< RTCP CNAME.			    */
+    char		 cname_buf[16];/**< cname buffer.		    */
 
     unsigned		 med_cnt;   /**< Number of media in SDP.	    */
     pjsua_call_media     media[PJSUA_MAX_CALL_MEDIA]; /**< Array of media   */
