@@ -1,4 +1,4 @@
-/* $Id: sdp.h 5697 2017-11-17 04:07:43Z ming $ */
+/* $Id: sdp.h 4367 2013-02-21 20:49:19Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -645,12 +645,9 @@ typedef struct pjmedia_sdp_session pjmedia_sdp_session;
 /**
  * Parse SDP message.
  *
- * Note that the input message buffer MUST be NULL terminated and have
- * length at least len+1 (len MUST NOT include the NULL terminator).
- *
  * @param pool	    The pool to allocate SDP session description.
- * @param buf	    The message buffer, MUST be NULL terminated.
- * @param len	    The length of the message, excluding NULL terminator.
+ * @param buf	    The message buffer.
+ * @param len	    The length of the message.
  * @param p_sdp	    Pointer to receive the SDP session descriptor.
  *
  * @return	    PJ_SUCCESS if message was successfully parsed into

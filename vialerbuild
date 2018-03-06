@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 AVIALABLE_ARCHS=(
     "armv7"
     "armv7s"
@@ -22,7 +25,7 @@ export HAS_BITCODE=true
 export HAS_IPV6=false
 export SHOW_HELP=false
 
-export PJSIP_VERSION="trunk"
+export PJSIP_VERSION="latest"
 export PJSIP_BASE_URL="http://svn.pjsip.org/repos/pjproject"
 export PJSIP_DIR="$BASE_DIR/pjsip"
 export PJSIP_FINAL_LIB_DIR="$BASE_DIR/lib"
@@ -248,7 +251,6 @@ function build_h264 () {
 
     echo "--- Copying header files"
     cp -R "${H264_BUILD_DIR}/build/${USE_ARCHS[0]}/include/" "${H264_BUILD_DIR}/include"
-    # cp -r "${H264_BUILD_DIR}/arm64/include/wels" "${H264_BUILD_DIR}/include"
 
     echo "Done compiling openh264"
 }
