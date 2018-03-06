@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [3.3.1](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.1) (06/03/2018)
+## [3.3.2](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.2) (06/03/2018)
 Released on Tuesday, March 6, 2018
 * Updated PJSIP to 2.7.2
 
