@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 	s.vendored_frameworks   = "VialerPJSIP.framework"
 	
 	s.libraries 			= 'stdc++'
-	s.frameworks            = "AudioToolbox", "AVFoundation", "CFNetwork",  "CoreMedia", "UIKit", "OpenGLES"
+	s.frameworks            = "AudioToolbox", "AVFoundation", "CFNetwork",  "CoreMedia", "UIKit"
 
 	s.script_phase = { 
 		:name => "Combine VialerPJSIP library in one file", 
