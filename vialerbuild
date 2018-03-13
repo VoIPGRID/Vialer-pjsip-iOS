@@ -729,24 +729,33 @@ function create_framework {
     PRODUCT_NAME="VialerPJSIP"
     PUBLIC_HEADERS_FOLDER_PATH="${BASE_DIR}/Pod/vialer-pjsip-include"
     LIBRARY_LOCATION="${BASE_DIR}/Pod/"
-    export FRAMEWORK_LOCN="${BASE_DIR}/${PRODUCT_NAME}.framework"
+    FRAMEWORK_LOCN="${BASE_DIR}/${PRODUCT_NAME}.framework"
 
     echo "Creating the $PRODUCT_NAME framework in $FRAMEWORK_LOCN"
     copy_headers
+
+    # Remove old framework.
+    echo "Remove old Framework"
+    rm -rf ${FRAMEWORK_LOCN}
 
     # Create the path to the real Headers dir
     mkdir -p "${FRAMEWORK_LOCN}/Versions/A/Headers"
 
     # Create the required symlinks
     ln -sfh A "${FRAMEWORK_LOCN}/Versions/Current"
-    ln -sfh Versions/Current/Headers "${FRAMEWORK_LOCN}/Headers"
+    ln -sfh "Versions/Current/Headers" "${FRAMEWORK_LOCN}/Headers"
     ln -sfh "Versions/Current/${PRODUCT_NAME}" "${FRAMEWORK_LOCN}/${PRODUCT_NAME}"
 
     # Copy the public headers into the framework
     cp -a "${PUBLIC_HEADERS_FOLDER_PATH}/" "${FRAMEWORK_LOCN}/Versions/A/Headers"
-    cp -a "${LIBRARY_LOCATION}/VialerPJSIP.a" "${BASE_DIR}/${PRODUCT_NAME}.framework/Versions/A/${PRODUCT_NAME}"
+    cp -a "${LIBRARY_LOCATION}/${PRODUCT_NAME}.a" "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}"
 
-    echo "$PRE Adapting the framework's header files"
+    echo "Split ${PRODUCT_NAME} into small bits for convience."
+
+    split -b 30m "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}" "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}_Split_"
+    rm "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}"
+
+    echo "Adapting the framework's header files"
     # Now, replace the include statements of the framework headers
     i=0
     while IFS= read -r -d '' file; do
