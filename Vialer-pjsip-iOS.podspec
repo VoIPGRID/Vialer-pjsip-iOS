@@ -39,6 +39,7 @@ Pod::Spec.new do |s|
 			if [ -f ${SPLIT_FILENAME_PREFIX}_aa ]; then
 			echo "Creating file from smaller files with ${SPLIT_FILENAME_PREFIX} prefix"
 			cat ${SPLIT_FILENAME_PREFIX}_* > ${BINARY_FILENAME}
+			rm ${SPLIT_FILENAME_PREFIX}_*
 			fi
 		fi
 		'
