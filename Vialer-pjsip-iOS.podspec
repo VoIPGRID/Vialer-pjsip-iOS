@@ -31,20 +31,24 @@ Pod::Spec.new do |s|
 		VIALERPJSIP_FRAMEWORK_DIR=${SRCROOT}/Vialer-pjsip-iOS/VialerPJSIP.framework/Versions/Current
 		VIALERPJSIP_FRAMEWORK_FILE=$VIALERPJSIP_FRAMEWORK_DIR/$BINARY_FILENAME
 		
-		# Check if we have VIALERPJSIP Framework
-		if [ ! -f ${VIALERPJSIP_FRAMEWORK_FILE} ]; then
-			echo "There is no Vialer PJSIP framework at ${VIALERPJSIP_FRAMEWORK_FILE}"
+		minimumsize=50000000
+		actualsize=$(wc -c <"${VIALERPJSIP_FRAMEWORK_FILE}")
+		
+		if [[ -f "${VIALERPJSIP_FRAMEWORK_FILE}" && $actualsize -ge $minimumsize ]]; then
+			echo "The library is already combined"
+		else
 			cd ${VIALERPJSIP_FRAMEWORK_DIR}
 			#  But we have chunks! ...Probably
 			if [ -f ${SPLIT_FILENAME_PREFIX}_aa ]; then
-			echo "Creating file from smaller files with ${SPLIT_FILENAME_PREFIX} prefix"
-			cat ${SPLIT_FILENAME_PREFIX}_* > ${BINARY_FILENAME}
-			rm ${SPLIT_FILENAME_PREFIX}_*
+				echo "Creating file from smaller files with ${SPLIT_FILENAME_PREFIX} prefix"
+				cat ${SPLIT_FILENAME_PREFIX}_* > ${BINARY_FILENAME}
+			  rm ${SPLIT_FILENAME_PREFIX}_*
 			fi
-		fi
+		fi		
 		'
 	}
 	s.xcconfig = {
         'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
 	}
 end
+
