@@ -26,7 +26,7 @@ export HAS_BITCODE=true
 export HAS_IPV6=false
 export SHOW_HELP=false
 
-export PJSIP_VERSION="trunk"
+export PJSIP_VERSION="latest"
 export PJSIP_BASE_URL="http://svn.pjsip.org/repos/pjproject"
 export PJSIP_DIR="$BASE_DIR/pjsip"
 export PJSIP_FINAL_LIB_DIR="$BASE_DIR/lib"
@@ -54,7 +54,7 @@ export XCODE_SIMULATOR_DEV_PATH="`xcrun -sdk iphonesimulator --show-sdk-platform
 
 set -e
 
-for i in "$@"; do 
+for i in "$@"; do
     case $i in
         -a=* | --arch=*)
         ARCHS="${i#*=}"
@@ -131,18 +131,18 @@ function show_help () {
     echo
     echo " -a, --arch                   Compile for specific architecture. Input the architectures comma separated."
     echo "                              If empty all architectures will be build (armv7,armv7s,arm64,i386,x86_64)"
-    echo 
+    echo
     echo " -h264, --h264, h264          Wheter to include h264/video support in PJSIP.  (default: not build)"
     echo
     echo " -ssl, --ssl, ssl             Include SSL for encrypted calling. (default: not build)"
-    echo 
+    echo
     echo " -opus, --opus, opus          Support for the OPUS codec. (default: not build)"
     echo
     echo " --no-download-pjsip-src      Don't download a new PJSIP source"
-    echo 
+    echo
     echo " --no-clean-pjsip-src         Don't clean the PJSIP source"
-    echo 
-    echo " --pjsip-version              Download specific PJSIP version tag. Default the newest tag is downloaded." 
+    echo
+    echo " --pjsip-version              Download specific PJSIP version tag. Default the newest tag is downloaded."
     echo
     echo " --independent-webrtc         Using pjsip with WebRTC independent, otherwise WebRTC may render remote video abnormal."
     echo
@@ -156,7 +156,7 @@ function show_help () {
     echo "                              Also if SSL or H264 are given as options they will be defined in the config_site.h."
     echo "                              Default 'PJ_CONFIG_IPHONE 1' is defined. and 'pj/config_site_sample.h' will be included."
     echo
-    echo " -h, --help, help             Show this help" 
+    echo " -h, --help, help             Show this help"
     echo
     echo " -v, --version, version       Version info"
     echo
@@ -192,7 +192,7 @@ function build_h264 () {
     h264_version="1.7.0";
     h264_url="https://github.com/cisco/openh264/archive/v${h264_version}.tar.gz"
     h264_target_path="$H264_BUILD_DIR/src"
-    
+
     mkdir -p $h264_target_path
 
     cd $h264_target_path
@@ -217,7 +217,7 @@ function build_h264 () {
         h264_log="${h264_prefix}/build.log"
 
         mkdir -p "${h264_prefix}/logs"
-        
+
         pushd . > /dev/null
 
         cd $h264_target_path
@@ -236,7 +236,7 @@ function build_h264 () {
         h264_sed_dst="${h264_sed_dst//\//\\/}"
         sed -i.deleteme "s/${h264_sed_src}/${h264_sed_dst}/" "${h264_makefile}"
         rm ${h264_makefile}.deleteme
-        
+
         echo "--- Run make file for ${arch}"
         make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No >> "${h264_log}"
         make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No install >> "${h264_log}"
@@ -245,7 +245,7 @@ function build_h264 () {
         mv "${h264_makefile_bak}" "${h264_makefile}"
 
         popd > /dev/null
-        
+
         h264_lipo_args="${h264_lipo_args} -arch ${arch} ${H264_BUILD_DIR}/build/${arch}/lib/libopenh264.a"
     done
 
@@ -266,20 +266,20 @@ function build_ssl () {
     if [ $SSL_SUPPORT = false ]; then
         return
     fi
-    
+
     echo "Use ssl"
     rm -rf $SSL_BUILD_DIR
     mkdir -p $SSL_BUILD_DIR
-    
+
     pushd . > /dev/null
     cd $SSL_BUILD_DIR
-    
+
     # Download OpenSSL repo.
     ssl_url="https://github.com/x2on/OpenSSL-for-iPhone/archive/master.tar.gz"
     curl -LO $ssl_url
     tar zxf "master.tar.gz" --strip 1
     rm "master.tar.gz"
-    ./build-libssl.sh --archs="${USE_ARCHS[*]// /\s}"
+    ./build-libssl.sh --version=1.0.2o --archs="${USE_ARCHS[*]// /\s}"
     mv include include2
     mkdir -p include
     mv include2/openssl include/openssl
@@ -342,7 +342,7 @@ function build_opus () {
     echo "Using opus-${opus_version}.tar.gz"
 
     tar zxf opus-${opus_version}.tar.gz
-    cd "${opus_src_dir}/opus-${opus_version}"  
+    cd "${opus_src_dir}/opus-${opus_version}"
 
     ccache=""
 
@@ -368,12 +368,12 @@ function build_opus () {
             ${opus_extra_config} \
             LDFLAGS="$LDFLAGS ${opus_opt_ldflags} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION} -L${opus_output_dir}/lib" \
             CFLAGS="$CFLAGS ${opus_extra_cflags} ${opus_opt_cflags} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION} -I${opus_output_dir}/include -isysroot ${xcode_dev_path}/Platforms/${os_platform}.platform/Developer/SDKs/${os_platform}.sdk" \
-        
+
         make -j4
-        
+
         make install
 
-        make clean 
+        make clean
     done
 
     echo "Building opus library..."
@@ -401,7 +401,7 @@ function build_opus () {
         else
             echo "$opus_output_lib does not exist, skipping (are the dependencies installed?)"
         fi
-        
+
     done
 
     echo "Done lipo-ing libs"
@@ -429,7 +429,7 @@ function download_pjsip () {
         latest_pjsip_tag=$(svn ls "$PJSIP_BASE_URL/tags/" | tail -n 1  | cut -d "/" -f 1 | sort -t . -k 1,2n -k 2,2n -k 3,2)
         PJSIP_VERSION=$latest_pjsip_tag
     fi
-    
+
     checkout_url="${PJSIP_BASE_URL}/tags/${PJSIP_VERSION}"
 
     if [ $PJSIP_VERSION = "trunk" ]; then
@@ -587,7 +587,7 @@ function _build () {
 
     echo "Building for $arch"
 
-    cp $PJSIP_CONFIG_SITE_H "$BASE_DIR/pjsip/src/pjlib/include/pj" 
+    cp $PJSIP_CONFIG_SITE_H "$BASE_DIR/pjsip/src/pjlib/include/pj"
 
     ARCH="-arch $arch" $configure >> $arch_log 2>&1
 
@@ -603,7 +603,7 @@ function _build () {
     if [ $SSL_SUPPORT = true ]; then
         if [ $ENABLE_ZRTP = true ]; then
             cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
-        
+
             make dep >> $arch_log 2>&1 &
             spinner $!
 
@@ -639,7 +639,7 @@ function _merge () {
 
     mkdir -p "$BASE_DIR"/Pod
     a_files=`find ./pjsip/temp -name *darwin_ios.a -exec printf '%s ' {} +`
-    
+
     if [ $SSL_SUPPORT = true ]; then
         a_files="${a_files} ${SSL_BUILD_DIR}/lib/libssl.a ${SSL_BUILD_DIR}/lib/libcrypto.a"
     fi
@@ -651,7 +651,7 @@ function _merge () {
     if [ $H264_SUPPORT = true ]; then
         a_files="${a_files} ${H264_BUILD_DIR}/lib/libopenh264.a"
     fi
-    
+
     libtool -o Pod/VialerPJSIP.a $a_files
 }
 
@@ -690,7 +690,7 @@ function copy_headers () {
     if [ $OPUS_SUPPORT = true ]; then
         find ${OPUS_BUILD_DIR}/dependencies/include/opus -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
     fi
-    
+
     if [ $SSL_SUPPORT = true ]; then
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
 
@@ -749,11 +749,6 @@ function create_framework {
     # Copy the public headers into the framework
     cp -a "${PUBLIC_HEADERS_FOLDER_PATH}/" "${FRAMEWORK_LOCN}/Versions/A/Headers"
     cp -a "${LIBRARY_LOCATION}/${PRODUCT_NAME}.a" "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}"
-
-    echo "Split ${PRODUCT_NAME} into small bits for convience."
-
-    split -b 30m "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}" "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}_Split_"
-    rm "${FRAMEWORK_LOCN}/Versions/A/${PRODUCT_NAME}"
 
     echo "Adapting the framework's header files"
     # Now, replace the include statements of the framework headers
