@@ -1,4 +1,4 @@
-/* $Id: config.h 5702 2017-11-27 03:29:07Z ming $ */
+/* $Id: config.h 5643 2017-08-22 04:59:57Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -72,16 +72,6 @@
  */
 #ifndef PJMEDIA_CONF_SWITCH_BOARD_BUF_SIZE
 #   define PJMEDIA_CONF_SWITCH_BOARD_BUF_SIZE    PJMEDIA_MAX_MTU
-#endif
-
-/**
- * Specify whether the conference bridge uses AGC, an automatic adjustment to
- * avoid dramatic change in the signal level which can cause noise.
- *
- * Default: 1 (enabled)
- */
-#ifndef PJMEDIA_CONF_USE_AGC
-#   define PJMEDIA_CONF_USE_AGC    	    1
 #endif
 
 

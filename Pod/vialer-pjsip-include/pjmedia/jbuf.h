@@ -1,4 +1,4 @@
-/* $Id: jbuf.h 5734 2018-02-12 06:18:22Z ming $ */
+/* $Id: jbuf.h 3841 2011-10-24 09:28:13Z ming $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -166,18 +166,6 @@ PJ_DECL(pj_status_t) pjmedia_jbuf_create(pj_pool_t *pool,
 					 unsigned ptime,
 					 unsigned max_count,
 					 pjmedia_jbuf **p_jb);
-
-/**
- * Set the jitter buffer's frame duration.
- *
- * @param jb		The jitter buffer
- * @param ptime		Frame duration.
- *
- * @return		PJ_SUCCESS on success.
- */
-PJ_DECL(pj_status_t) pjmedia_jbuf_set_ptime( pjmedia_jbuf *jb,
-					     unsigned ptime);
-
 
 /**
  * Set the jitter buffer to fixed delay mode. The default behavior

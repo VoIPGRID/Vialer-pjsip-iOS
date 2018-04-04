@@ -1,4 +1,4 @@
-/* $Id: transport.h 5750 2018-03-06 07:42:54Z nanang $ */
+/* $Id: transport.h 5478 2016-11-03 09:39:20Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -682,16 +682,16 @@ PJ_INLINE(void*) pjmedia_transport_info_get_spc_info(
  * @return	    PJ_SUCCESS on success, or the appropriate error code.
  */
 PJ_INLINE(pj_status_t) pjmedia_transport_attach2(pjmedia_transport *tp,
-                                  pjmedia_transport_attach_param *att_param)
+                                      pjmedia_transport_attach_param *att_param)
 {
     if (tp->op->attach2) {
-	return (*tp->op->attach2)(tp, att_param);
+	return tp->op->attach2(tp, att_param);
     } else {
-	return (*tp->op->attach)(tp, att_param->user_data, 
-				 (pj_sockaddr_t*)&att_param->rem_addr, 
-				 (pj_sockaddr_t*)&att_param->rem_rtcp, 
-				 att_param->addr_len, att_param->rtp_cb, 
-				 att_param->rtcp_cb);
+	return tp->op->attach(tp, att_param->user_data, 
+			      (pj_sockaddr_t*)&att_param->rem_addr, 
+			      (pj_sockaddr_t*)&att_param->rem_rtcp, 
+			      att_param->addr_len, att_param->rtp_cb, 
+			      att_param->rtcp_cb);
     }
 }
 
@@ -729,22 +729,8 @@ PJ_INLINE(pj_status_t) pjmedia_transport_attach(pjmedia_transport *tp,
 							        void*pkt,
 							        pj_ssize_t))
 {
-    if (tp->op->attach2) {
-	pjmedia_transport_attach_param param;
-
-	pj_bzero(&param, sizeof(param));
-	param.user_data = user_data;
-	pj_sockaddr_cp(&param.rem_addr, rem_addr);
-	pj_sockaddr_cp(&param.rem_rtcp, rem_rtcp);
-	param.addr_len = addr_len;
-	param.rtp_cb = rtp_cb;
-	param.rtcp_cb = rtcp_cb;
-
-	return (*tp->op->attach2)(tp, &param);
-    } else {
-	return (*tp->op->attach)(tp, user_data, rem_addr, rem_rtcp, addr_len,
-			         rtp_cb, rtcp_cb);
-    }
+    return tp->op->attach(tp, user_data, rem_addr, rem_rtcp, addr_len, 
+			  rtp_cb, rtcp_cb);
 }
 
 
@@ -763,7 +749,7 @@ PJ_INLINE(pj_status_t) pjmedia_transport_attach(pjmedia_transport *tp,
 PJ_INLINE(void) pjmedia_transport_detach(pjmedia_transport *tp,
 					 void *user_data)
 {
-    (*tp->op->detach)(tp, user_data);
+    tp->op->detach(tp, user_data);
 }
 
 

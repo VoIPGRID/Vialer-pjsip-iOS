@@ -1,4 +1,4 @@
-/* $Id: stream.h 5748 2018-02-27 03:37:53Z ming $ */
+/* $Id: stream.h 5479 2016-11-04 14:57:20Z riza $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -116,10 +116,6 @@ typedef struct pjmedia_stream_info
     int		        tx_event_pt;/**< Outgoing pt for telephone-events.  */
     int			rx_event_pt;/**< Incoming pt for telephone-events.  */
     pj_uint32_t		ssrc;	    /**< RTP SSRC.			    */
-    pj_str_t		cname; 	    /**< RTCP CNAME.			    */
-    pj_bool_t		has_rem_ssrc;/**<Has remote RTP SSRC?		    */
-    pj_uint32_t		rem_ssrc;   /**< Remote RTP SSRC.		    */
-    pj_str_t		rem_cname;  /**< Remote RTCP CNAME.		    */
     pj_uint32_t		rtp_ts;	    /**< Initial RTP timestamp.		    */
     pj_uint16_t		rtp_seq;    /**< Initial RTP sequence number.	    */
     pj_uint8_t		rtp_seq_ts_set;
