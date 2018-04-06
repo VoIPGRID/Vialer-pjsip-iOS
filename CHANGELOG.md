@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.3.6](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.6) (06/04/2018)
+Released on Friday, April 6, 2018
+* Recompiled because of incomplete architectures.
+
+## [3.3.5](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.5) (13/03/2018)
+Released on Tuesday, March 13, 2018
+* Removed the compile script again causing errors.
+
 ## [3.3.4](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.4) (13/03/2018)
 Released on Tuesday, March 13, 2018
 * Added a post compile script to the podspec to combine the VialerPJSIP split archives into one archive
