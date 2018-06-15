@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.3.7](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.7) (15/06/2018)
+Released on Friday, June 15, 2018
+* Remove warnings for compiling for iPhone Simulators.
+
 ## [3.3.6](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.3.6) (06/04/2018)
 Released on Friday, April 6, 2018
 * Recompiled because of incomplete architectures.
