@@ -1,4 +1,4 @@
-/* $Id: persistent.hpp 5771 2018-04-03 00:46:36Z ming $ */
+/* $Id: persistent.hpp 4704 2014-01-16 05:30:46Z ming $ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -57,12 +57,6 @@ class ContainerNode;
 class PersistentObject
 {
 public:
-    /**
-     * Virtual destructor
-     */
-    virtual ~PersistentObject()
-    {}
-
     /**
      * Read this object from a container node.
      *
