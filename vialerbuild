@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 AVIALABLE_ARCHS=(
@@ -238,9 +237,9 @@ function build_h264 () {
         rm ${h264_makefile}.deleteme
 
         echo "--- Run make file for ${arch}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No >> "${h264_log}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No install >> "${h264_log}"
-        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No clean >> "${h264_log}"
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No >> "${h264_log}"  || exit
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No install >> "${h264_log}" || exit
+        make OS=ios ARCH=${arch} SDK_MIN=${MIN_IOS_VERSION} v=No clean >> "${h264_log}" || exit
 
         mv "${h264_makefile_bak}" "${h264_makefile}"
 
@@ -254,7 +253,7 @@ function build_h264 () {
     fi
 
     echo "--- Lipo openH264"
-    xcrun -sdk iphoneos lipo ${h264_lipo_args} -create -output "${H264_BUILD_DIR}/lib/libopenh264.a"
+    xcrun -sdk iphoneos lipo ${h264_lipo_args} -create -output "${H264_BUILD_DIR}/lib/libopenh264.a" || exit
 
     echo "--- Copying header files"
     cp -R "${H264_BUILD_DIR}/build/${USE_ARCHS[0]}/include/" "${H264_BUILD_DIR}/include"
@@ -279,7 +278,7 @@ function build_ssl () {
     curl -LO $ssl_url
     tar zxf "master.tar.gz" --strip 1
     rm "master.tar.gz"
-    ./build-libssl.sh --version=1.0.2o --archs="${USE_ARCHS[*]// /\s}"
+    ./build-libssl.sh --version=1.0.2p --archs="${USE_ARCHS[*]// /\s}" || exit
     mv include include2
     mkdir -p include
     mv include2/openssl include/openssl
@@ -300,7 +299,7 @@ function build_zrtp () {
     cd $ZRTP_BUILD_DIR
     git clone https://github.com/wernerd/ZRTP4PJ
     cd ZRTP4PJ/zsrtp
-	sh getzrtp.sh
+	sh getzrtp.sh || exit
 	cd $ZRTP_BUILD_DIR
 	mv ZRTP4PJ $PJSIP_SRC_DIR/third_party
 	cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
@@ -317,7 +316,7 @@ function build_opus () {
 
     rm -rf $OPUS_BUILD_DIR
 
-    opus_version="1.1.5"
+    opus_version="1.2.1"
     opus_opt_cflags="-Ofast -flto -g"
     opus_opt_ldflags="-flto"
     opus_opt_config_args=""
@@ -367,13 +366,13 @@ function build_opus () {
             --prefix="${opus_inter_dir}/${os_platform}${IOS_SDK_VERSION}-${arch}.sdk" \
             ${opus_extra_config} \
             LDFLAGS="$LDFLAGS ${opus_opt_ldflags} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION} -L${opus_output_dir}/lib" \
-            CFLAGS="$CFLAGS ${opus_extra_cflags} ${opus_opt_cflags} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION} -I${opus_output_dir}/include -isysroot ${xcode_dev_path}/Platforms/${os_platform}.platform/Developer/SDKs/${os_platform}.sdk" \
+            CFLAGS="$CFLAGS ${opus_extra_cflags} ${opus_opt_cflags} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION} -I${opus_output_dir}/include -isysroot ${xcode_dev_path}/Platforms/${os_platform}.platform/Developer/SDKs/${os_platform}.sdk" || exit
 
-        make -j4
+        make -j4 || exit
 
-        make install
+        make install || exit
 
-        make clean
+        make clean || exit
     done
 
     echo "Building opus library..."
@@ -397,7 +396,7 @@ function build_opus () {
         if [ -n "$opus_input_libs" ]; then
             echo "** lipo libs"
 
-            lipo -create $opus_input_libs -output "$opus_output_dir/lib/${opus_output_lib}"
+            lipo -create $opus_input_libs -output "$opus_output_dir/lib/${opus_output_lib}" || exit
         else
             echo "$opus_output_lib does not exist, skipping (are the dependencies installed?)"
         fi
@@ -589,7 +588,7 @@ function _build () {
 
     cp $PJSIP_CONFIG_SITE_H "$BASE_DIR/pjsip/src/pjlib/include/pj"
 
-    ARCH="-arch $arch" $configure >> $arch_log 2>&1
+    ARCH="-arch $arch" $configure >> $arch_log 2>&1 || exit
 
     make dep >> $arch_log 2>&1 &
     spinner $!
