@@ -1,5 +1,5 @@
 /* pjlib/include/pj/compat/os_auto.h.  Generated from os_auto.h.in by configure.  */
-/* $Id: os_auto.h.in 5543 2017-01-24 05:36:50Z nanang $ */
+/* $Id: os_auto.h.in 5725 2018-01-15 08:52:29Z ming $ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -28,7 +28,7 @@
  */
 
 /* Canonical OS name */
-#define PJ_OS_NAME "x86_64-apple-darwin_ios"
+#define PJ_OS_NAME "arm64-apple-darwin_ios"
 
 /* Legacy macros */
 /* #undef PJ_WIN32 */
@@ -219,6 +219,9 @@
 /* SSL socket availability. */
 #ifndef PJ_HAS_SSL_SOCK
 #define PJ_HAS_SSL_SOCK 1
+#endif
+#ifndef PJ_SSL_SOCK_IMP
+#   define PJ_SSL_SOCK_IMP PJ_SSL_SOCK_IMP_OPENSSL
 #endif
 
 
