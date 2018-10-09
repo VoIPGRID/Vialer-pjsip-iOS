@@ -1,4 +1,4 @@
-/* $Id: endpoint.hpp 5834 2018-07-23 07:32:54Z riza $ */
+/* $Id: endpoint.hpp 5676 2017-10-24 07:31:39Z ming $ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -460,15 +460,6 @@ struct UaConfig : public PersistentObject
     StringVector	nameserver;
 
     /**
-     * Specify the URL of outbound proxies to visit for all outgoing requests.
-     * The outbound proxies will be used for all accounts, and it will
-     * be used to build the route set for outgoing requests. The final
-     * route set for outgoing requests will consists of the outbound proxies
-     * and the proxy configured in the account.
-     */
-    StringVector	outboundProxies;
-
-    /**
      * Optional user agent string (default empty). If it's empty, no
      * User-Agent header will be sent with outgoing requests.
      */
@@ -503,8 +494,8 @@ struct UaConfig : public PersistentObject
      *
      * Default: FALSE
      */
-    bool	    	stunTryIpv6;
 
+    bool	    	stunTryIpv6;
     /**
      * This specifies if the library startup should ignore failure with the
      * STUN servers. If this is set to PJ_FALSE, the library will refuse to
@@ -1482,13 +1473,6 @@ public:
      */
     void resetVideoCodecParam(const string &codec_id) throw(Error);
 
-    /**
-     * Enumerate all SRTP crypto-suite names.
-     *
-     * @return		The list of SRTP crypto-suite name.
-     */
-    StringVector srtpCryptoEnum() throw(Error);
-
     /*************************************************************************
      * IP Change
      */
@@ -1686,8 +1670,6 @@ private:
                                     pjmedia_stream *strm,
                                     unsigned stream_idx);
     static void on_dtmf_digit(pjsua_call_id call_id, int digit);
-    static void on_dtmf_digit2(pjsua_call_id call_id, 
-			       const pjsua_dtmf_info *info);
     static void on_call_transfer_request(pjsua_call_id call_id,
                                          const pj_str_t *dst,
                                          pjsip_status_code *code);
@@ -1716,13 +1698,6 @@ private:
                                  void *reserved,
                                  pjsip_status_code *code,
                                  pjsua_call_setting *opt);
-    static void on_call_rx_reinvite(pjsua_call_id call_id,
-                                    const pjmedia_sdp_session *offer,
-                                    pjsip_rx_data *rdata,
-                                    void *reserved,
-                                    pj_bool_t *async,
-                                    pjsip_status_code *code,
-                                    pjsua_call_setting *opt);
     static void on_call_tx_offer(pjsua_call_id call_id,
 				 void *reserved,
 				 pjsua_call_setting *opt);

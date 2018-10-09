@@ -1,4 +1,4 @@
-/* $Id: config.h 5850 2018-08-01 08:34:19Z ming $ */
+/* $Id: config.h 5481 2016-11-14 06:13:01Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -430,23 +430,12 @@
 
 /**
  * This constant specifies the length of random string generated for ICE
- * ufrag.
+ * ufrag and password.
  *
  * Default: 8 (characters)
  */
 #ifndef PJ_ICE_UFRAG_LEN
 #   define PJ_ICE_UFRAG_LEN			    8
-#endif
-
-
-/**
- * This constant specifies the length of random string generated for ICE
- * password.
- *
- * Default: 24 (characters)
- */
-#ifndef PJ_ICE_PWD_LEN
-#   define PJ_ICE_PWD_LEN			    24
 #endif
 
 
