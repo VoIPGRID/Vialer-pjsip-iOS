@@ -188,7 +188,7 @@ function build_h264 () {
 
     rm -rf $H264_BUILD_DIR
 
-    h264_version="1.7.0";
+    h264_version="2.0.0";
     h264_url="https://github.com/cisco/openh264/archive/v${h264_version}.tar.gz"
     h264_target_path="$H264_BUILD_DIR/src"
 
