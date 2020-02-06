@@ -278,7 +278,7 @@ function build_ssl () {
     curl -LO $ssl_url
     tar zxf "master.tar.gz" --strip 1
     rm "master.tar.gz"
-    ./build-libssl.sh --version=1.0.2p --archs="${USE_ARCHS[*]// /\s}" || exit
+    ./build-libssl.sh --version=1.1.1d --archs="${USE_ARCHS[*]// /\s}" || exit
     mv include include2
     mkdir -p include
     mv include2/openssl include/openssl
