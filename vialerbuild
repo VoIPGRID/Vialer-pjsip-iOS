@@ -316,7 +316,7 @@ function build_opus () {
 
     rm -rf $OPUS_BUILD_DIR
 
-    opus_version="1.2.1"
+    opus_version="1.3.1"
     opus_opt_cflags="-Ofast -flto -g"
     opus_opt_ldflags="-flto"
     opus_opt_config_args=""
