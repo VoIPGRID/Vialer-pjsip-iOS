@@ -1,4 +1,4 @@
-/* $Id: pjmedia.h 3664 2011-07-19 03:42:28Z nanang $ */
+/* $Id: pjmedia.h 5939 2019-03-05 06:23:02Z nanang $ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -68,10 +68,11 @@
 #include <VialerPJSIP/pjmedia/transport_loop.h>
 #include <VialerPJSIP/pjmedia/transport_srtp.h>
 #include <VialerPJSIP/pjmedia/transport_udp.h>
-#include <VialerPJSIP/pjmedia/vid_port.h>
 #include <VialerPJSIP/pjmedia/vid_codec.h>
+#include <VialerPJSIP/pjmedia/vid_conf.h>
+#include <VialerPJSIP/pjmedia/vid_port.h>
 #include <VialerPJSIP/pjmedia/vid_stream.h>
-#include <VialerPJSIP/pjmedia/vid_tee.h>
+//#include <VialerPJSIP/pjmedia/vid_tee.h>
 #include <VialerPJSIP/pjmedia/wav_playlist.h>
 #include <VialerPJSIP/pjmedia/wav_port.h>
 #include <VialerPJSIP/pjmedia/wave.h>
