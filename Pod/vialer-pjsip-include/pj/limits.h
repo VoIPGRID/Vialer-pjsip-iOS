@@ -1,4 +1,4 @@
-/* $Id: limits.h 5682 2017-11-08 02:58:18Z riza $ */
+/* $Id$ */
 /*
  * Copyright (C) 2017 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2017 George Joseph <gjoseph@digium.com>

@@ -1,4 +1,4 @@
-/* $Id: openh264.h 4815 2014-04-10 10:01:07Z bennylp $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2014 Teluu Inc. (http://www.teluu.com)
  *

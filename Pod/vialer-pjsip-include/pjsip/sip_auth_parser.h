@@ -1,4 +1,4 @@
-/* $Id: sip_auth_parser.h 5883 2018-09-07 02:56:38Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

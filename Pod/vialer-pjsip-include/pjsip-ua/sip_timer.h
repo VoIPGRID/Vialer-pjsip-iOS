@@ -1,4 +1,4 @@
-/* $Id: sip_timer.h 4715 2014-01-24 09:32:27Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2009-2011 Teluu Inc. (http://www.teluu.com)
  *

@@ -1,4 +1,4 @@
-/* $Id: config.h 6005 2019-05-26 13:18:02Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -465,10 +465,19 @@
 
 
 /**
- * Interval to send RTCP packets, in msec
+ * Interval to send regular RTCP packets, in msec.
  */
 #ifndef PJMEDIA_RTCP_INTERVAL
-#	define PJMEDIA_RTCP_INTERVAL		5000	/* msec*/
+#   define PJMEDIA_RTCP_INTERVAL		5000	/* msec*/
+#endif
+
+
+/**
+ * Minimum interval between two consecutive outgoing RTCP-FB packets,
+ * such as Picture Loss Indication, in msec.
+ */
+#ifndef PJMEDIA_RTCP_FB_INTERVAL
+#   define PJMEDIA_RTCP_FB_INTERVAL		50	/* msec*/
 #endif
 
 
@@ -844,25 +853,13 @@
 
 
 /**
- * This macro declares the payload type for telephone-event
+ * This macro declares the start payload type for telephone-event
  * that is advertised by PJMEDIA for outgoing SDP. If this macro
  * is set to zero, telephone events would not be advertised nor
  * supported.
- *
- * If this value is changed to other number, please update the
- * PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR too.
  */
 #ifndef PJMEDIA_RTP_PT_TELEPHONE_EVENTS
-#   define PJMEDIA_RTP_PT_TELEPHONE_EVENTS	    96
-#endif
-
-
-/**
- * Macro to get the string representation of the telephone-event
- * payload type.
- */
-#ifndef PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR
-#   define PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR	    "96"
+#   define PJMEDIA_RTP_PT_TELEPHONE_EVENTS	    120
 #endif
 
 
@@ -1535,6 +1532,16 @@
  */
 #ifndef PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC
 #   define PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC  1000
+#endif
+
+
+/**
+ * Specify the minimum interval to send video keyframe, in msec.
+ *
+ * Default : 1000
+ */
+#ifndef PJMEDIA_VID_STREAM_MIN_KEYFRAME_INTERVAL_MSEC
+#   define PJMEDIA_VID_STREAM_MIN_KEYFRAME_INTERVAL_MSEC    1000
 #endif
 
 

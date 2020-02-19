@@ -1,4 +1,4 @@
-/* $Id: turn_sock.h 6004 2019-05-24 03:32:17Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -86,6 +86,23 @@ typedef struct pj_turn_sock_cb
 		       unsigned pkt_len,
 		       const pj_sockaddr_t *peer_addr,
 		       unsigned addr_len);
+
+    /**
+     * Notifification when asynchronous send operation has completed.
+     *
+     * @param turn_sock	    The TURN transport.
+     * @param sent	    If value is positive non-zero it indicates the
+     *			    number of data sent. When the value is negative,
+     *			    it contains the error code which can be retrieved
+     *			    by negating the value (i.e. status=-sent).
+     *
+     * @return		    Application should normally return PJ_TRUE to let
+     *			    the TURN transport continue its operation. However
+     *			    it must return PJ_FALSE if it has destroyed the
+     *			    TURN transport in this callback.
+     */
+    pj_bool_t (*on_data_sent)(pj_turn_sock *sock,
+			      pj_ssize_t sent);
 
     /**
      * Notification when TURN session state has changed. Application should
@@ -574,8 +591,11 @@ PJ_DECL(pj_status_t) pj_turn_sock_set_perm(pj_turn_sock *turn_sock,
  *			of the data, and not the TURN server address).
  * @param addr_len	Length of the address.
  *
- * @return		PJ_SUCCESS if the operation has been successful,
- *			or the appropriate error code on failure.
+ * @return		PJ_SUCCESS if data has been sent immediately, or
+ *			PJ_EPENDING if data cannot be sent immediately. In
+ *			this case the \a on_data_sent() callback will be
+ *			called when data is actually sent. Any other return
+ *			value indicates error condition.
  */ 
 PJ_DECL(pj_status_t) pj_turn_sock_sendto(pj_turn_sock *turn_sock,
 					const pj_uint8_t *pkt,

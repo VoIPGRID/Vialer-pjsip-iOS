@@ -1,4 +1,4 @@
-/* $Id: pool.h 5990 2019-05-15 02:43:01Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

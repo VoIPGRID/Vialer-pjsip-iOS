@@ -1,4 +1,4 @@
-/* $Id: pjsua.h 6004 2019-05-24 03:32:17Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -510,12 +510,12 @@ typedef struct pjsua_reg_info
 typedef struct pjsua_on_stream_created_param
 {
     /**
-     * The media stream, read-only.
+     * The audio media stream, read-only.
      */
     pjmedia_stream 	*stream;
 
     /**
-     * Stream index in the media session, read-only.
+     * Stream index in the audio media session, read-only.
      */
     unsigned 		 stream_idx;
 
@@ -530,7 +530,7 @@ typedef struct pjsua_on_stream_created_param
     pj_bool_t 		 destroy_port;
 
     /**
-     * On input, it specifies the media port of the stream. Application
+     * On input, it specifies the audio media port of the stream. Application
      * may modify this pointer to point to different media port to be
      * registered to the conference bridge.
      */
@@ -748,7 +748,12 @@ typedef enum pjsua_ip_change_op {
     /**
      * The re-INVITE call process.
      */
-    PJSUA_IP_CHANGE_OP_ACC_REINVITE_CALLS
+    PJSUA_IP_CHANGE_OP_ACC_REINVITE_CALLS,
+
+    /**
+     * The ip change process has completed.
+     */
+    PJSUA_IP_CHANGE_OP_COMPLETED
 
 } pjsua_ip_change_op;
 
@@ -860,7 +865,8 @@ typedef struct pjsua_call_setting
      * This flag controls what methods to request keyframe are allowed on
      * the call. Value is bitmask of #pjsua_vid_req_keyframe_method.
      *
-     * Default: PJSUA_VID_REQ_KEYFRAME_SIP_INFO
+     * Default: (PJSUA_VID_REQ_KEYFRAME_SIP_INFO | 
+     *		 PJSUA_VID_REQ_KEYFRAME_RTCP_PLI)
      */
     unsigned	     req_keyframe_method;
 
@@ -960,18 +966,18 @@ typedef struct pjsua_callback
 
 
     /**
-     * Notify application when media session is created and before it is
+     * Notify application when audio media session is created and before it is
      * registered to the conference bridge. Application may return different
-     * media port if it has added media processing port to the stream. This
-     * media port then will be added to the conference bridge instead.
+     * audio media port if it has added media processing port to the stream.
+     * This media port then will be added to the conference bridge instead.
      *
      * Note: if implemented, #on_stream_created2() callback will be called
      * instead of this one. 
      *
      * @param call_id	    Call identification.
-     * @param strm	    Media stream.
-     * @param stream_idx    Stream index in the media session.
-     * @param p_port	    On input, it specifies the media port of the
+     * @param strm	    Audio media stream.
+     * @param stream_idx    Stream index in the audio media session.
+     * @param p_port	    On input, it specifies the audio media port of the
      *			    stream. Application may modify this pointer to
      *			    point to different media port to be registered
      *			    to the conference bridge.
@@ -982,10 +988,10 @@ typedef struct pjsua_callback
 			      pjmedia_port **p_port);
 
     /**
-     * Notify application when media session is created and before it is
+     * Notify application when audio media session is created and before it is
      * registered to the conference bridge. Application may return different
-     * media port if it has added media processing port to the stream. This
-     * media port then will be added to the conference bridge instead.
+     * audio media port if it has added media processing port to the stream.
+     * This media port then will be added to the conference bridge instead.
      *
      * @param call_id	    Call identification.
      * @param param	    The on stream created callback parameter.
@@ -994,12 +1000,12 @@ typedef struct pjsua_callback
 			       pjsua_on_stream_created_param *param);
 
     /**
-     * Notify application when media session has been unregistered from the
-     * conference bridge and about to be destroyed.
+     * Notify application when audio media session has been unregistered from
+     * the conference bridge and about to be destroyed.
      *
      * @param call_id	    Call identification.
-     * @param strm	    Media stream.
-     * @param stream_idx    Stream index in the media session.
+     * @param strm	    Audio media stream.
+     * @param stream_idx    Stream index in the audio media session.
      */
     void (*on_stream_destroyed)(pjsua_call_id call_id,
                                 pjmedia_stream *strm,
@@ -4176,9 +4182,10 @@ typedef struct pjsua_acc_info
     pj_bool_t		has_registration;
 
     /**
-     * An up to date expiration interval for account registration session.
+     * An up to date expiration interval for account registration session,
+     * PJSIP_EXPIRES_NOT_SPECIFIED if the account doesn't have reg session.
      */
-    int			expires;
+    unsigned		expires;
 
     /**
      * Last registration status code. If status code is zero, the account
@@ -6544,7 +6551,9 @@ struct pjsua_media_config
     unsigned		rx_drop_pct;
 
     /**
-     * Echo canceller options (see #pjmedia_echo_create())
+     * Echo canceller options (see #pjmedia_echo_create()).
+     * Specify PJMEDIA_ECHO_USE_SW_ECHO here if application wishes
+     * to use software echo canceller instead of device EC.
      *
      * Default: 0.
      */
@@ -7443,6 +7452,17 @@ PJ_DECL(pj_status_t) pjsua_get_ec_tail(unsigned *p_tail_ms);
 
 
 /**
+ * Get echo canceller statistics.
+ *
+ * @param p_stat	    Pointer to receive the stat.
+ *
+ * @return		    PJ_SUCCESS on success, or the appropriate error
+ *			    code.
+ */
+PJ_DECL(pj_status_t) pjsua_get_ec_stat(pjmedia_echo_stat *p_stat);
+
+
+/**
  * Check whether the sound device is currently active. The sound device
  * may be inactive if the application has set the auto close feature to
  * non-zero (the snd_auto_close_time setting in #pjsua_media_config), or
@@ -8049,6 +8069,20 @@ PJ_DECL(pj_status_t) pjsua_vid_win_set_win(pjsua_vid_win_id wid,
 PJ_DECL(pj_status_t) pjsua_vid_win_rotate(pjsua_vid_win_id wid,
 					  int angle);
 
+
+/**
+ * Set video window full-screen. This operation is valid only when the
+ * underlying video device supports PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN
+ * capability. Currently it is only supported on SDL backend.
+ *
+ * @param wid		The video window ID.
+ * @param enabled   	Set to PJ_TRUE if full screen is desired, PJ_FALSE 
+ *			otherwise.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_win_set_fullscreen(pjsua_vid_win_id wid,
+                                                  pj_bool_t enabled);
 
 /*
  * Video codecs API

@@ -1,4 +1,4 @@
-/* $Id: doxygen.hpp 4704 2014-01-16 05:30:46Z ming $ */
+/* $Id$ */
 /*
  * Copyright (C) 2008-2012 Teluu Inc. (http://www.teluu.com)
  *

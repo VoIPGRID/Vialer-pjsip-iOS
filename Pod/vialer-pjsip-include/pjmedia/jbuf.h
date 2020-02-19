@@ -1,4 +1,4 @@
-/* $Id: jbuf.h 5887 2018-09-19 08:26:41Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

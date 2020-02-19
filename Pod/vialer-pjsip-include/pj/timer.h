@@ -1,4 +1,4 @@
-/* $Id: timer.h 5971 2019-04-23 08:42:45Z nanang $ */
+/* $Id$ */
 /* 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,10 @@
 
 #include <pj/types.h>
 #include <pj/lock.h>
+
+#if PJ_TIMER_USE_LINKED_LIST
+#  include <pj/list.h>
+#endif
 
 PJ_BEGIN_DECL
 
@@ -88,6 +92,13 @@ typedef void pj_timer_heap_callback(pj_timer_heap_t *timer_heap,
  */
 typedef struct pj_timer_entry
 {
+#if !PJ_TIMER_USE_COPY && PJ_TIMER_USE_LINKED_LIST
+    /**
+    * Standard list members.
+    */
+    PJ_DECL_LIST_MEMBER(struct pj_timer_entry);
+#endif
+
     /** 
      * User data to be associated with this entry. 
      * Applications normally will put the instance of object that
@@ -113,6 +124,7 @@ typedef struct pj_timer_entry
      */
     pj_timer_id_t _timer_id;
 
+#if !PJ_TIMER_USE_COPY
     /** 
      * The future time when the timer expires, which the value is updated
      * by timer heap when the timer is scheduled.
@@ -128,6 +140,8 @@ typedef struct pj_timer_entry
 #if PJ_TIMER_DEBUG
     const char	*src_file;
     int		 src_line;
+#endif
+
 #endif
 } pj_timer_entry;
 

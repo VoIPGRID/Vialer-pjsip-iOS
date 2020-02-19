@@ -1,4 +1,4 @@
-/* $Id: sip_endpoint.h 5971 2019-04-23 08:42:45Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

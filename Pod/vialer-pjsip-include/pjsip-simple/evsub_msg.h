@@ -1,4 +1,4 @@
-/* $Id: evsub_msg.h 3553 2011-05-05 06:14:19Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -88,7 +88,8 @@ typedef struct pjsip_sub_state_hdr
 
     pj_str_t	    sub_state;		/**< Subscription state. */
     pj_str_t	    reason_param;	/**< Optional termination reason. */
-    int		    expires_param;	/**< Expires param, or -1. */
+    unsigned	    expires_param;	/**< Expires param, or
+    					     PJSIP_EXPIRES_NOT_SPECIFIED. */
     int		    retry_after;	/**< Retry after param, or -1. */
     pjsip_param	    other_param;	/**< Other parameters. */
 } pjsip_sub_state_hdr;

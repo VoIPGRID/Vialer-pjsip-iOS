@@ -1,4 +1,4 @@
-/* $Id: bcg729.h 5630 2017-07-19 10:29:10Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2017 Teluu Inc. (http://www.teluu.com)
  *

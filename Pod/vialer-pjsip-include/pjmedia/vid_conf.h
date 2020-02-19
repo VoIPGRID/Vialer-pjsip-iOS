@@ -1,4 +1,4 @@
-/* $Id: vid_conf.h 5939 2019-03-05 06:23:02Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2019 Teluu Inc. (http://www.teluu.com)
  *

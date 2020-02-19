@@ -1,4 +1,4 @@
-/* $Id: videodev.h 5255 2016-03-10 05:02:07Z ming $ */
+/* $Id$ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -25,7 +25,6 @@
  */
 #include <pjmedia-videodev/config.h>
 #include <pjmedia-videodev/errno.h>
-#include <pjmedia/event.h>
 #include <pjmedia/frame.h>
 #include <pjmedia/format.h>
 #include <pj/pool.h>
@@ -276,6 +275,11 @@ typedef enum pjmedia_vid_dev_cap
     PJMEDIA_VID_DEV_CAP_OUTPUT_WINDOW_FLAGS = 512,
 
     /**
+     * Support for setting the output video window full screen.
+     */
+    PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN = 1024,
+
+    /**
      * End of standard capability
      */
     PJMEDIA_VID_DEV_CAP_MAX = 16384
@@ -463,6 +467,12 @@ typedef struct pjmedia_vid_dev_param
      * if PJMEDIA_VID_DEV_CAP_OUTPUT_WINDOW_FLAGS is set in the flags.
      */
     unsigned window_flags;
+
+    /**
+     * Video window's full screen status. This setting is optional, and will only be
+     * used if PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN is set in the flags.
+     */
+    pj_bool_t window_fullscreen;
 
 } pjmedia_vid_dev_param;
 

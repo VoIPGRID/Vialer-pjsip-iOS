@@ -1,4 +1,4 @@
-/* $Id: stream_common.h 5479 2016-11-04 14:57:20Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2011 Teluu Inc. (http://www.teluu.com)
  *

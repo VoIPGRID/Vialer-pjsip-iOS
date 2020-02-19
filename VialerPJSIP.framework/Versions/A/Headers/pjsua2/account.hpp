@@ -1,4 +1,4 @@
-/* $Id: account.hpp 6026 2019-06-12 06:00:35Z nanang $ */
+/* $Id$ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -326,6 +326,14 @@ struct AccountCallConfig : public PersistentObject
     unsigned		timerSessExpiresSec;
 
 public:
+    /**
+     * Default constructor
+     */
+    AccountCallConfig() : holdType(PJSUA_CALL_HOLD_TYPE_DEFAULT),
+			  prackUse(PJSUA_100REL_NOT_USED),
+			  timerUse(PJSUA_SIP_TIMER_OPTIONAL)
+    {}
+
     /**
      * Read this object from a container node.
      *
@@ -688,6 +696,15 @@ struct AccountNatConfig : public PersistentObject
 
 public:
     /**
+     * Default constructor
+     */
+    AccountNatConfig() : sipStunUse(PJSUA_STUN_USE_DEFAULT),
+			 mediaStunUse(PJSUA_STUN_USE_DEFAULT),
+			 nat64Opt(PJSUA_NAT64_DISABLED),
+			 turnConnType(PJ_TURN_TP_UDP)
+    {}
+
+    /**
      * Read this object from a container node.
      *
      * @param node		Container to read values from.
@@ -967,6 +984,13 @@ struct AccountMediaConfig : public PersistentObject
 
 public:
     /**
+     * Default constructor
+     */
+    AccountMediaConfig() : srtpUse(PJSUA_DEFAULT_USE_SRTP),
+			   ipv6Use(PJSUA_IPV6_DISABLED)
+    {}
+
+    /**
      * Read this object from a container node.
      *
      * @param node		Container to read values from.
@@ -1072,6 +1096,13 @@ struct AccountVideoConfig : public PersistentObject
 
 
 public:
+    /**
+     * Default constructor
+     */
+    AccountVideoConfig() :
+		    rateControlMethod(PJMEDIA_VID_STREAM_RC_SIMPLE_BLOCKING)
+    {}
+
     /**
      * Read this object from a container node.
      *
@@ -1281,7 +1312,7 @@ struct AccountInfo
     /**
      * An up to date expiration interval for account registration session.
      */
-    int			regExpiresSec;
+    unsigned		regExpiresSec;
 
     /**
      * Last registration status code. If status code is zero, the account
@@ -1314,6 +1345,12 @@ struct AccountInfo
     string		onlineStatusText;
 
 public:
+    /**
+     * Default constructor
+     */
+    AccountInfo() : regStatus(PJSIP_SC_NULL)
+    {}
+
     /** Import from pjsip data */
     void fromPj(const pjsua_acc_info &pai);
 };
@@ -1373,7 +1410,7 @@ struct OnRegStateParam
     /**
      * Next expiration interval.
      */
-    int			expiration;
+    unsigned		expiration;
 };
 
 /**
@@ -1761,6 +1798,7 @@ public:
      */
     void presNotify(const PresNotifyParam &prm) PJSUA2_THROW(Error);
     
+#if !DEPRECATED_FOR_TICKET_2232
     /**
      * Warning: deprecated, use enumBuddies2() instead. This function is not
      * safe in multithreaded environment.
@@ -1770,6 +1808,7 @@ public:
      * @return			The buddy list.
      */
     const BuddyVector& enumBuddies() const PJSUA2_THROW(Error);
+#endif
 
     /**
      * Enumerate all buddies of the account.
@@ -1778,6 +1817,7 @@ public:
      */
     BuddyVector2 enumBuddies2() const PJSUA2_THROW(Error);
 
+#if !DEPRECATED_FOR_TICKET_2232
     /**
      * Warning: deprecated, use findBuddy2 instead. This function is not
      * safe in multithreaded environment.
@@ -1793,6 +1833,7 @@ public:
      */
     Buddy* findBuddy(string uri, FindBuddyMatch *buddy_match = NULL) const
 		    PJSUA2_THROW(Error);
+#endif
 
     /**
      * Find a buddy in the buddy list with the specified URI. 
@@ -1931,7 +1972,9 @@ private:
 private:
     pjsua_acc_id 	 id;
     string		 tmpReason;	// for saving response's reason
+#if !DEPRECATED_FOR_TICKET_2232
     BuddyVector		 buddyList;
+#endif
 };
 
 /**

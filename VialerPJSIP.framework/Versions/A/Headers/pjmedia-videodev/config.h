@@ -1,4 +1,4 @@
-/* $Id: config.h 5524 2017-01-17 00:50:09Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *

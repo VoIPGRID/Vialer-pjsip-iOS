@@ -1,4 +1,4 @@
-/* $Id: presence.hpp 6026 2019-06-12 06:00:35Z nanang $ */
+/* $Id$ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -170,6 +170,14 @@ struct BuddyInfo
     PresenceStatus	 presStatus;
 
 public:
+    /**
+     * Default constructor
+     */
+    BuddyInfo() : subState(PJSIP_EVSUB_STATE_UNKNOWN),
+		  subTermCode(PJSIP_SC_NULL)
+    {}
+		    
+
     /** Import from pjsip structure */
     void fromPj(const pjsua_buddy_info &pbi);
 };

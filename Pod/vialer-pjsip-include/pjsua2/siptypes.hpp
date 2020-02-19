@@ -1,4 +1,4 @@
-/* $Id: siptypes.hpp 6026 2019-06-12 06:00:35Z nanang $ */
+/* $Id$ */
 /*
  * Copyright (C) 2032 Teluu Inc. (http://www.teluu.com)
  *

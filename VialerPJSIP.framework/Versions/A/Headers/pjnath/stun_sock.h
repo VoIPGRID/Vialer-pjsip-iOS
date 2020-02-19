@@ -1,4 +1,4 @@
-/* $Id: stun_sock.h 5339 2016-06-08 03:17:45Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

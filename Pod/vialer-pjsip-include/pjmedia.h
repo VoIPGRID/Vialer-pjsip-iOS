@@ -1,4 +1,4 @@
-/* $Id: pjmedia.h 5939 2019-03-05 06:23:02Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

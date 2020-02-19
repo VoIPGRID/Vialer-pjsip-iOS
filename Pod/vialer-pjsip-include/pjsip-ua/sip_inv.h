@@ -1,4 +1,4 @@
-/* $Id: sip_inv.h 5931 2019-01-21 08:48:02Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
