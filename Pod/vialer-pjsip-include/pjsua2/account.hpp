@@ -1,4 +1,4 @@
-/* $Id: account.hpp 5820 2018-07-12 08:22:31Z nanang $ */
+/* $Id$ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -174,14 +174,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 
 };
 
@@ -273,14 +273,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -327,18 +327,26 @@ struct AccountCallConfig : public PersistentObject
 
 public:
     /**
+     * Default constructor
+     */
+    AccountCallConfig() : holdType(PJSUA_CALL_HOLD_TYPE_DEFAULT),
+			  prackUse(PJSUA_100REL_NOT_USED),
+			  timerUse(PJSUA_SIP_TIMER_OPTIONAL)
+    {}
+
+    /**
      * Read this object from a container node.
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -398,14 +406,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -438,14 +446,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -688,18 +696,27 @@ struct AccountNatConfig : public PersistentObject
 
 public:
     /**
+     * Default constructor
+     */
+    AccountNatConfig() : sipStunUse(PJSUA_STUN_USE_DEFAULT),
+			 mediaStunUse(PJSUA_STUN_USE_DEFAULT),
+			 nat64Opt(PJSUA_NAT64_DISABLED),
+			 turnConnType(PJ_TURN_TP_UDP)
+    {}
+
+    /**
      * Read this object from a container node.
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -781,14 +798,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -884,14 +901,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -967,18 +984,25 @@ struct AccountMediaConfig : public PersistentObject
 
 public:
     /**
+     * Default constructor
+     */
+    AccountMediaConfig() : srtpUse(PJSUA_DEFAULT_USE_SRTP),
+			   ipv6Use(PJSUA_IPV6_DISABLED)
+    {}
+
+    /**
      * Read this object from a container node.
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -1073,18 +1097,25 @@ struct AccountVideoConfig : public PersistentObject
 
 public:
     /**
+     * Default constructor
+     */
+    AccountVideoConfig() :
+		    rateControlMethod(PJMEDIA_VID_STREAM_RC_SIMPLE_BLOCKING)
+    {}
+
+    /**
      * Read this object from a container node.
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 /**
@@ -1132,14 +1163,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
     
 } AccountIpChangeConfig;
 
@@ -1234,14 +1265,14 @@ public:
      *
      * @param node		Container to read values from.
      */
-    virtual void readObject(const ContainerNode &node) throw(Error);
+    virtual void readObject(const ContainerNode &node) PJSUA2_THROW(Error);
 
     /**
      * Write this object to a container node.
      *
      * @param node		Container to write values to.
      */
-    virtual void writeObject(ContainerNode &node) const throw(Error);
+    virtual void writeObject(ContainerNode &node) const PJSUA2_THROW(Error);
 };
 
 
@@ -1281,7 +1312,7 @@ struct AccountInfo
     /**
      * An up to date expiration interval for account registration session.
      */
-    int			regExpiresSec;
+    unsigned		regExpiresSec;
 
     /**
      * Last registration status code. If status code is zero, the account
@@ -1314,6 +1345,12 @@ struct AccountInfo
     string		onlineStatusText;
 
 public:
+    /**
+     * Default constructor
+     */
+    AccountInfo() : regStatus(PJSIP_SC_NULL)
+    {}
+
     /** Import from pjsip data */
     void fromPj(const pjsua_acc_info &pai);
 };
@@ -1373,7 +1410,7 @@ struct OnRegStateParam
     /**
      * Next expiration interval.
      */
-    int			expiration;
+    unsigned		expiration;
 };
 
 /**
@@ -1642,11 +1679,14 @@ public:
      * @param make_default	Make this the default account.
      */
     void create(const AccountConfig &cfg,
-                bool make_default=false) throw(Error);
+                bool make_default=false) PJSUA2_THROW(Error);
 
     /**
      * Shutdown the account. This will initiate unregistration if needed,
      * and delete the corresponding account in the PJSUA-LIB.
+     *
+     * Note that application must delete all Buddy instances belong to this
+     * account before shutting down the account.
      *
      * If application implements a derived class, the derived class should
      * call this method in the beginning stage in its destructor, or
@@ -1664,7 +1704,7 @@ public:
      * @param cfg 		New account config to be applied to the
      * 				account.
      */
-    void modify(const AccountConfig &cfg) throw(Error);
+    void modify(const AccountConfig &cfg) PJSUA2_THROW(Error);
 
     /**
      * Check if this account is still valid.
@@ -1677,7 +1717,7 @@ public:
      * Set this as default account to be used when incoming and outgoing
      * requests don't match any accounts.
      */
-    void setDefault() throw(Error);
+    void setDefault() PJSUA2_THROW(Error);
 
     /**
      * Check if this account is the default account. Default account will be
@@ -1709,7 +1749,7 @@ public:
      *
      * @return			Account info.
      */
-    AccountInfo getInfo() const throw(Error);
+    AccountInfo getInfo() const PJSUA2_THROW(Error);
 
     /**
      * Update registration or perform unregistration. Application normally
@@ -1719,7 +1759,7 @@ public:
      * @param renew		If False, this will start unregistration
      * 				process.
      */
-    void setRegistration(bool renew) throw(Error);
+    void setRegistration(bool renew) PJSUA2_THROW(Error);
 
     /**
      * Set or modify account's presence online status to be advertised to
@@ -1730,7 +1770,7 @@ public:
      *
      * @param pres_st		Presence online status.
      */
-    void setOnlineStatus(const PresenceStatus &pres_st) throw(Error);
+    void setOnlineStatus(const PresenceStatus &pres_st) PJSUA2_THROW(Error);
 
     /**
      * Lock/bind this account to a specific transport/listener. Normally
@@ -1746,7 +1786,7 @@ public:
      *
      * @param tp_id		The transport ID.
      */
-    void setTransport(TransportId tp_id) throw(Error);
+    void setTransport(TransportId tp_id) PJSUA2_THROW(Error);
 
     /**
      * Send NOTIFY to inform account presence status or to terminate server
@@ -1756,16 +1796,32 @@ public:
      *
      * @param prm		The sending NOTIFY parameter.
      */
-    void presNotify(const PresNotifyParam &prm) throw(Error);
+    void presNotify(const PresNotifyParam &prm) PJSUA2_THROW(Error);
     
+#if !DEPRECATED_FOR_TICKET_2232
+    /**
+     * Warning: deprecated, use enumBuddies2() instead. This function is not
+     * safe in multithreaded environment.
+     *
+     * Enumerate all buddies of the account.
+     *
+     * @return			The buddy list.
+     */
+    const BuddyVector& enumBuddies() const PJSUA2_THROW(Error);
+#endif
+
     /**
      * Enumerate all buddies of the account.
      *
      * @return			The buddy list.
      */
-    const BuddyVector& enumBuddies() const throw(Error);
+    BuddyVector2 enumBuddies2() const PJSUA2_THROW(Error);
 
+#if !DEPRECATED_FOR_TICKET_2232
     /**
+     * Warning: deprecated, use findBuddy2 instead. This function is not
+     * safe in multithreaded environment.
+     *
      * Find a buddy in the buddy list with the specified URI. 
      *
      * Exception: if buddy is not found, PJ_ENOTFOUND will be thrown.
@@ -1776,7 +1832,19 @@ public:
      * @return			The pointer to buddy.
      */
     Buddy* findBuddy(string uri, FindBuddyMatch *buddy_match = NULL) const
-		    throw(Error);
+		    PJSUA2_THROW(Error);
+#endif
+
+    /**
+     * Find a buddy in the buddy list with the specified URI. 
+     *
+     * Exception: if buddy is not found, PJ_ENOTFOUND will be thrown.
+     *
+     * @param uri		The buddy URI.
+     *
+     * @return			The pointer to buddy.
+     */
+    Buddy findBuddy2(string uri) const PJSUA2_THROW(Error);
 
 public:
     /*
@@ -1904,7 +1972,9 @@ private:
 private:
     pjsua_acc_id 	 id;
     string		 tmpReason;	// for saving response's reason
+#if !DEPRECATED_FOR_TICKET_2232
     BuddyVector		 buddyList;
+#endif
 };
 
 /**

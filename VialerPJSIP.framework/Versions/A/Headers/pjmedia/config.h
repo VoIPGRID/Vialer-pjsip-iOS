@@ -1,4 +1,4 @@
-/* $Id: config.h 5820 2018-07-12 08:22:31Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -358,8 +358,7 @@
  *    implementation to be used.
  *  - #PJMEDIA_RESAMPLE_LIBSAMPLERATE, to use libsamplerate implementation
  *    (a.k.a. Secret Rabbit Code).
- *  - #PJMEDIA_RESAMPLE_SPEEX, to use experimental sample rate conversion in
- *    Speex library.
+ *  - #PJMEDIA_RESAMPLE_SPEEX, to use sample rate conversion in Speex library.
  *  - #PJMEDIA_RESAMPLE_NONE, to disable sample rate conversion. Any calls to
  *    resample function will return error.
  *
@@ -466,10 +465,19 @@
 
 
 /**
- * Interval to send RTCP packets, in msec
+ * Interval to send regular RTCP packets, in msec.
  */
 #ifndef PJMEDIA_RTCP_INTERVAL
-#	define PJMEDIA_RTCP_INTERVAL		5000	/* msec*/
+#   define PJMEDIA_RTCP_INTERVAL		5000	/* msec*/
+#endif
+
+
+/**
+ * Minimum interval between two consecutive outgoing RTCP-FB packets,
+ * such as Picture Loss Indication, in msec.
+ */
+#ifndef PJMEDIA_RTCP_FB_INTERVAL
+#   define PJMEDIA_RTCP_FB_INTERVAL		50	/* msec*/
 #endif
 
 
@@ -845,25 +853,13 @@
 
 
 /**
- * This macro declares the payload type for telephone-event
+ * This macro declares the start payload type for telephone-event
  * that is advertised by PJMEDIA for outgoing SDP. If this macro
  * is set to zero, telephone events would not be advertised nor
  * supported.
- *
- * If this value is changed to other number, please update the
- * PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR too.
  */
 #ifndef PJMEDIA_RTP_PT_TELEPHONE_EVENTS
-#   define PJMEDIA_RTP_PT_TELEPHONE_EVENTS	    96
-#endif
-
-
-/**
- * Macro to get the string representation of the telephone-event
- * payload type.
- */
-#ifndef PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR
-#   define PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR	    "96"
+#   define PJMEDIA_RTP_PT_TELEPHONE_EVENTS	    120
 #endif
 
 
@@ -1223,6 +1219,30 @@
 #endif
 
 
+/**
+ * Specify the number of identical consecutive error that will be ignored when 
+ * receiving RTP/RTCP data before the library tries to restart the transport.
+ *
+ * When receiving RTP/RTCP data, the library will ignore error besides 
+ * PJ_EPENDING or PJ_ECANCELLED and continue the loop to receive the data. 
+ * If the OS always return error, then the loop will continue non stop.
+ * This setting will limit the number of the identical consecutive error, 
+ * before the library start to restart the transport. If error still happens
+ * after transport restart, then PJMEDIA_EVENT_MEDIA_TP_ERR event will be 
+ * publish as a notification.
+ *
+ * If PJ_ESOCKETSTOP is raised, then transport will be restarted regardless
+ * of this setting.
+ * 
+ * To always ignore the error when receving RTP/RTCP, set this to 0.
+ *
+ * Default : 20
+ */
+#ifndef PJMEDIA_IGNORE_RECV_ERR_CNT
+#   define PJMEDIA_IGNORE_RECV_ERR_CNT		20
+#endif
+
+
 /*
  * .... new stuffs ...
  */
@@ -1493,6 +1513,7 @@
 #   define PJMEDIA_HAS_DTMF_FLASH			1
 #endif
 
+
 /**
  * Specify the number of keyframe needed to be sent after the stream is 
  * created. Setting this to 0 will disable it.
@@ -1503,6 +1524,7 @@
 #   define PJMEDIA_VID_STREAM_START_KEYFRAME_CNT	5
 #endif
 
+
 /**
  * Specify the interval to send keyframe after the stream is created, in msec.
  *
@@ -1511,6 +1533,31 @@
 #ifndef PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC
 #   define PJMEDIA_VID_STREAM_START_KEYFRAME_INTERVAL_MSEC  1000
 #endif
+
+
+/**
+ * Specify the minimum interval to send video keyframe, in msec.
+ *
+ * Default : 1000
+ */
+#ifndef PJMEDIA_VID_STREAM_MIN_KEYFRAME_INTERVAL_MSEC
+#   define PJMEDIA_VID_STREAM_MIN_KEYFRAME_INTERVAL_MSEC    1000
+#endif
+
+
+/**
+ * Specify minimum delay of video decoding, in milliseconds. Lower value may
+ * degrade video quality significantly in a bad network environment (e.g:
+ * with persistent late and out-of-order RTP packets). Note that the value
+ * must be lower than jitter buffer maximum delay (configurable via
+ * pjmedia_stream_info.jb_max or pjsua_media_config.jb_max).
+ *
+ * Default : 100
+ */
+#ifndef PJMEDIA_VID_STREAM_DECODE_MIN_DELAY_MSEC
+#   define PJMEDIA_VID_STREAM_DECODE_MIN_DELAY_MSEC	    100
+#endif
+
 
 
 /**

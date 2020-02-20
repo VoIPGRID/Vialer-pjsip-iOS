@@ -1,4 +1,4 @@
-/* $Id: ctype.h 5599 2017-06-05 03:31:18Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

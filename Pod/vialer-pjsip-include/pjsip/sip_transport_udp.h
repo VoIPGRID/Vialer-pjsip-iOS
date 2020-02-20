@@ -1,4 +1,4 @@
-/* $Id: sip_transport_udp.h 5649 2017-09-15 05:32:08Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

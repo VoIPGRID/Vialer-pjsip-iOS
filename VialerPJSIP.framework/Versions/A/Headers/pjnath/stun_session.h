@@ -1,4 +1,4 @@
-/* $Id: stun_session.h 4606 2013-10-01 05:00:57Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -348,6 +348,8 @@ struct pj_stun_tx_data
     pj_bool_t		 retransmit;	/**< Retransmit request?	    */
     pj_uint32_t		 msg_magic;	/**< Message magic.		    */
     pj_uint8_t		 msg_key[12];	/**< Message/transaction key.	    */
+    
+    pj_grp_lock_t	*grp_lock;	/**< Group lock (for resp cache).   */
 
     pj_stun_req_cred_info auth_info;	/**< Credential info		    */
 

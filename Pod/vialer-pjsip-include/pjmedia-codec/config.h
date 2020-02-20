@@ -1,4 +1,4 @@
-/* $Id: config.h 5791 2018-05-14 01:24:43Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -568,6 +568,35 @@
 #   else
 #	define PJMEDIA_HAS_FFMPEG_CODEC_H264	PJMEDIA_HAS_FFMPEG_VID_CODEC
 #   endif
+#endif
+
+/**
+ * Determine the log level of the native openH264 log which will be forwarded
+ * to the library's log.
+ * Set to WELS_LOG_QUIET to disable logging, or WELS_LOG_DETAIL for debugging.
+ *
+ * Default: WELS_LOG_ERROR.
+ */
+#ifndef PJMEDIA_CODEC_OPENH264_LOG_LEVEL
+#   define PJMEDIA_CODEC_OPENH264_LOG_LEVEL  WELS_LOG_ERROR
+#endif
+
+/**
+ * Enable VPX VP8 codec.
+ *
+ * Default: 1
+ */
+#ifndef PJMEDIA_HAS_VPX_CODEC_VP8
+#   define PJMEDIA_HAS_VPX_CODEC_VP8		1
+#endif
+
+/**
+ * Enable VPX VP9 codec.
+ *
+ * Default: 0 (disabled)
+ */
+#ifndef PJMEDIA_HAS_VPX_CODEC_VP9
+#   define PJMEDIA_HAS_VPX_CODEC_VP9		0
 #endif
 
 /**

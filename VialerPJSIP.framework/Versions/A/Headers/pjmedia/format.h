@@ -1,4 +1,4 @@
-/* $Id: format.h 4994 2015-03-17 04:02:44Z nanang $ */
+/* $Id$ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -180,6 +180,14 @@ typedef enum pjmedia_format_id
      * This is planar 4:2:0/12bpp YUV format, the data can be treated as
      * two planes of color components, where the first plane contains
      * only the Y samples, the second plane contains interleaved
+     * U (Cb) - V (Cr) samples.
+     */
+    PJMEDIA_FORMAT_NV12	    = PJMEDIA_FORMAT_PACK('N', 'V', '1', '2'),
+    
+    /**
+     * This is planar 4:2:0/12bpp YUV format, the data can be treated as
+     * two planes of color components, where the first plane contains
+     * only the Y samples, the second plane contains interleaved
      * V (Cr) - U (Cb) samples.
      */
     PJMEDIA_FORMAT_NV21	    = PJMEDIA_FORMAT_PACK('N', 'V', '2', '1'),
@@ -210,6 +218,9 @@ typedef enum pjmedia_format_id
     PJMEDIA_FORMAT_H263     = PJMEDIA_FORMAT_PACK('H', '2', '6', '3'),
     PJMEDIA_FORMAT_H263P    = PJMEDIA_FORMAT_PACK('P', '2', '6', '3'),
     PJMEDIA_FORMAT_H264     = PJMEDIA_FORMAT_PACK('H', '2', '6', '4'),
+
+    PJMEDIA_FORMAT_VP8      = PJMEDIA_FORMAT_PACK('V', 'P', '8', '0'),
+    PJMEDIA_FORMAT_VP9      = PJMEDIA_FORMAT_PACK('V', 'P', '9', '0'),
 
     PJMEDIA_FORMAT_MJPEG    = PJMEDIA_FORMAT_PACK('M', 'J', 'P', 'G'),
     PJMEDIA_FORMAT_MPEG1VIDEO = PJMEDIA_FORMAT_PACK('M', 'P', '1', 'V'),

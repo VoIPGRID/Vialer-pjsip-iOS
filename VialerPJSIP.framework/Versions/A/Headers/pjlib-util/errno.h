@@ -1,4 +1,4 @@
-/* $Id: errno.h 4704 2014-01-16 05:30:46Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

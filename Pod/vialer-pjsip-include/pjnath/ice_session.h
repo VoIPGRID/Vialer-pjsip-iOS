@@ -1,4 +1,4 @@
-/* $Id: ice_session.h 5339 2016-06-08 03:17:45Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -468,6 +468,14 @@ typedef struct pj_ice_sess_cb
 {
     /**
      * An optional callback that will be called by the ICE session when
+     * a valid pair has been found during ICE negotiation.
+     *
+     * @param ice           The ICE session.
+     */
+    void	(*on_valid_pair)(pj_ice_sess *ice);
+
+    /**
+     * An optional callback that will be called by the ICE session when
      * ICE negotiation has completed, successfully or with failure.
      *
      * @param ice	    The ICE session.
@@ -625,6 +633,7 @@ struct pj_ice_sess
     pj_bool_t		 is_nominating;		    /**< Nominating stage   */
     pj_bool_t		 is_complete;		    /**< Complete?	    */
     pj_bool_t		 is_destroying;		    /**< Destroy is called  */
+    pj_bool_t            valid_pair_found;          /**< First pair found   */
     pj_status_t		 ice_status;		    /**< Error status.	    */
     pj_timer_entry	 timer;			    /**< ICE timer.	    */
     pj_ice_sess_cb	 cb;			    /**< Callback.	    */
@@ -934,7 +943,10 @@ PJ_DECL(pj_status_t) pj_ice_sess_start_check(pj_ice_sess *ice);
  * @param data		The data or packet to be sent.
  * @param data_len	Size of data or packet, in bytes.
  *
- * @return		PJ_SUCCESS if data is sent successfully.
+ * @return		If the callback \a on_tx_pkt() is called, this
+ *			will contain the return value of the callback.
+ *			Otherwise, it will indicate failure with
+ * 			the appropriate error code.
  */
 PJ_DECL(pj_status_t) pj_ice_sess_send_data(pj_ice_sess *ice,
 					   unsigned comp_id,

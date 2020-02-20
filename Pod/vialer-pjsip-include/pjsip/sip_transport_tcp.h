@@ -1,4 +1,4 @@
-/* $Id: sip_transport_tcp.h 5869 2018-08-28 05:42:25Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

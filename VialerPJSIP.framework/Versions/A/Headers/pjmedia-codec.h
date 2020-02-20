@@ -1,4 +1,4 @@
-/* $Id: pjmedia-codec.h 5630 2017-07-19 10:29:10Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -26,22 +26,22 @@
  */
 
 #include <VialerPJSIP/pjmedia-codec/audio_codecs.h>
-#include <VialerPJSIP/pjmedia-codec/l16.h>
+#include <VialerPJSIP/pjmedia-codec/bcg729.h>
 #include <VialerPJSIP/pjmedia-codec/ffmpeg_vid_codecs.h>
-#include <VialerPJSIP/pjmedia-codec/gsm.h>
-#include <VialerPJSIP/pjmedia-codec/speex.h>
-#include <VialerPJSIP/pjmedia-codec/ilbc.h>
 #include <VialerPJSIP/pjmedia-codec/g722.h>
 #include <VialerPJSIP/pjmedia-codec/g7221.h>
+#include <VialerPJSIP/pjmedia-codec/gsm.h>
+#include <VialerPJSIP/pjmedia-codec/ilbc.h>
 #include <VialerPJSIP/pjmedia-codec/ipp_codecs.h>
+#include <VialerPJSIP/pjmedia-codec/l16.h>
 #include <VialerPJSIP/pjmedia-codec/opencore_amr.h>
-#include <VialerPJSIP/pjmedia-codec/vid_toolbox.h>
 #include <VialerPJSIP/pjmedia-codec/openh264.h>
+#include <VialerPJSIP/pjmedia-codec/opus.h>
 #include <VialerPJSIP/pjmedia-codec/passthrough.h>
 #include <VialerPJSIP/pjmedia-codec/silk.h>
-#include <VialerPJSIP/pjmedia-codec/opus.h>
-#include <VialerPJSIP/pjmedia-codec/bcg729.h>
-
+#include <VialerPJSIP/pjmedia-codec/speex.h>
+#include <VialerPJSIP/pjmedia-codec/vid_toolbox.h>
+#include <VialerPJSIP/pjmedia-codec/vpx.h>
 
 #endif	/* __PJMEDIA_CODEC_PJMEDIA_CODEC_H__ */
 

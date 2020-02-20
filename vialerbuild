@@ -9,8 +9,8 @@ AVIALABLE_ARCHS=(
     "x86_64"
 )
 export BASE_DIR=`pwd -P`
-export MIN_IOS_VERSION="9.0"
-export IOS_SDK_VERSION="11.2"
+export MIN_IOS_VERSION="10.0"
+export IOS_SDK_VERSION="13.2"
 export AVIALABLE_ARCHS
 export USE_ARCHS=()
 
@@ -25,7 +25,7 @@ export HAS_BITCODE=true
 export HAS_IPV6=false
 export SHOW_HELP=false
 
-export PJSIP_VERSION="latest"
+export PJSIP_VERSION="2.10"
 export PJSIP_BASE_URL="http://svn.pjsip.org/repos/pjproject"
 export PJSIP_DIR="$BASE_DIR/pjsip"
 export PJSIP_FINAL_LIB_DIR="$BASE_DIR/lib"
@@ -188,7 +188,7 @@ function build_h264 () {
 
     rm -rf $H264_BUILD_DIR
 
-    h264_version="1.7.0";
+    h264_version="2.0.0";
     h264_url="https://github.com/cisco/openh264/archive/v${h264_version}.tar.gz"
     h264_target_path="$H264_BUILD_DIR/src"
 
@@ -278,7 +278,7 @@ function build_ssl () {
     curl -LO $ssl_url
     tar zxf "master.tar.gz" --strip 1
     rm "master.tar.gz"
-    ./build-libssl.sh --version=1.0.2p --archs="${USE_ARCHS[*]// /\s}" || exit
+    ./build-libssl.sh --version=1.1.1d --archs="${USE_ARCHS[*]// /\s}" || exit
     mv include include2
     mkdir -p include
     mv include2/openssl include/openssl
@@ -316,7 +316,7 @@ function build_opus () {
 
     rm -rf $OPUS_BUILD_DIR
 
-    opus_version="1.2.1"
+    opus_version="1.3.1"
     opus_opt_cflags="-Ofast -flto -g"
     opus_opt_ldflags="-flto"
     opus_opt_config_args=""
@@ -424,27 +424,18 @@ function build_opus () {
 }
 
 function download_pjsip () {
-    if [ $PJSIP_VERSION = "latest" ]; then
-        latest_pjsip_tag=$(svn ls "$PJSIP_BASE_URL/tags/" | tail -n 1  | cut -d "/" -f 1 | sort -t . -k 1,2n -k 2,2n -k 3,2)
-        PJSIP_VERSION=$latest_pjsip_tag
-    fi
+    pjsip_url="https://github.com/pjsip/pjproject/archive/${PJSIP_VERSION}.tar.gz"
+    pjsip_target_path="$PJSIP_DIR/src"
 
-    checkout_url="${PJSIP_BASE_URL}/tags/${PJSIP_VERSION}"
+    mkdir -p $pjsip_target_path
 
-    if [ $PJSIP_VERSION = "trunk" ]; then
-        checkout_url="${PJSIP_BASE_URL}/trunk"
-    fi
+    cd $pjsip_target_path
 
-    if [ $DOWNLOAD_PJSIP_SRC = true ]; then
-        echo "Download PJSIP version: ${PJSIP_VERSION}"
-        mkdir -p $PJSIP_DIR
-        svn export $checkout_url $PJSIP_SRC_DIR -q &
-        spinner $!
-        echo "Done downloading PJSIP source"
-        echo "============================="
-    else
-        svn switch $checkout_url $PJSIP_SRC_DIR
-    fi
+    echo "Downloading pjsip-${PJSIP_VERSION}.tar.gz"
+    curl -LO $pjsip_url
+    echo "Using pjsip-${PJSIP_VERSION}.tar.gz"
+
+    tar zxf "${PJSIP_VERSION}.tar.gz" --strip 1
 }
 
 function clean_pjsip () {

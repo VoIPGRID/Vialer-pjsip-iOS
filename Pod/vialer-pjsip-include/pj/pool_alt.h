@@ -1,4 +1,4 @@
-/* $Id: pool_alt.h 5061 2015-04-10 13:19:47Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

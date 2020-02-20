@@ -1,4 +1,4 @@
-/* $Id: publish.h 4173 2012-06-20 10:39:05Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -97,9 +97,11 @@ struct pjsip_publishc_cbparam
     int			 code;	    /**< SIP status code received.	    */
     pj_str_t		 reason;    /**< SIP reason phrase received.	    */
     pjsip_rx_data	*rdata;	    /**< The complete received response.    */
-    int			 expiration;/**< Next expiration interval. If the
-					 value is -1, it means the session
-					 will not renew itself.		    */
+    unsigned		 expiration;/**< Next expiration interval. If the
+					 value is
+					 PJSIP_PUBC_EXPIRATION_NOT_SPECIFIED,
+					 it means the session will not renew
+					 itself.		    	    */
 };
 
 

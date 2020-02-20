@@ -1,4 +1,4 @@
-/* $Id: opus.h 5831 2018-07-23 06:35:57Z ming $ */
+/* $Id$ */
 /*
  * Copyright (C) 2015-2016 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2012-2015 Zaark Technology AB

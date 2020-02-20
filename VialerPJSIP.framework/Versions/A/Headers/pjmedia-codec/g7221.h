@@ -1,4 +1,4 @@
-/* $Id: g7221.h 5058 2015-04-09 08:15:48Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

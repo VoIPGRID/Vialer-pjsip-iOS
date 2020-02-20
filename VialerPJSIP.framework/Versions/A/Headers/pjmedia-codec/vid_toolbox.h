@@ -1,4 +1,4 @@
-/* $Id: vid_toolbox.h 5603 2017-06-08 06:23:56Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2017 Teluu Inc. (http://www.teluu.com)
  *
