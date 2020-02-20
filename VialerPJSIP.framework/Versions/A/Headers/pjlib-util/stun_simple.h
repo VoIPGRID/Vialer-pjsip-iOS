@@ -1,4 +1,4 @@
-/* $Id: stun_simple.h 5636 2017-08-02 02:51:59Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>

@@ -1,4 +1,4 @@
-/* $Id: audiodev.h 5677 2017-10-27 06:30:50Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -37,8 +37,22 @@ PJ_BEGIN_DECL
 /**
  * @defgroup s2_audio_device_reference Audio Device API Reference
  * @ingroup audio_device_api
- * @brief API Reference
+ * @brief Documentation and API Reference
  * @{
+ *
+ * @section ec_sec Hardware/Built-in Echo Cancellation
+ *
+ * On some platforms, audio device comes with built-in echo cancellation
+ * feature. This is usually done based on specific hardware configuration,
+ * such as the use of multiple microphones and/or a known fixed distance
+ * between the capture and playback device, in order to precalculate the
+ * echo time distance. Because of this, when using the hardware EC,
+ * users may not get the freedom to select their own audio devices.
+ * This is applicable for Mac (users must use default audio devices) and
+ * iOS (users must use the same built-in audio device).
+ *
+ * In PJMEDIA, applications wishing to use sofware echo instead can pass
+ * PJMEDIA_ECHO_USE_SW_ECHO when calling pjmedia_snd_port_create2().
  */
 
 /**
@@ -49,24 +63,21 @@ typedef pj_int32_t pjmedia_aud_dev_index;
 /**
  * Device index constants.
  */
-typedef enum pjmedia_aud_dev_id
-{
-    /** 
-     * Constant to denote default capture device 
-     */
-    PJMEDIA_AUD_DEFAULT_CAPTURE_DEV = -1,
 
-    /** 
-     * Constant to denote default playback device 
-     */
-    PJMEDIA_AUD_DEFAULT_PLAYBACK_DEV = -2,
+/**
+ * Constant to denote default capture device
+ */
+#define PJMEDIA_AUD_DEFAULT_CAPTURE_DEV  -1
 
-    /**
-     * Constant to denote invalid device index.
-     */
-    PJMEDIA_AUD_INVALID_DEV = -3
-} pjmedia_aud_dev_id;
+/**
+ * Constant to denote default playback device
+ */
+#define PJMEDIA_AUD_DEFAULT_PLAYBACK_DEV -2
 
+/**
+ * Constant to denote invalid device index.
+ */
+#define PJMEDIA_AUD_INVALID_DEV	    -3
 
 #define PJMEDIA_AUD_MAX_DRIVERS	16
 #define PJMEDIA_AUD_MAX_DEVS	64

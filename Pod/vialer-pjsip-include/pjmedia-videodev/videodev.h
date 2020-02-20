@@ -1,4 +1,4 @@
-/* $Id: videodev.h 5255 2016-03-10 05:02:07Z ming $ */
+/* $Id$ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *

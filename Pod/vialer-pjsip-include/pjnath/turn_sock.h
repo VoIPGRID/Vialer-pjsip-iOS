@@ -1,4 +1,4 @@
-/* $Id: turn_sock.h 4606 2013-10-01 05:00:57Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -26,6 +26,7 @@
  */
 #include <pjnath/turn_session.h>
 #include <pj/sock_qos.h>
+#include <pj/ssl_sock.h>
 
 
 PJ_BEGIN_DECL
@@ -87,6 +88,23 @@ typedef struct pj_turn_sock_cb
 		       unsigned addr_len);
 
     /**
+     * Notifification when asynchronous send operation has completed.
+     *
+     * @param turn_sock	    The TURN transport.
+     * @param sent	    If value is positive non-zero it indicates the
+     *			    number of data sent. When the value is negative,
+     *			    it contains the error code which can be retrieved
+     *			    by negating the value (i.e. status=-sent).
+     *
+     * @return		    Application should normally return PJ_TRUE to let
+     *			    the TURN transport continue its operation. However
+     *			    it must return PJ_FALSE if it has destroyed the
+     *			    TURN transport in this callback.
+     */
+    pj_bool_t (*on_data_sent)(pj_turn_sock *sock,
+			      pj_ssize_t sent);
+
+    /**
      * Notification when TURN session state has changed. Application should
      * implement this callback to monitor the progress of the TURN session.
      *
@@ -98,7 +116,157 @@ typedef struct pj_turn_sock_cb
 		     pj_turn_state_t old_state,
 		     pj_turn_state_t new_state);
 
+    /**
+     * Notification when TURN client received a ConnectionAttempt Indication
+     * from the TURN server, which indicates that peer initiates a TCP
+     * connection to allocated slot in the TURN server. Application should
+     * implement this callback if it uses RFC 6062 (TURN TCP allocations),
+     * otherwise TURN client will automatically accept it.
+     *
+     * If application accepts the peer connection attempt (i.e: by returning
+     * PJ_SUCCESS or not implementing this callback), the TURN socket will
+     * initiate a new connection to the TURN server and send ConnectionBind
+     * request, and eventually will notify application via
+     * on_connection_status callback, if implemented.
+     *
+     * @param turn_sock	    The TURN client transport.
+     * @param conn_id	    The connection ID assigned by TURN server.
+     * @param peer_addr	    Peer address that tried to connect to the
+     *			    TURN server.
+     * @param addr_len	    Length of the peer address.
+     *
+     * @return		    The callback must return PJ_SUCCESS to accept
+     *			    the connection attempt.
+     */
+    pj_status_t (*on_connection_attempt)(pj_turn_sock *turn_sock,
+					 pj_uint32_t conn_id,
+					 const pj_sockaddr_t *peer_addr,
+					 unsigned addr_len);
+
+    /**
+     * Notification for initiated TCP data connection to peer (RFC 6062),
+     * for example after peer connection attempt is accepted.
+     *
+     * @param turn_sock	    The TURN client transport.
+     * @param status	    The status code.
+     * @param conn_id	    The connection ID.
+     * @param peer_addr	    Peer address.
+     * @param addr_len	    Length of the peer address.
+     */
+    void (*on_connection_status)(pj_turn_sock *turn_sock,
+				 pj_status_t status,
+				 pj_uint32_t conn_id,
+				 const pj_sockaddr_t *peer_addr,
+				 unsigned addr_len);
+
 } pj_turn_sock_cb;
+
+
+/**
+ * The default enabled SSL proto to be used.
+ * Default is all protocol above TLSv1 (TLSv1 & TLS v1.1 & TLS v1.2).
+ */
+#ifndef PJ_TURN_TLS_DEFAULT_PROTO
+#   define PJ_TURN_TLS_DEFAULT_PROTO  (PJ_SSL_SOCK_PROTO_TLS1 | \
+				       PJ_SSL_SOCK_PROTO_TLS1_1 | \
+				       PJ_SSL_SOCK_PROTO_TLS1_2)
+#endif
+
+/**
+ * TLS transport settings.
+ */
+typedef struct pj_turn_sock_tls_cfg
+{
+    /**
+     * Certificate of Authority (CA) list file.
+     */
+    pj_str_t	ca_list_file;
+
+    /**
+     * Certificate of Authority (CA) list directory path.
+     */
+    pj_str_t	ca_list_path;
+
+    /**
+     * Public endpoint certificate file, which will be used as client-
+     * side  certificate for outgoing TLS connection.
+     */
+    pj_str_t	cert_file;
+
+    /**
+     * Optional private key of the endpoint certificate to be used.
+     */
+    pj_str_t	privkey_file;
+
+    /**
+     * Certificate of Authority (CA) buffer. If ca_list_file, ca_list_path,
+     * cert_file or privkey_file are set, this setting will be ignored.
+     */
+    pj_ssl_cert_buffer ca_buf;
+
+    /**
+     * Public endpoint certificate buffer, which will be used as client-
+     * side  certificate for outgoing TLS connection, and server-side
+     * certificate for incoming TLS connection. If ca_list_file, ca_list_path,
+     * cert_file or privkey_file are set, this setting will be ignored.
+     */
+    pj_ssl_cert_buffer cert_buf;
+
+    /**
+     * Optional private key buffer of the endpoint certificate to be used. 
+     * If ca_list_file, ca_list_path, cert_file or privkey_file are set, 
+     * this setting will be ignored.
+     */
+    pj_ssl_cert_buffer privkey_buf;
+
+    /**
+     * Password to open private key.
+     */
+    pj_str_t	password;
+
+    /**
+     * The ssl socket parameter.
+     * These fields are used by TURN TLS:
+     * - proto
+     * - ciphers_num
+     * - ciphers
+     * - curves_num
+     * - curves
+     * - sigalgs
+     * - entropy_type
+     * - entropy_path
+     * - timeout
+     * - sockopt_params
+     * - sockopt_ignore_error
+     */
+    pj_ssl_sock_param ssock_param;
+
+} pj_turn_sock_tls_cfg;
+
+/**
+ * Initialize TLS setting with default values.
+ *
+ * @param tls_cfg   The TLS setting to be initialized.
+ */
+ PJ_DECL(void) pj_turn_sock_tls_cfg_default(pj_turn_sock_tls_cfg *tls_cfg);
+
+/**
+ * Duplicate TLS setting.
+ *
+ * @param pool	    The pool to duplicate strings etc.
+ * @param dst	    Destination structure.
+ * @param src	    Source structure.
+ */
+ PJ_DECL(void) pj_turn_sock_tls_cfg_dup(pj_pool_t *pool,
+					pj_turn_sock_tls_cfg *dst,
+					const pj_turn_sock_tls_cfg *src);
+
+/**
+ * Wipe out certificates and keys in the TLS setting.
+ *
+ * @param tls_cfg   The TLS setting.
+ */
+PJ_DECL(void) pj_turn_sock_tls_cfg_wipe_keys(pj_turn_sock_tls_cfg *tls_cfg);
 
 
 /**
@@ -185,6 +353,12 @@ typedef struct pj_turn_sock_cfg
      * Default: 0 (OS default)
      */
     unsigned so_sndbuf_size;
+
+    /**
+     * This specifies TLS settings for TLS transport. It is only be used
+     * when this TLS is used to connect to the TURN server.
+     */
+    pj_turn_sock_tls_cfg tls_cfg;
 
 } pj_turn_sock_cfg;
 
@@ -417,8 +591,11 @@ PJ_DECL(pj_status_t) pj_turn_sock_set_perm(pj_turn_sock *turn_sock,
  *			of the data, and not the TURN server address).
  * @param addr_len	Length of the address.
  *
- * @return		PJ_SUCCESS if the operation has been successful,
- *			or the appropriate error code on failure.
+ * @return		PJ_SUCCESS if data has been sent immediately, or
+ *			PJ_EPENDING if data cannot be sent immediately. In
+ *			this case the \a on_data_sent() callback will be
+ *			called when data is actually sent. Any other return
+ *			value indicates error condition.
  */ 
 PJ_DECL(pj_status_t) pj_turn_sock_sendto(pj_turn_sock *turn_sock,
 					const pj_uint8_t *pkt,

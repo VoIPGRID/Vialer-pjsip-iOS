@@ -1,4 +1,4 @@
-/* $Id: errno.h 5845 2018-07-26 07:19:39Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -655,6 +655,12 @@ PJ_BEGIN_DECL
  * Fingerprint not found.
  */
 #define PJMEDIA_SRTP_DTLS_ENOFPRINT (PJMEDIA_ERRNO_START+243)	/* 220243 */
+
+/**
+ * @hideinitializer
+ * No valid SRTP protection profile for DTLS.
+ */
+#define PJMEDIA_SRTP_DTLS_ENOPROFILE (PJMEDIA_ERRNO_START+244)   /* 220244 */
 
 #endif /* PJMEDIA_HAS_SRTP */
 

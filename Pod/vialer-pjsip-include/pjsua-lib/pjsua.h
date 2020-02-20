@@ -1,4 +1,4 @@
-/* $Id: pjsua.h 5872 2018-09-03 07:13:40Z ming $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -510,12 +510,12 @@ typedef struct pjsua_reg_info
 typedef struct pjsua_on_stream_created_param
 {
     /**
-     * The media stream, read-only.
+     * The audio media stream, read-only.
      */
     pjmedia_stream 	*stream;
 
     /**
-     * Stream index in the media session, read-only.
+     * Stream index in the audio media session, read-only.
      */
     unsigned 		 stream_idx;
 
@@ -530,7 +530,7 @@ typedef struct pjsua_on_stream_created_param
     pj_bool_t 		 destroy_port;
 
     /**
-     * On input, it specifies the media port of the stream. Application
+     * On input, it specifies the audio media port of the stream. Application
      * may modify this pointer to point to different media port to be
      * registered to the conference bridge.
      */
@@ -748,7 +748,12 @@ typedef enum pjsua_ip_change_op {
     /**
      * The re-INVITE call process.
      */
-    PJSUA_IP_CHANGE_OP_ACC_REINVITE_CALLS
+    PJSUA_IP_CHANGE_OP_ACC_REINVITE_CALLS,
+
+    /**
+     * The ip change process has completed.
+     */
+    PJSUA_IP_CHANGE_OP_COMPLETED
 
 } pjsua_ip_change_op;
 
@@ -860,7 +865,8 @@ typedef struct pjsua_call_setting
      * This flag controls what methods to request keyframe are allowed on
      * the call. Value is bitmask of #pjsua_vid_req_keyframe_method.
      *
-     * Default: PJSUA_VID_REQ_KEYFRAME_SIP_INFO
+     * Default: (PJSUA_VID_REQ_KEYFRAME_SIP_INFO | 
+     *		 PJSUA_VID_REQ_KEYFRAME_RTCP_PLI)
      */
     unsigned	     req_keyframe_method;
 
@@ -960,18 +966,18 @@ typedef struct pjsua_callback
 
 
     /**
-     * Notify application when media session is created and before it is
+     * Notify application when audio media session is created and before it is
      * registered to the conference bridge. Application may return different
-     * media port if it has added media processing port to the stream. This
-     * media port then will be added to the conference bridge instead.
+     * audio media port if it has added media processing port to the stream.
+     * This media port then will be added to the conference bridge instead.
      *
      * Note: if implemented, #on_stream_created2() callback will be called
      * instead of this one. 
      *
      * @param call_id	    Call identification.
-     * @param strm	    Media stream.
-     * @param stream_idx    Stream index in the media session.
-     * @param p_port	    On input, it specifies the media port of the
+     * @param strm	    Audio media stream.
+     * @param stream_idx    Stream index in the audio media session.
+     * @param p_port	    On input, it specifies the audio media port of the
      *			    stream. Application may modify this pointer to
      *			    point to different media port to be registered
      *			    to the conference bridge.
@@ -982,10 +988,10 @@ typedef struct pjsua_callback
 			      pjmedia_port **p_port);
 
     /**
-     * Notify application when media session is created and before it is
+     * Notify application when audio media session is created and before it is
      * registered to the conference bridge. Application may return different
-     * media port if it has added media processing port to the stream. This
-     * media port then will be added to the conference bridge instead.
+     * audio media port if it has added media processing port to the stream.
+     * This media port then will be added to the conference bridge instead.
      *
      * @param call_id	    Call identification.
      * @param param	    The on stream created callback parameter.
@@ -994,12 +1000,12 @@ typedef struct pjsua_callback
 			       pjsua_on_stream_created_param *param);
 
     /**
-     * Notify application when media session has been unregistered from the
-     * conference bridge and about to be destroyed.
+     * Notify application when audio media session has been unregistered from
+     * the conference bridge and about to be destroyed.
      *
      * @param call_id	    Call identification.
-     * @param strm	    Media stream.
-     * @param stream_idx    Stream index in the media session.
+     * @param strm	    Audio media stream.
+     * @param stream_idx    Stream index in the audio media session.
      */
     void (*on_stream_destroyed)(pjsua_call_id call_id,
                                 pjmedia_stream *strm,
@@ -1036,7 +1042,7 @@ typedef struct pjsua_callback
      * @param dst	The destination where the call will be 
      *			transferred to.
      * @param code	Status code to be returned for the call transfer
-     *			request. On input, it contains status code 200.
+     *			request. On input, it contains status code 202.
      */
     void (*on_call_transfer_request)(pjsua_call_id call_id,
 				     const pj_str_t *dst,
@@ -1053,7 +1059,7 @@ typedef struct pjsua_callback
      * @param dst	The destination where the call will be 
      *			transferred to.
      * @param code	Status code to be returned for the call transfer
-     *			request. On input, it contains status code 200.
+     *			request. On input, it contains status code 202.
      * @param opt	The current call setting, application can update
      *			this setting for the call being transferred.
      */
@@ -1733,6 +1739,17 @@ typedef struct pjsua_callback
     void (*on_ip_change_progress)(pjsua_ip_change_op op,
 				  pj_status_t status,
 				  const pjsua_ip_change_op_info *info);
+
+    /**
+     * Notification about media events such as video notifications. This
+     * callback will most likely be called from media threads, thus
+     * application must not perform heavy processing in this callback.
+     * If application needs to perform more complex tasks to handle
+     * the event, it should post the task to another thread.
+     *
+     * @param event 	The media event.
+     */
+    void (*on_media_event)(pjmedia_event *event);
 
 } pjsua_callback;
 
@@ -3335,7 +3352,7 @@ typedef struct pjsua_turn_config
 
     /**
      * Specify the connection type to be used to the TURN server. Valid
-     * values are PJ_TURN_TP_UDP or PJ_TURN_TP_TCP.
+     * values are PJ_TURN_TP_UDP, PJ_TURN_TP_TCP or PJ_TURN_TP_TLS.
      *
      * Default: PJ_TURN_TP_UDP
      */
@@ -3345,6 +3362,12 @@ typedef struct pjsua_turn_config
      * Specify the credential to authenticate with the TURN server.
      */
     pj_stun_auth_cred	turn_auth_cred;
+
+    /**
+     * This specifies TLS settings for TURN TLS. It is only be used
+     * when this TLS is used to connect to the TURN server.
+     */
+    pj_turn_sock_tls_cfg turn_tls_setting;
 
 } pjsua_turn_config;
 
@@ -3847,6 +3870,24 @@ typedef struct pjsua_acc_config
     pjsua_stun_use 		media_stun_use;
 
     /**
+     * Use loopback media transport. This may be useful if application
+     * doesn't want PJSIP to create real media transports/sockets, such as
+     * when using third party media.
+     *
+     * Default: PJ_FALSE
+     */
+    pj_bool_t			use_loop_med_tp;
+
+    /**
+     * Enable local loopback when loop_med_tp_use is set to PJ_TRUE.
+     * If enabled, packets sent to the transport will be sent back to
+     * the streams attached to the transport.
+     *
+     * Default: PJ_FALSE
+     */
+    pj_bool_t			enable_loopback;
+
+    /**
      * Control the use of ICE in the account. By default, the settings in the
      * \a pjsua_media_config will be used.
      *
@@ -4141,9 +4182,10 @@ typedef struct pjsua_acc_info
     pj_bool_t		has_registration;
 
     /**
-     * An up to date expiration interval for account registration session.
+     * An up to date expiration interval for account registration session,
+     * PJSIP_EXPIRES_NOT_SPECIFIED if the account doesn't have reg session.
      */
-    int			expires;
+    unsigned		expires;
 
     /**
      * Last registration status code. If status code is zero, the account
@@ -4668,8 +4710,21 @@ typedef struct pjsua_call_media_info
 	     */
 	    pjsua_vid_win_id	    win_in;
 
-	    /** The video capture device for outgoing transmission,
-	     *  if any, or PJMEDIA_VID_INVALID_DEV
+	    /**
+	     * The video conference port number for the call in decoding
+	     * direction.
+	     */
+	    pjsua_conf_port_id	    dec_slot;
+
+	    /**
+	     * The video conference port number for the call in encoding
+	     * direction.
+	     */
+	    pjsua_conf_port_id	    enc_slot;
+
+	    /**
+	     * The video capture device for outgoing transmission,
+	     * if any, or PJMEDIA_VID_INVALID_DEV
 	     */
 	    pjmedia_vid_dev_index   cap_dev;
 
@@ -4723,13 +4778,24 @@ typedef struct pjsua_call_info
     /** The reason phrase describing the status. */
     pj_str_t		last_status_text;
 
-    /** Media status of the first audio stream. */
+    /** Media status of the default audio stream. Default audio stream 
+     *  is chosen according to this priority:
+     *  1. enabled, i.e: SDP media port not zero
+     *  2. transport protocol in the SDP matching account config's
+     *     secure media transport usage (\a use_srtp field).
+     *  3. active, i.e: SDP media direction is not "inactive"
+     *  4. media order (according to the SDP).
+     */
     pjsua_call_media_status media_status;
 
-    /** Media direction of the first audio stream. */
+    /** Media direction of the default audio stream.
+     *  See \a media_status above on how the default is chosen.
+     */
     pjmedia_dir		media_dir;
 
-    /** The conference port number for the first audio stream. */
+    /** The conference port number for the default audio stream.
+     *  See \a media_status above on how the default is chosen.
+     */
     pjsua_conf_port_id	conf_slot;
 
     /** Number of active media info in this call. */
@@ -5145,6 +5211,36 @@ PJ_DECL(pj_bool_t) pjsua_call_has_media(pjsua_call_id call_id);
  *			media has not been established or is not active.
  */
 PJ_DECL(pjsua_conf_port_id) pjsua_call_get_conf_port(pjsua_call_id call_id);
+
+
+/**
+ * Get the video window associated with the call. Note that this function
+ * will only evaluate the first video stream in the call, to query any other
+ * video stream, use pjsua_call_get_info().
+ *
+ * @param call_id	Call identification.
+ *
+ * @return		Video window, or PJSUA_INVALID_ID when the
+ *			media has not been established or is not active.
+ */
+PJ_DECL(pjsua_vid_win_id) pjsua_call_get_vid_win(pjsua_call_id call_id);
+
+
+/**
+ * Get the video conference port identification associated with the call.
+ * Note that this function will only evaluate the first video stream in
+ * the call, to query any other video stream, use pjsua_call_get_info().
+ *
+ * @param call_id	Call identification.
+ * @param dir		Port direction to be queried. Valid values are
+ *			PJMEDIA_DIR_ENCODING and PJMEDIA_DIR_DECODING only.
+ *
+ * @return		Conference port ID, or PJSUA_INVALID_ID when the
+ *			media has not been established or is not active.
+ */
+PJ_DECL(pjsua_conf_port_id) pjsua_call_get_vid_conf_port(
+						    pjsua_call_id call_id,
+						    pjmedia_dir dir);
 
 /**
  * Obtain detail information about the specified call.
@@ -6455,7 +6551,9 @@ struct pjsua_media_config
     unsigned		rx_drop_pct;
 
     /**
-     * Echo canceller options (see #pjmedia_echo_create())
+     * Echo canceller options (see #pjmedia_echo_create()).
+     * Specify PJMEDIA_ECHO_USE_SW_ECHO here if application wishes
+     * to use software echo canceller instead of device EC.
      *
      * Default: 0.
      */
@@ -6559,7 +6657,7 @@ struct pjsua_media_config
 
     /**
      * Specify the connection type to be used to the TURN server. Valid
-     * values are PJ_TURN_TP_UDP or PJ_TURN_TP_TCP.
+     * values are PJ_TURN_TP_UDP, PJ_TURN_TP_TCP or PJ_TURN_TP_TLS.
      *
      * Default: PJ_TURN_TP_UDP
      */
@@ -6569,6 +6667,12 @@ struct pjsua_media_config
      * Specify the credential to authenticate with the TURN server.
      */
     pj_stun_auth_cred	turn_auth_cred;
+
+    /**
+     * This specifies TLS settings for TLS transport. It is only be used
+     * when this TLS is used to connect to the TURN server.
+     */
+    pj_turn_sock_tls_cfg turn_tls_setting;
 
     /**
      * Specify idle time of sound device before it is automatically closed,
@@ -6681,7 +6785,7 @@ typedef struct pjsua_codec_info
 
 
 /**
- * This structure descibes information about a particular media port that
+ * This structure describes information about a particular media port that
  * has been registered into the conference bridge. Application can query
  * this info by calling #pjsua_conf_get_port_info().
  */
@@ -6718,7 +6822,7 @@ typedef struct pjsua_conf_port_info
     unsigned		listener_cnt;
 
     /** Array of listeners (in other words, ports where this port is 
-     *  transmitting to.
+     *  transmitting to).
      */
     pjsua_conf_port_id	listeners[PJSUA_MAX_CONF_PORTS];
 
@@ -7348,6 +7452,17 @@ PJ_DECL(pj_status_t) pjsua_get_ec_tail(unsigned *p_tail_ms);
 
 
 /**
+ * Get echo canceller statistics.
+ *
+ * @param p_stat	    Pointer to receive the stat.
+ *
+ * @return		    PJ_SUCCESS on success, or the appropriate error
+ *			    code.
+ */
+PJ_DECL(pj_status_t) pjsua_get_ec_stat(pjmedia_echo_stat *p_stat);
+
+
+/**
  * Check whether the sound device is currently active. The sound device
  * may be inactive if the application has set the auto close feature to
  * non-zero (the snd_auto_close_time setting in #pjsua_media_config), or
@@ -7425,8 +7540,10 @@ PJ_DECL(pj_status_t) pjsua_snd_get_setting(pjmedia_aud_dev_cap cap,
  * some sound devices may produce jittery clock. To improve media clock,
  * application can install Null Sound Device (i.e: using
  * pjsua_set_null_snd_dev()), which will act as a master port, and instantiate
- * the sound device as extra sound device. But note that extra sound device
- * will not have auto-close upon idle feature.
+ * the sound device as extra sound device.
+ *
+ * Note that extra sound device will not have auto-close upon idle feature.
+ * Also note that currently extra sound device only supports mono channel.
  */
 typedef struct pjsua_ext_snd_dev pjsua_ext_snd_dev;
 
@@ -7434,7 +7551,8 @@ typedef struct pjsua_ext_snd_dev pjsua_ext_snd_dev;
 /**
  * Create an extra sound device and register it to conference bridge.
  *
- * @param snd_param	Sound device port param.
+ * @param snd_param	Sound device port param. Currently this only supports
+ *			mono channel, so channel count must be set to 1.
  * @param p_snd		The extra sound device instance.
  *
  * @return		PJ_SUCCESS on success or the appropriate error code.
@@ -7785,6 +7903,18 @@ PJ_DECL(pj_status_t) pjsua_vid_preview_start(pjmedia_vid_dev_index id,
 PJ_DECL(pjsua_vid_win_id) pjsua_vid_preview_get_win(pjmedia_vid_dev_index id);
 
 /**
+ * Get video conference slot ID of the specified capture device, if any.
+ *
+ * @param id		The capture device ID.
+ *
+ * @return		The video conference slot ID of the specified capture
+ *			device ID, or PJSUA_INVALID_ID if preview has not been
+ *			started for the device.
+ */
+PJ_DECL(pjsua_conf_port_id) pjsua_vid_preview_get_vid_conf_port(
+						    pjmedia_vid_dev_index id);
+
+/**
  * Stop video preview.
  *
  * @param id		The capture device ID.
@@ -7820,6 +7950,11 @@ typedef struct pjsua_vid_win_info
      * Renderer device ID.
      */
     pjmedia_vid_dev_index rdr_dev;
+
+    /**
+     * Renderer port ID in the video conference bridge.
+     */
+    pjsua_conf_port_id slot_id;
 
     /**
      * Window show status. The window is hidden if false.
@@ -7935,6 +8070,20 @@ PJ_DECL(pj_status_t) pjsua_vid_win_rotate(pjsua_vid_win_id wid,
 					  int angle);
 
 
+/**
+ * Set video window full-screen. This operation is valid only when the
+ * underlying video device supports PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN
+ * capability. Currently it is only supported on SDL backend.
+ *
+ * @param wid		The video window ID.
+ * @param enabled   	Set to PJ_TRUE if full screen is desired, PJ_FALSE 
+ *			otherwise.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_win_set_fullscreen(pjsua_vid_win_id wid,
+                                                  pj_bool_t enabled);
+
 /*
  * Video codecs API
  */
@@ -7993,6 +8142,147 @@ PJ_DECL(pj_status_t) pjsua_vid_codec_get_param(
 PJ_DECL(pj_status_t) pjsua_vid_codec_set_param( 
 					const pj_str_t *codec_id,
 					const pjmedia_vid_codec_param *param);
+
+
+/*
+ * Video conference API
+ */
+
+/**
+ * This structure describes information about a particular video media port
+ * that has been registered into the video conference bridge. Application
+ * can query this info by calling #pjsua_vid_conf_get_port_info().
+ */
+typedef struct pjsua_vid_conf_port_info
+{
+    /** Conference port number. */
+    pjsua_conf_port_id	slot_id;
+
+    /** Port name. */
+    pj_str_t		name;
+
+    /** Format. */
+    pjmedia_format	format;
+
+    /** Number of listeners in the array. */
+    unsigned		listener_cnt;
+
+    /** Array of listeners (in other words, ports where this port is 
+     *  transmitting to).
+     */
+    pjsua_conf_port_id	listeners[PJSUA_MAX_CONF_PORTS];
+
+    /** Number of transmitters in the array. */
+    unsigned		transmitter_cnt;
+
+    /** Array of transmitters (in other words, ports where this port is 
+     *  receiving from).
+     */
+    pjsua_conf_port_id	transmitters[PJSUA_MAX_CONF_PORTS];
+
+} pjsua_vid_conf_port_info;
+
+
+/**
+ * Get current number of active ports in the bridge.
+ *
+ * @return		The number.
+ */
+PJ_DECL(unsigned) pjsua_vid_conf_get_active_ports(void);
+
+
+/**
+ * Enumerate all video conference ports.
+ *
+ * @param id		Array of conference port ID to be initialized.
+ * @param count		On input, specifies max elements in the array.
+ *			On return, it contains actual number of elements
+ *			that have been initialized.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_conf_enum_ports(pjsua_conf_port_id id[],
+					       unsigned *count);
+
+
+/**
+ * Get information about the specified video conference port
+ *
+ * @param port_id	Port identification.
+ * @param info		Pointer to store the port info.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_conf_get_port_info(
+					    pjsua_conf_port_id port_id,
+					    pjsua_vid_conf_port_info *info);
+
+
+/**
+ * Add arbitrary video media port to PJSUA's video conference bridge.
+ * Application can use this function to add the media port that it creates.
+ * For media ports that are created by PJSUA-LIB (such as calls, AVI player),
+ * PJSUA-LIB will automatically add the port to the bridge.
+ *
+ * @param pool		Pool to use.
+ * @param port		Media port to be added to the bridge.
+ * @param param		Currently this is not used and must be set to NULL.
+ * @param p_id		Optional pointer to receive the conference 
+ *			slot id.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_conf_add_port(pj_pool_t *pool,
+					     pjmedia_port *port,
+					     const void *param,
+					     pjsua_conf_port_id *p_id);
+
+
+/**
+ * Remove arbitrary slot from the video conference bridge. Application should
+ * only call this function if it registered the port manually with previous
+ * call to #pjsua_vid_conf_add_port().
+ *
+ * @param port_id	The slot id of the port to be removed.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_conf_remove_port(pjsua_conf_port_id port_id);
+
+
+/**
+ * Establish unidirectional video flow from souce to sink. One source
+ * may transmit to multiple destinations/sink. And if multiple
+ * sources are transmitting to the same sink, the video will be mixed
+ * together (currently, each source will be resized down so all sources will
+ * occupy the same portion in the sink video frame). Source and sink may
+ * refer to the same ID, effectively looping the media.
+ *
+ * If bidirectional media flow is desired, application needs to call
+ * this function twice, with the second one having the arguments
+ * reversed.
+ *
+ * @param source	Port ID of the source media/transmitter.
+ * @param sink		Port ID of the destination media/received.
+ * @param param		Currently this is not used and must be set to NULL.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_conf_connect(pjsua_conf_port_id source,
+					    pjsua_conf_port_id sink,
+					    const void *param);
+
+
+/**
+ * Disconnect video flow from the source to destination port.
+ *
+ * @param source	Port ID of the source media/transmitter.
+ * @param sink		Port ID of the destination media/received.
+ *
+ * @return		PJ_SUCCESS on success, or the appropriate error code.
+ */
+PJ_DECL(pj_status_t) pjsua_vid_conf_disconnect(pjsua_conf_port_id source,
+					       pjsua_conf_port_id sink);
 
 
 

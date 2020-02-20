@@ -1,4 +1,4 @@
-/* $Id: types.h 5820 2018-07-12 08:22:31Z nanang $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -305,6 +305,17 @@ typedef enum pjmedia_orient
  * @return		String.
  */
 PJ_DECL(const char*) pjmedia_type_name(pjmedia_type t);
+
+
+/**
+ * Utility function to return the media type for a media name string.
+ *
+ * @param name		The media name string.
+ *
+ * @return		media type.
+ */
+PJ_DECL(pjmedia_type) pjmedia_get_type(const pj_str_t *name);
+
 
 /**
  * A utility function to convert fourcc type of value to four letters string.

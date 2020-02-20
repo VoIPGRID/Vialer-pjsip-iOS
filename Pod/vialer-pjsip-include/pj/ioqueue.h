@@ -1,4 +1,4 @@
-/* $Id: ioqueue.h 5194 2015-11-06 04:18:46Z nanang $
+/* $Id$
  */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)

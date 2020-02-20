@@ -1,4 +1,4 @@
-/* $Id: sip_config.h 5869 2018-08-28 05:42:25Z riza $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -433,7 +433,7 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
  * This option can also be controlled at run-time by the
  * \a accept_multiple_sdp_answers setting in pjsip_cfg_t.
  *
- * Default is PJ_FALSE.
+ * Default is PJ_TRUE.
  */
 #ifndef PJSIP_ACCEPT_MULTIPLE_SDP_ANSWERS
 #   define PJSIP_ACCEPT_MULTIPLE_SDP_ANSWERS        PJ_TRUE
@@ -692,7 +692,7 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
  * will be used as the default value for the "reuse_addr" field in the
  * pjsip_tcp_transport_cfg structure.
  *
- * Default is FALSE on Windows and TRUE on non-Windows.
+ * Default is 0 on Windows and 1 on non-Windows.
  *
  * @see PJSIP_TLS_TRANSPORT_REUSEADDR
  */
@@ -718,7 +718,7 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
  * pj_getipinterface()/pj_gethostip(), but the address will not be
  * able to accept connections. 
  *
- * Default is FALSE (listener will be created).
+ * Default is 0 (listener will be created).
  */
 #ifndef PJSIP_TCP_TRANSPORT_DONT_CREATE_LISTENER
 #   define PJSIP_TCP_TRANSPORT_DONT_CREATE_LISTENER 0
@@ -738,7 +738,7 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
  * pj_getipinterface()/pj_gethostip(), but the address will not be
  * able to accept connections.
  *
- * Default is FALSE (listener will be created).
+ * Default is 0 (listener will be created).
  */
 #ifndef PJSIP_TLS_TRANSPORT_DONT_CREATE_LISTENER
 #   define PJSIP_TLS_TRANSPORT_DONT_CREATE_LISTENER 0
@@ -881,7 +881,7 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
 /**
  * Specify whether TLS listener should use SO_REUSEADDR option.
  *
- * Default is FALSE on Windows and TRUE on non-Windows.
+ * Default is 0 on Windows and 1 on non-Windows.
  *
  * @see PJSIP_TCP_TRANSPORT_REUSEADDR
  */
@@ -894,9 +894,17 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
 #endif
 
 
-/* Endpoint. */
-#define PJSIP_MAX_TIMER_COUNT		(2*pjsip_cfg()->tsx.max_count + \
+/**
+ * Specify the maximum number of timer entries initially allocated by
+ * endpoint. If the application registers more entries during runtime,
+ * then the timer will automatically resize.
+ *
+ * Default: (2*pjsip_cfg()->tsx.max_count) + (2*PJSIP_MAX_DIALOG_COUNT)
+ */
+#ifndef PJSIP_MAX_TIMER_COUNT
+#   define PJSIP_MAX_TIMER_COUNT	(2*pjsip_cfg()->tsx.max_count + \
 					 2*PJSIP_MAX_DIALOG_COUNT)
+#endif
 
 /**
  * Initial memory block for the endpoint.
@@ -1188,6 +1196,20 @@ PJ_INLINE(pjsip_cfg_t*) pjsip_cfg(void)
  */
 #ifndef PJSIP_AUTH_CACHED_POOL_MAX_SIZE
 #   define PJSIP_AUTH_CACHED_POOL_MAX_SIZE	(20 * 1024)
+#endif
+
+
+/**
+ * Specify whether the cnonce used for SIP authentication contain digits only.
+ * The "cnonce" value is setup using GUID generator, i.e:
+ * pj_create_unique_string(), and the GUID string may contain hyphen character
+ * ("-"). Some SIP servers do not like this GUID format, so this option will
+ * strip any hyphens from the GUID string.
+ *
+ * Default is 1 (cnonce will not contain any hyphen characters).
+ */
+#ifndef PJSIP_AUTH_CNONCE_USE_DIGITS_ONLY
+#   define PJSIP_AUTH_CNONCE_USE_DIGITS_ONLY	1
 #endif
 
 /*****************************************************************************

@@ -3,10 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 ---
+## [3.5](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.5) (20/02/2020)
+
+Released on Thursday, February 20, 2020
+
+- Updated PJSIP to 2.10
+- Updated h264 to 2.0.0
+- Updated opus to 1.3.1
+- Updated OpenSSL to 1.1.1d
 
 ## [3.4.0](https://github.com/VoIPGRID/Vialer-pjsip-iOS/tree/3.4) (09/09/2018)
 
-Released on Tuesdat, October 9, 2018
+Released on Tuesday, October 9, 2018
 
 - Updated PJSIP to 2.8 [#28](https://github.com/VoIPGRID/Vialer-pjsip-iOS/pull/28)
 

@@ -1,4 +1,4 @@
-/* $Id: types.hpp 4742 2014-02-12 05:18:31Z bennylp $ */
+/* $Id$ */
 /* 
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
