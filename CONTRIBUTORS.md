@@ -1,7 +1,7 @@
 Credits & Contributions
 =======================
 
-We would really like to have you involved in the project. Please contact us at hello@wearespindle.com, or create a pull request. Contributors will be added to this page.
+We would really like to have you involved in the project. Please contact us at opensource@wearespindle.com, or create a pull request. Contributors will be added to this page.
 
 #### Credits
 
@@ -25,8 +25,6 @@ Peperzaken helped to get a big update on the app and created the first version o
 
 We're proud off the work we do at Devhouse Spindle. We love to create open source projects and make bussiness communication a little more beautiful with every commit. Please visit [our website](https://wearespindle.com) to get an overview of our recent projects.
 
-- Redmer Loen (https://github.com/spindleredmer)
-
 ##### Github users
 
 We think it is amazing that others are using our library to bring PJSIP to their projects. Every contribution that is made to the project deserves credits. These are the people that have contributed:
@@ -35,3 +33,4 @@ We think it is amazing that others are using our library to bring PJSIP to their
 - Bob Voorneveld (https://github.com/bobvoorneveld)
 - Smolskyaleksey (https://github.com/smolskyaleksey)
 - LuoLee (https://github.com/LuoLee)
+- Redmer Loen (https://github.com/spindleredmer)
