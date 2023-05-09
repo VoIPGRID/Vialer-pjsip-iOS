@@ -1,5 +1,4 @@
 /* pjmedia/include/pjmedia-codec/config_auto.h.  Generated from config_auto.h.in by configure.  */
-/* $Id$ */
 /*
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -28,8 +27,8 @@
 
 /*
  * Note:
- *	The configuration in config_site.h overrides any other settings,
- *	including the setting as detected by autoconf. 
+ *      The configuration in config_site.h overrides any other settings,
+ *      including the setting as detected by autoconf. 
  */
  
 /* L16 codec */
@@ -87,7 +86,7 @@
 
 /* OPUS codec */
 #ifndef PJMEDIA_HAS_OPUS_CODEC
-#define PJMEDIA_HAS_OPUS_CODEC 1
+#define PJMEDIA_HAS_OPUS_CODEC 0
 #endif
 
 /* G.729 codec with BCG729 backend */
@@ -95,6 +94,11 @@
 #define PJMEDIA_HAS_BCG729 0
 #endif
 
-#endif	/* __PJMEDIA_CODEC_CONFIG_AUTO_H_ */
+/* Android MediCodec codecs */
+#ifndef PJMEDIA_HAS_ANDROID_MEDIACODEC
+/* #undef PJMEDIA_HAS_ANDROID_MEDIACODEC */
+#endif
+
+#endif  /* __PJMEDIA_CODEC_CONFIG_AUTO_H_ */
 
 

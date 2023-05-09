@@ -1,5 +1,4 @@
 /* pjmedia/include/pjmedia/config_auto.h.  Generated from config_auto.h.in by configure.  */
-/* $Id$ */
 /*
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -28,8 +27,8 @@
 
 /*
  * Note:
- *	The configuration in config_site.h overrides any other settings,
- *	including the setting as detected by autoconf. 
+ *      The configuration in config_site.h overrides any other settings,
+ *      including the setting as detected by autoconf. 
  */
  
 /* G711 codec */
@@ -38,7 +37,7 @@
 #endif
 
 
-#endif	/* __PJMEDIA_CONFIG_AUTO_H_ */
+#endif  /* __PJMEDIA_CONFIG_AUTO_H_ */
 
 
 

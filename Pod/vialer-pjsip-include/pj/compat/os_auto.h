@@ -1,5 +1,4 @@
 /* pjlib/include/pj/compat/os_auto.h.  Generated from os_auto.h.in by configure.  */
-/* $Id$ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -28,20 +27,22 @@
  */
 
 /* Canonical OS name */
-#define PJ_OS_NAME "x86_64-apple-darwin_ios"
+#define PJ_OS_NAME "arm64-apple-darwin_ios"
 
 /* Legacy macros */
+/* #undef PJ_WIN64 */
 /* #undef PJ_WIN32 */
 /* #undef PJ_WIN32_WINNT */
 /* #undef WIN32_LEAN_AND_MEAN */
 #define PJ_DARWINOS 1
 /* #undef PJ_LINUX */
+/* #undef PJ_BSD */
 /* #undef PJ_RTEMS */
 /* #undef PJ_SUNOS */
 /* #undef PJ_ANDROID */
 
 #if defined(PJ_WIN32_WINNT) && !defined(_WIN32_WINNT)
-#  define _WIN32_WINNT	PJ_WIN32_WINNT
+#  define _WIN32_WINNT  PJ_WIN32_WINNT
 #endif
 
 /* Headers availability */
@@ -79,6 +80,7 @@
 #define PJ_HAS_SYS_UTSNAME_H 1
 #define PJ_HAS_TIME_H 1
 #define PJ_HAS_UNISTD_H 1
+#define PJ_HAS_EXECINFO_H 1
 
 /* #undef PJ_HAS_MSWSOCK_H */
 /* #undef PJ_HAS_WINSOCK_H */
@@ -90,14 +92,15 @@
 #define PJ_SOCK_HAS_INET_PTON 1
 #define PJ_SOCK_HAS_INET_NTOP 1
 #define PJ_SOCK_HAS_GETADDRINFO 1
+#define PJ_SOCK_HAS_SOCKETPAIR 1
 
 /* On these OSes, semaphore feature depends on semaphore.h */
 #if defined(PJ_HAS_SEMAPHORE_H) && PJ_HAS_SEMAPHORE_H!=0
-#   define PJ_HAS_SEMAPHORE	1
+#   define PJ_HAS_SEMAPHORE     1
 #elif defined(PJ_WIN32) && PJ_WIN32!=0
-#   define PJ_HAS_SEMAPHORE	1
+#   define PJ_HAS_SEMAPHORE     1
 #else
-#   define PJ_HAS_SEMAPHORE	0
+#   define PJ_HAS_SEMAPHORE     0
 #endif
 
 /* Do we have pthread_mutexattr_settype()? */
@@ -155,7 +158,7 @@
 
 /* Default threading is enabled, unless it's overridden. */
 #ifndef PJ_HAS_THREADS
-#  define PJ_HAS_THREADS	    (1)
+#  define PJ_HAS_THREADS            (1)
 #endif
 
 /* Do we need high resolution timer? */
@@ -190,15 +193,20 @@
 
 #    include "TargetConditionals.h"
 #    if TARGET_OS_IPHONE
-#	include "Availability.h"
-	/* Use CFHost API for pj_getaddrinfo() (see ticket #1246) */
-#	define PJ_GETADDRINFO_USE_CFHOST 1
-#    	ifdef __IPHONE_4_0
- 	    /* Is multitasking support available?  (see ticket #1107) */
-#	    define PJ_IPHONE_OS_HAS_MULTITASKING_SUPPORT 	1
-	    /* Enable activesock TCP background mode support */
-#	    define PJ_ACTIVESOCK_TCP_IPHONE_OS_BG		1
-#	endif
+#       include "Availability.h"
+        /* Use CFHost API for pj_getaddrinfo() (see ticket #1246) */
+#       ifndef PJ_GETADDRINFO_USE_CFHOST
+#           define PJ_GETADDRINFO_USE_CFHOST 0
+#       endif
+#       ifdef __IPHONE_4_0
+            /* Is multitasking support available?  (see ticket #1107) */
+#           define PJ_IPHONE_OS_HAS_MULTITASKING_SUPPORT        1
+            /* Activesock TCP background mode support (VoIP socket).
+             * Disabled by default, VoIP socket deprecated since iOS 9 and
+             * on iOS16 using VoIP socket causes app getting killed.
+             */
+#           define PJ_ACTIVESOCK_TCP_IPHONE_OS_BG               0
+#       endif
 #    endif
 #endif
 
@@ -218,12 +226,19 @@
 
 /* SSL socket availability. */
 #ifndef PJ_HAS_SSL_SOCK
-#define PJ_HAS_SSL_SOCK 1
+/* #undef PJ_HAS_SSL_SOCK */
 #endif
 #ifndef PJ_SSL_SOCK_IMP
-#   define PJ_SSL_SOCK_IMP PJ_SSL_SOCK_IMP_OPENSSL
+/* #undef PJ_SSL_SOCK_IMP */
 #endif
 
+/* Has pthread_np.h ? */
+/* #undef PJ_HAS_PTHREAD_NP_H */
+/* Has pthread_setname_np() ? */
+#define PJ_HAS_PTHREAD_SETNAME_NP 1
+/* Has pthread_set_name_np() ? */
+/* #undef PJ_HAS_PTHREAD_SET_NAME_NP */
 
-#endif	/* __PJ_COMPAT_OS_AUTO_H__ */
+
+#endif  /* __PJ_COMPAT_OS_AUTO_H__ */
 
