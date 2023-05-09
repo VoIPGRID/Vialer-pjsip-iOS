@@ -1,17 +1,16 @@
 Pod::Spec.new do |s|
 	s.name                  = "flavian-sip-test"
-	s.version               = "0.1"
+	s.version               = "1.0.0"
 	s.summary               = "PJSIP 2.13 for iOS"
 	s.description           = "Pod for distributing PJSIP 2.13 wrapped in a framework. With Opus, OpenSSL and openh264."
-	s.homepage              = "https://www.wearespindle.com"
+	s.homepage              = "https://www.keepcalling.com"
 
 	s.license               = { :type => "GNU GPLv3", :file => "LICENSE" }
 	s.author                = { "Devhouse Spindle" => "opensource@wearespindle.com" }
 
-	s.source                = { :git => "https://github.com/flaviankeepcalling/Vialer-pjsip-iOS.git", :branch => "develop", :tag => s.version.to_s }
-	s.social_media_url      = "https://twitter.com/wearespindle"
+	s.source                = { :git => "https://github.com/flaviankeepcalling/Vialer-pjsip-iOS.git", :tag => s.version.to_s }
 
-	s.platform              = :ios, "10.0"
+	s.platform              = :ios, "11.0"
 	s.requires_arc          = false
 
 	s.preserve_paths        = "VialerPJSIP.framework/*"

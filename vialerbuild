@@ -8,8 +8,8 @@ AVIALABLE_ARCHS=(
     "i386"
     "x86_64"
 )
-export BASE_DIR=`pwd -P`
-export MIN_IOS_VERSION="10.0"
+export BASE_DIR=`pwd`
+export MIN_IOS_VERSION="11.0"
 export IOS_SDK_VERSION="14.3"
 export AVIALABLE_ARCHS
 export USE_ARCHS=()
