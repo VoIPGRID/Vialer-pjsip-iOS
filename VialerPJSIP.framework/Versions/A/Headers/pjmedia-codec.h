@@ -1,4 +1,3 @@
-/* $Id$ */
 /* 
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -24,7 +23,8 @@
  * @file pjmedia-codec.h
  * @brief Include all codecs API in PJMEDIA-CODEC
  */
-
+#include <VialerPJSIP/pjmedia-codec/and_aud_mediacodec.h>
+#include <VialerPJSIP/pjmedia-codec/and_vid_mediacodec.h>
 #include <VialerPJSIP/pjmedia-codec/audio_codecs.h>
 #include <VialerPJSIP/pjmedia-codec/bcg729.h>
 #include <VialerPJSIP/pjmedia-codec/ffmpeg_vid_codecs.h>
@@ -43,5 +43,5 @@
 #include <VialerPJSIP/pjmedia-codec/vid_toolbox.h>
 #include <VialerPJSIP/pjmedia-codec/vpx.h>
 
-#endif	/* __PJMEDIA_CODEC_PJMEDIA_CODEC_H__ */
+#endif  /* __PJMEDIA_CODEC_PJMEDIA_CODEC_H__ */
 

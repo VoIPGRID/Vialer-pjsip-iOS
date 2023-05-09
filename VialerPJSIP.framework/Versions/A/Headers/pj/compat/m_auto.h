@@ -1,5 +1,4 @@
 /* pjlib/include/pj/compat/m_auto.h.  Generated from m_auto.h.in by configure.  */
-/* $Id$ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -27,7 +26,7 @@
  */
 
 /* Machine name, filled in by autoconf script */
-#define PJ_M_NAME "x86_64"
+#define PJ_M_NAME "arm64"
 
 /* Endianness. It's reported on pjsip list on 09/02/13 that autoconf
  * endianness detection failed for universal build, so special case
@@ -35,7 +34,7 @@
  */
 #ifdef PJ_DARWINOS
 #  ifdef __BIG_ENDIAN__
-#    define WORDS_BIGENDIAN	1
+#    define WORDS_BIGENDIAN     1
 #  endif
 #else
     /* Endianness, as detected by autoconf */
@@ -43,11 +42,11 @@
 #endif
 
 #ifdef WORDS_BIGENDIAN
-#  define PJ_IS_LITTLE_ENDIAN	0
-#  define PJ_IS_BIG_ENDIAN	1
+#  define PJ_IS_LITTLE_ENDIAN   0
+#  define PJ_IS_BIG_ENDIAN      1
 #else
-#  define PJ_IS_LITTLE_ENDIAN	1
-#  define PJ_IS_BIG_ENDIAN	0
+#  define PJ_IS_LITTLE_ENDIAN   1
+#  define PJ_IS_BIG_ENDIAN      0
 #endif
 
 
@@ -55,7 +54,7 @@
 #define PJ_HAS_FLOATING_POINT 1
 
 /* Deprecated */
-#define PJ_HAS_PENTIUM		0
+#define PJ_HAS_PENTIUM          0
 
-#endif	/* __PJ_COMPAT_M_AUTO_H__ */
+#endif  /* __PJ_COMPAT_M_AUTO_H__ */
 

@@ -1,4 +1,3 @@
-/* $Id$ */
 /*
  * Copyright (C) 2008-2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -86,23 +85,23 @@ typedef struct pjmedia_vid_dev_hwnd
      */
     union
     {
-	struct {
-	    void    *hwnd;	/**< HWND     	*/
-	} win;
-	struct {
-	    void    *window;    /**< Window	*/
-	    void    *display;   /**< Display	*/
-	} x11;
-	struct {
-	    void    *window;    /**< Window	*/
-	} cocoa;
-	struct {
-	    void    *window;    /**< Window	*/
-	} ios;
-	struct {
-	    void    *window;    /**< Native window */
-	} android;
-	void 	    *window;
+        struct {
+            void    *hwnd;      /**< HWND       */
+        } win;
+        struct {
+            void    *window;    /**< Window     */
+            void    *display;   /**< Display    */
+        } x11;
+        struct {
+            void    *window;    /**< Window     */
+        } cocoa;
+        struct {
+            void    *window;    /**< Window     */
+        } ios;
+        struct {
+            void    *window;    /**< Native window */
+        } android;
+        void        *window;
     } info;
 
 } pjmedia_vid_dev_hwnd;
@@ -160,6 +159,30 @@ enum pjmedia_vid_dev_std_index
      */
     PJMEDIA_VID_INVALID_DEV = -3
 };
+
+
+/**
+ * Enumeration of window fullscreen flags.
+ */
+typedef enum pjmedia_vid_dev_fullscreen_flag
+{
+    /**
+     * Windowed or disable fullscreen.
+     */
+    PJMEDIA_VID_DEV_WINDOWED = 0,
+
+    /**
+     * Fullscreen enabled, video mode may be changed.
+     */
+    PJMEDIA_VID_DEV_FULLSCREEN = 1,
+
+    /**
+     * Fullscreen enabled by resizing video frame to match to the desktop,
+     * video mode will not be changed.
+     */
+    PJMEDIA_VID_DEV_FULLSCREEN_DESKTOP = 2
+
+} pjmedia_vid_dev_fullscreen_flag;
 
 
 /**
@@ -341,7 +364,7 @@ typedef struct pjmedia_vid_dev_cb
     * This callback is called by capturer stream when it has captured the
     * whole packet worth of video samples.
     *
-    * @param stream	   The video stream.
+    * @param stream        The video stream.
     * @param user_data     User data associated with the stream.
     * @param frame         Captured frame.
     *
@@ -349,7 +372,7 @@ typedef struct pjmedia_vid_dev_cb
     *                      stream to stop
     */
     pj_status_t (*capture_cb)(pjmedia_vid_dev_stream *stream,
-		              void *user_data,
+                              void *user_data,
                               pjmedia_frame *frame);
 
     /**
@@ -363,7 +386,7 @@ typedef struct pjmedia_vid_dev_cb
     *  - size              The size requested in bytes, which will be equal
     *                      to the size of one whole packet.
     *
-    * @param stream	   The video stream.
+    * @param stream        The video stream.
     * @param user_data     User data associated with the stream.
     * @param frame         Video frame, which buffer is to be filled in by
     *                      the application.
@@ -372,7 +395,7 @@ typedef struct pjmedia_vid_dev_cb
     *                      stream to stop
     */
     pj_status_t (*render_cb)(pjmedia_vid_dev_stream *stream,
-			     void *user_data,
+                             void *user_data,
                              pjmedia_frame *frame);
 
 } pjmedia_vid_dev_cb;
@@ -469,10 +492,11 @@ typedef struct pjmedia_vid_dev_param
     unsigned window_flags;
 
     /**
-     * Video window's full screen status. This setting is optional, and will only be
-     * used if PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN is set in the flags.
+     * Video window's fullscreen status. This setting is optional, and will
+     * only be used if PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN is set in the
+     * flags.
      */
-    pj_bool_t window_fullscreen;
+    pjmedia_vid_dev_fullscreen_flag window_fullscreen;
 
 } pjmedia_vid_dev_param;
 
@@ -489,26 +513,26 @@ typedef pjmedia_vid_dev_factory*
 typedef struct pjmedia_vid_driver
 {
     pjmedia_vid_dev_factory_create_func_ptr create; /* Creation function    */
-    pjmedia_vid_dev_factory *f;    	    /* Factory instance		    */
-    char		     name[32];	    /* Driver name		    */
-    unsigned		     dev_cnt;	    /* Number of devices	    */
-    unsigned		     start_idx;	    /* Start index in global list   */
-    int			     cap_dev_idx;   /* Default capture device.	    */
-    int			     rend_dev_idx;  /* Default render device	    */
+    pjmedia_vid_dev_factory *f;             /* Factory instance             */
+    char                     name[32];      /* Driver name                  */
+    unsigned                 dev_cnt;       /* Number of devices            */
+    unsigned                 start_idx;     /* Start index in global list   */
+    int                      cap_dev_idx;   /* Default capture device.      */
+    int                      rend_dev_idx;  /* Default render device        */
 } pjmedia_vid_driver;
 
 
 /* The video device subsystem */
 typedef struct pjmedia_vid_subsys
 {
-    unsigned	     	init_count;	/* How many times init() is called   */
-    pj_pool_factory    *pf;		/* The pool factory.		     */
+    unsigned            init_count;     /* How many times init() is called   */
+    pj_pool_factory    *pf;             /* The pool factory.                 */
 
-    unsigned	     	drv_cnt;	/* Number of drivers.		     */
-    pjmedia_vid_driver 	drv[PJMEDIA_VID_DEV_MAX_DRIVERS];/* Array of drivers.*/
+    unsigned            drv_cnt;        /* Number of drivers.                */
+    pjmedia_vid_driver  drv[PJMEDIA_VID_DEV_MAX_DRIVERS];/* Array of drivers.*/
 
-    unsigned	     	dev_cnt;	/* Total number of devices.	     */
-    pj_uint32_t	     	dev_list[PJMEDIA_VID_DEV_MAX_DEVS];/* Array of devIDs*/
+    unsigned            dev_cnt;        /* Total number of devices.          */
+    pj_uint32_t         dev_list[PJMEDIA_VID_DEV_MAX_DEVS];/* Array of devIDs*/
 
 } pjmedia_vid_subsys;
 
@@ -516,7 +540,7 @@ typedef struct pjmedia_vid_subsys
 /**
  * Get the video subsystem.
  *
- * @return		The video subsystem.
+ * @return              The video subsystem.
  */
 PJ_DECL(pjmedia_vid_subsys*) pjmedia_get_vid_subsys(void);
 
@@ -524,20 +548,20 @@ PJ_DECL(pjmedia_vid_subsys*) pjmedia_get_vid_subsys(void);
 /**
  * Initialize the video driver.
  *
- * @param drv_idx	The index of the video driver.
- * @param refresh	Specify non-zero to refresh the video driver.
+ * @param drv_idx       The index of the video driver.
+ * @param refresh       Specify non-zero to refresh the video driver.
  *
- * @return		PJ_SUCCESS on successful operation or the appropriate
- *			error code.
+ * @return              PJ_SUCCESS on successful operation or the appropriate
+ *                      error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_driver_init(unsigned drv_idx,
-					     pj_bool_t refresh);
+                                             pj_bool_t refresh);
 
 
 /**
  * Deinitialize the video driver.
  *
- * @param drv_idx	The index of the video driver.
+ * @param drv_idx       The index of the video driver.
  */
 PJ_DECL(void) pjmedia_vid_driver_deinit(unsigned drv_idx);
 
@@ -545,7 +569,7 @@ PJ_DECL(void) pjmedia_vid_driver_deinit(unsigned drv_idx);
 /**
  * Initialize pjmedia_vid_dev_switch_param.
  *
- * @param p	    Parameter to be initialized.
+ * @param p         Parameter to be initialized.
  */
 PJ_INLINE(void)
 pjmedia_vid_dev_switch_param_default(pjmedia_vid_dev_switch_param *p)
@@ -612,8 +636,8 @@ pjmedia_vid_dev_param_get_cap(const pjmedia_vid_dev_param *param,
  * pjmedia_vid_dev_index) before calling any function that accepts video device
  * index as its parameter.
  *
- * @return		PJ_SUCCESS on successful operation or the appropriate
- *			error code.
+ * @return              PJ_SUCCESS on successful operation or the appropriate
+ *                      error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_refresh(void);
 
@@ -658,6 +682,7 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_lookup(const char *drv_name,
  * Initialize the video device parameters with default values for the
  * specified device.
  *
+ * @param pool      The pool.
  * @param id        The video device ID.
  * @param param     The video device parameters which will be initialized
  *                  by this function once it returns successfully.
@@ -697,10 +722,10 @@ pjmedia_vid_dev_default_param(pj_pool_t *pool,
  *                      error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_create(
-					    pjmedia_vid_dev_param *param,
-					    const pjmedia_vid_dev_cb *cb,
-					    void *user_data,
-					    pjmedia_vid_dev_stream **p_strm);
+                                            pjmedia_vid_dev_param *param,
+                                            const pjmedia_vid_dev_cb *cb,
+                                            void *user_data,
+                                            pjmedia_vid_dev_stream **p_strm);
 
 /**
  * Get the running parameters for the specified video stream.
@@ -713,7 +738,7 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_create(
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_get_param(
-					    pjmedia_vid_dev_stream *strm,
+                                            pjmedia_vid_dev_stream *strm,
                                             pjmedia_vid_dev_param *param);
 
 /**
@@ -730,8 +755,8 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_get_param(
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_get_cap(
-					    pjmedia_vid_dev_stream *strm,
-					    pjmedia_vid_dev_cap cap,
+                                            pjmedia_vid_dev_stream *strm,
+                                            pjmedia_vid_dev_cap cap,
                                             void *value);
 
 /**
@@ -746,9 +771,9 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_get_cap(
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_set_cap(
-					    pjmedia_vid_dev_stream *strm,
-					    pjmedia_vid_dev_cap cap,
-					    const void *value);
+                                            pjmedia_vid_dev_stream *strm,
+                                            pjmedia_vid_dev_cap cap,
+                                            const void *value);
 
 /**
  * Start the stream.
@@ -759,14 +784,14 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_set_cap(
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_start(
-					    pjmedia_vid_dev_stream *strm);
+                                            pjmedia_vid_dev_stream *strm);
 
 /**
  * Query whether the stream has been started.
  *
- * @param strm	    The video stream
+ * @param strm      The video stream
  *
- * @return	    PJ_TRUE if the video stream has been started.
+ * @return          PJ_TRUE if the video stream has been started.
  */
 PJ_DECL(pj_bool_t) pjmedia_vid_dev_stream_is_running(pjmedia_vid_dev_stream *strm);
 
@@ -777,13 +802,13 @@ PJ_DECL(pj_bool_t) pjmedia_vid_dev_stream_is_running(pjmedia_vid_dev_stream *str
  * the pjmedia_vid_dev_info.has_callback member is PJ_FALSE.
  *
  * @param strm      The video stream.
- * @param frame	    The video frame to be filled by the device.
+ * @param frame     The video frame to be filled by the device.
  *
  * @return          PJ_SUCCESS on successful operation or the appropriate
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_get_frame(
-					    pjmedia_vid_dev_stream *strm,
+                                            pjmedia_vid_dev_stream *strm,
                                             pjmedia_frame *frame);
 
 /**
@@ -792,13 +817,13 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_get_frame(
  * the pjmedia_vid_dev_info.has_callback member is PJ_FALSE.
  *
  * @param strm      The video stream.
- * @param frame	    The video frame to put to the device.
+ * @param frame     The video frame to put to the device.
  *
  * @return          PJ_SUCCESS on successful operation or the appropriate
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_put_frame(
-					    pjmedia_vid_dev_stream *strm,
+                                            pjmedia_vid_dev_stream *strm,
                                             const pjmedia_frame *frame);
 
 /**
@@ -810,7 +835,7 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_put_frame(
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_stop(
-					    pjmedia_vid_dev_stream *strm);
+                                            pjmedia_vid_dev_stream *strm);
 
 /**
  * Destroy the stream.
@@ -821,7 +846,7 @@ PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_stop(
  *                  error code.
  */
 PJ_DECL(pj_status_t) pjmedia_vid_dev_stream_destroy(
-					    pjmedia_vid_dev_stream *strm);
+                                            pjmedia_vid_dev_stream *strm);
 
 
 /**

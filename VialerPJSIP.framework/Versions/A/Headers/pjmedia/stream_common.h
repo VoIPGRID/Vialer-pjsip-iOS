@@ -1,4 +1,3 @@
-/* $Id$ */
 /* 
  * Copyright (C) 2011 Teluu Inc. (http://www.teluu.com)
  *
@@ -55,26 +54,67 @@ typedef struct pjmedia_stream_rtp_sess_info
 
 } pjmedia_stream_rtp_sess_info;
 
+#if defined(PJMEDIA_STREAM_ENABLE_KA) && PJMEDIA_STREAM_ENABLE_KA!=0
 
+/**
+ * Structure of configuration settings for stream keepalive.
+ */
+typedef struct pjmedia_stream_ka_config
+{
+    /**
+     * The number of keepalive to be sent after the stream is created.
+     * When this is set to 0, keepalive will be sent once for NAT hole
+     * punching if stream's use_ka is enabled.
+     *
+     * Default: PJMEDIA_STREAM_START_KA_CNT
+     */
+    unsigned                        start_count;
+
+    /**
+     * The keepalive sending interval after the stream is created.
+     *
+     * Default: PJMEDIA_STREAM_START_KA_INTERVAL_MSEC
+     */
+    unsigned                        start_interval;
+
+    /**
+     * The keepalive sending interval, after #start_count number keepalive 
+     * was sent.
+     * 
+     * Default: PJMEDIA_STREAM_KA_INTERVAL (seconds)
+     */
+    unsigned                        ka_interval;
+
+} pjmedia_stream_ka_config;
+
+/**
+ * Initialize the stream send keep-alive with default settings.
+ *
+ * @param cfg           Stream send keep-alive structure to be initialized.
+ */
+PJ_DECL(void)
+pjmedia_stream_ka_config_default(pjmedia_stream_ka_config *cfg);
+
+#endif
 
 /**
  * This is internal function for parsing SDP format parameter of specific
  * format or payload type, used by stream in generating stream info from SDP.
  *
- * @param pool		Pool to allocate memory, if pool is NULL, the fmtp
- *			string pointers will point to the original string in
- *			the SDP media descriptor.
- * @param m		The SDP media containing the format parameter to
- *			be parsed.
- * @param pt		The format or payload type.
- * @param fmtp		The format parameter to store the parsing result.
+ * @param pool          Pool to allocate memory, if pool is NULL, the fmtp
+ *                      string pointers will point to the original string in
+ *                      the SDP media descriptor.
+ * @param m             The SDP media containing the format parameter to
+ *                      be parsed.
+ * @param pt            The format or payload type.
+ * @param fmtp          The format parameter to store the parsing result.
  *
- * @return		PJ_SUCCESS on success.
+ * @return              PJ_SUCCESS on success.
  */
 PJ_DECL(pj_status_t) pjmedia_stream_info_parse_fmtp(pj_pool_t *pool,
-						    const pjmedia_sdp_media *m,
-						    unsigned pt,
-						    pjmedia_codec_fmtp *fmtp);
+                                                    const pjmedia_sdp_media *m,
+                                                    unsigned pt,
+                                                    pjmedia_codec_fmtp *fmtp);
 
 
 PJ_END_DECL

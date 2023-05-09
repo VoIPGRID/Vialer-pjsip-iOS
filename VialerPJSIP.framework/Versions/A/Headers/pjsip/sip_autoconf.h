@@ -1,5 +1,4 @@
 /* pjsip/include/pjsip/sip_autoconf.h.  Generated from sip_autoconf.h.in by configure.  */
-/* $Id$ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -36,5 +35,5 @@
 //#undef PJSIP_HAS_TLS_TRANSPORT
 //#endif
 
-#endif	/* __PJSIP_SIP_AUTOCONF_H__ */
+#endif  /* __PJSIP_SIP_AUTOCONF_H__ */
 
