@@ -4,6 +4,8 @@ set -e
 AVIALABLE_ARCHS=(
     "armv7"
     "armv7s"
+    "arm64"
+    "i386"
     "x86_64"
 )
 export BASE_DIR=`pwd`
