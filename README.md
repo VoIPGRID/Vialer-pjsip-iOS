@@ -1,3 +1,6 @@
+> [!CAUTION]
+> We are no longer supporting this library and have therefore archived this repository. Please fork it if you wish to continue using it.
+
 # Vialer-pjsip-iOS
 
 The Vialer PJSIP pod exposes the <a href="http://www.pjsip.org/">PJSIP</a> library as Cocoapod.
@@ -10,7 +13,7 @@ The most important part of the project is the "vialerbuild" script. It will:
 - wrap the fat library in a framework.
 
 ## Status
-Currently active maintained
+No longer supported
 
 ### Usage:
 
